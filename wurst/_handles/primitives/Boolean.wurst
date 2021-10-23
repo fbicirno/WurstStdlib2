@@ -1,7 +1,7 @@
 package Boolean
 import NoWurst
 
-/** Converts this boolean into a string */
+/** 转换布尔值为字符串 */
 public function boolean.toString() returns string
 	return this ? "true" : "false"
 
