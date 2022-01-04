@@ -3,53 +3,42 @@ import NoWurst
 import Wurstunit
 
 /**
-	对话框是位于屏幕中央的大对话框。玩家可以选择一个按钮进行单击。
-	提示：对话框无法在地图初始化处显示！对话框在单人模式下暂停游戏！
-	在多人游戏模式下，对话框不会暂停游戏，但会阻止看到对话框的玩家玩游戏。
+	Dialogs are big dialog boxes at the center of the screen. The player can choose one button to click.
+	WARNING: Dialogs cannot be displayed at map init! Dialogs pause the game in single player mode!
+	In multiplayer mode dialogs do not pause the game, but prevent players, who see the dialog from playing the game.
 **/
+
 public function createDialog() returns dialog
 	return DialogCreate()
-/**添加-对话框按钮
-*/
+
 public function dialog.addButton(string buttonText) returns button
 	return this.addButton(buttonText, 0)
 
-/** 添加-指定对话框按钮[R]
-给${对话框}添加按钮,使用标题:${文字}快捷键:${HotKey}
-会创建对话框按钮.
-*/
+/** Hotkey: use ASCII numbers of the capital letter. */
 public function dialog.addButton(string buttonText, int hotkey) returns button
 	return DialogAddButton(this, buttonText, hotkey)
 
-/** 向此对话框添加一个退出按钮。如果单击它，它将结束该玩家的游戏。
-*/
+/** Adds a quit button to this dialog. If it is clicked, it ends the game for that player. */
 public function dialog.addQuitButton(boolean doScoreScreen, string buttonText) returns button
 	return this.addQuitButton(doScoreScreen, buttonText, 0)
 
-/** 添加退出游戏按钮[R]
-为${对话框}添加退出游戏按钮(${跳过}计分屏)按钮标题为:${文字}快捷键为:${HotKey}
-该函数创建的按钮并不被纪录到'最后创建的对话框按钮'.当该按钮被点击时会退出游戏 
-*/
+/** Adds a quit button to this dialog. If it is clicked, it ends the game for that player.
+Hotkey: use ASCII numbers of the capital letter. */
 public function dialog.addQuitButton(boolean doScoreScreen, string buttonText, int hotkey) returns button
 	return DialogAddQuitButton(this, doScoreScreen, buttonText, hotkey)
 
-/** 清空对话框 */
+/** Removes all buttons from a dialog */
 public function dialog.clear()
 	DialogClear(this)
 
-/** 注销对话框 
-将对话框清除出内存.一般来说对话框并不需要删除.
-*/
 public function dialog.destr()
 	DialogDestroy(this)
 
-/** 显示/隐藏[R]
-对${Player}设置${对话框}的状态为${Show/Hide}
-对话框不能应用于地图初始化事件. 
-*/
+/** Toggles visibility of the dialog for a player. Dialogs are invisible by default
+Dialogs cannot be shown at map initialization */
 public function dialog.display(player whichPlayer, boolean flag)
 	DialogDisplay(whichPlayer, this, flag)
-/** 设置对话框信息 */
+
 public function dialog.setMessage(string messageText)
 	DialogSetMessage(this, messageText)
 

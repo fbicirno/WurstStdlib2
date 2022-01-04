@@ -37,19 +37,19 @@ public function setCameraQuickPosition(vec2 pos)
 */
 public function setCameraBounds(vec2 bottomLeft, vec2 topRight, vec2 topLeft, vec2 bottomRight)
 	SetCameraBounds(bottomLeft.x, bottomLeft.y, topRight.x, topRight.y, topLeft.x, topLeft.y, bottomRight.x, bottomRight.y)
-/** 平移-镜头(所有玩家) 
+/** 平移镜头(所有玩家) 
 平移玩家镜头到(${X},${Y})
 */
 public function panCameraTo(vec2 pos)
 	PanCameraTo(pos.x, pos.y)
 
-/** 平移-镜头(所有玩家) 
+/** 平移镜头(所有玩家) 
 平移玩家镜头到(${X},${Y}),持续${duration}秒
 */
 public function panCameraToTimed(vec2 pos, real duration)
 	PanCameraToTimed(pos.x, pos.y, duration)
 
-/**平移-镜头(所有玩家) 
+/**平移镜头(所有玩家) 
 到 pos.x、pos.y 
 和绝对高度 pos.z
 如果 pos.z > pos.getTerrainZ
@@ -57,7 +57,7 @@ public function panCameraToTimed(vec2 pos, real duration)
 */
 public function panCameraTo(vec3 pos)
 	PanCameraToWithZ(pos.x, pos.y, pos.z - pos.toVec2().getTerrainZ())
-/** 平移-镜头(所有玩家) 
+/**平移镜头(所有玩家) 
 到 pos.x、pos.y 
 和绝对高度 pos.z
 如果 pos.z > pos.getTerrainZ
@@ -66,18 +66,18 @@ public function panCameraTo(vec3 pos)
 */
 public function panCameraToTimed(vec3 pos, real duration)
 	PanCameraToTimedWithZ(pos.x, pos.y, pos.z - pos.toVec2().getTerrainZ(), duration)
-/** 设置-以(${X},${Y})为中心,旋转弧度为${toSweep},持续:${duration}秒
+/**以(${X},${Y})为中心,旋转弧度为${toSweep},持续:${duration}秒
 */
 public function setCameraRotateMode(vec2 pos, angle toSweep, real duration)
 	SetCameraRotateMode(pos.x, pos.y, toSweep.radians(), duration)
 
-/** 设置-播放电影镜头(所有玩家)[R]
+/** 播放电影镜头(所有玩家)[R]
 对所有玩家播放电影镜头:${cameraModelFile}
 在'Objects\\CinematicCameras'目录下有一些电影镜头,可用Mpq工具来查询.
  */
 public function setCinematicCamera(string cameraModelFile)
 	SetCinematicCamera(cameraModelFile)
-/** 设置-镜头属性(所有玩家)(限时) [R] 
+/** 设置镜头属性(所有玩家)(限时) [R] 
 设置玩家的镜头属性${Field}为${数值},持续${Time}秒
 */
 public function camerafield.set(real value, real duration)
@@ -87,31 +87,31 @@ public function camerafield.set(real value, real duration)
 public function camerafield.adjust(real offset, real duration)
 	AdjustCameraField(this, offset, duration)
 
-/**获取-当前摄象机的数值
+/**当前摄象机的数值
 注意:该函数对各玩家返回值不同,请确定你知道自己在做什么,否则很容易引起掉线.
 */
 public function camerafield.get() returns real
 	return GetCameraField(this)
-/**获取-镜头属性(指定镜头)
+/**镜头属性(指定镜头)
 ${CameraField}对${镜头}
 */
 public function camerafield.getFieldSwap(camerasetup whichSetup) returns real
 	return CameraSetupGetFieldSwap(this, whichSetup)
-/**设置-镜头属性(指定玩家)(限时)
+/**设置镜头属性(指定玩家)(限时)
 设置${Player}的镜头属性${Field}为${Value},持续${Time}秒
 */
 public function camerafield.setCameraField(player whichPlayer, real value, real duration)
 	SetCameraFieldForPlayer(whichPlayer, this, value, duration)
-/**等待翻译 设置-
+/**等待翻译
 */
 public function camerasetup.setField(camerafield whichField, real value, real duration)
 	CameraSetupSetField(this, whichField, value, duration)
-/**获取-镜头属性(指定镜头)[R]
+/**镜头属性(指定镜头)[R]
 ${镜头}的${CameraField}
 */
 public function camerasetup.getField(camerafield whichField) returns real
 	return CameraSetupGetField(this, whichField)
-/**设置-相机最远位置
+/**等待翻译
 */
 public function camerasetup.setDestPosition(vec2 pos, real duration)
 	CameraSetupSetDestPosition(this, pos.x, pos.y, duration)
@@ -127,7 +127,7 @@ public function camerasetup.apply(boolean doPan, boolean panTimed)
 */
 public function camerasetup.applyWithZ(real zDestOffset)
 	CameraSetupApplyWithZ(this, zDestOffset)
-/**设置-应用镜头(所有玩家)(限时)[R]
+/**应用镜头(所有玩家)(限时)[R]
 将${镜头}应用方式设置为${ApplyMethod},持续${Time}秒
 */
 public function camerasetup.applyForceDuration(boolean doPan, real forceDuration)
@@ -136,12 +136,12 @@ public function camerasetup.applyForceDuration(boolean doPan, real forceDuration
 */
 public function camerasetup.applyForceDurationWithZ(real zDestOffset, real forceDuration)
 	CameraSetupApplyForceDurationWithZ(this, zDestOffset, forceDuration)
-/**设置-应用镜头(指定玩家)(限时)
+/**应用镜头(指定玩家)(限时)
 ${应用方式}${镜头}作用于${Player},持续${Time}秒
 */
 public function camerasetup.apply(boolean doPan, player whichPlayer, real duration)
 	CameraSetupApplyForPlayer(doPan, this, whichPlayer, duration)
-/**获取-镜头属性(指定镜头)
+/**镜头属性(指定镜头)
 ${CameraField}对${镜头}
 */
 public function camerasetup.getFieldSwap(camerafield whichField) returns real
@@ -150,28 +150,28 @@ public function camerasetup.getFieldSwap(camerafield whichField) returns real
 // public function camerasetup.applyForceDurationSmooth(boolean doPan, real forcedDuration, real easeInDuration, real easeOutDuration, real smoothFactor)
 // 	BlzCameraSetupApplyForceDurationSmooth(this, doPan, forcedDuration, easeInDuration, easeOutDuration, smoothFactor)
 
-/**设置-应用镜头(指定玩家)(限时)
+/**应用镜头(指定玩家)(限时)
 ${应用方式}${镜头}作用于${Player},持续${Time}秒
 */
 public function player.cameraSetupApply(boolean doPan, camerasetup whichSetup, real duration)
 	CameraSetupApplyForPlayer(doPan, whichSetup, this, duration)
-/**设置-镜头属性(指定玩家)(限时)
+/**设置镜头属性(指定玩家)(限时)
 设置${Player}的镜头属性${Field}为${Value},持续${Time}秒
 */
 public function player.setCameraField(camerafield whichField, real value, real duration)
 	SetCameraFieldForPlayer(this, whichField, value, duration)
-/**设置-锁定镜头到单位(指定玩家)
+/**锁定镜头到单位(指定玩家)
 锁定${Player}的镜头到${单位},偏移坐标(${X},${Y}),使用${RotationSource}
 偏移坐标(X,Y)以单位脚底为原点坐标.
 */
 public function player.setCameraTargetControllerNoZ(unit whichUnit, vec2 offset, boolean inheritOrientation)
 	SetCameraTargetControllerNoZForPlayer(this, whichUnit, offset.x, offset.y, inheritOrientation)
-/**设置-玩家的镜头位置
+/**设置玩家的镜头位置
 
 */
 public function player.setCameraPosition(vec2 pos)
 	SetCameraPositionForPlayer(this, pos.x, pos.y)
-/**平移-摄像机
+/**平移摄像机
 */
 public function player.panCameraTo(vec2 pos)
 	PanCameraToForPlayer(this, pos.x, pos.y)
@@ -180,7 +180,7 @@ public function player.panCameraTo(vec2 pos)
 public function player.panCameraTo(vec3 pos)
 	if localPlayer == this
 		panCameraTo(pos)
-/**平移-摄像机 定时
+/**平移摄像机 定时
 */
 public function player.panCameraToTimed(vec2 pos, real duration)
 	PanCameraToTimedForPlayer(this, pos.x, pos.y, duration)
@@ -206,37 +206,37 @@ public function player.smartCameraPan(vec2 pos, real duration)
 		else if dist >= bj_SMARTPAN_TRESHOLD_PAN
 			panCameraToTimed(pos, duration)
 
-/** 设置-播放电影镜头(指定玩家)
+/** 播放电影镜头(指定玩家)
 SetCinematicCameraForPlayer
 对${Player}播放电影镜头:${CameraFile}
 在'Objects\\CinematicCameras'目录下有一些电影镜头,可用Mpq工具来查询.
  */
 public function player.setCinematicCamera(string cameraModelFile)
 	SetCinematicCameraForPlayer(this, cameraModelFile)
-/**重置-游戏镜头(指定玩家)
+/**重置游戏镜头(指定玩家)
 重置${Player}的镜头为游戏默认状态,持续${Time}秒
 */
 public function player.resetToGameCamera(real duration)
 	ResetToGameCameraForPlayer(this, duration)
-/**设置-摇晃镜头源(指定玩家)
+/**摇晃镜头源(指定玩家)
 摇晃${Player}的镜头源,摇晃幅度:${Magnitude}速率:${Velocity}
 使用'镜头-重置镜头'或'镜头-停止摇晃镜头'来停止摇晃.
 */
 public function player.cameraSetSourceNoise(real magnitude, real velocity)
 	CameraSetSourceNoiseForPlayer(this, magnitude, velocity)
-/**设置-摇晃镜头目标(指定玩家)
+/**摇晃镜头目标(指定玩家)
 摇晃${Player}的镜头目标,摇晃幅度:${Magnitude}速率:${Velocity}
 使用'镜头-重置镜头'或'镜头-停止摇晃镜头'来停止摇晃.
 */
 public function player.cameraSetTargetNoise(real magnitude, real velocity)
 	CameraSetTargetNoiseForPlayer(this, magnitude, velocity)
-/**设置-震动镜头(指定玩家)
+/**震动镜头(指定玩家)
 震动${Player}的镜头,震动幅度:${Magnitude}
 使用'镜头-重置镜头'或'镜头-停止震动镜头'来停止震动.
 */
 public function player.cameraSetEQNoise(real magnitude)
 	CameraSetEQNoiseForPlayer(this, magnitude)
-/**停止-摇晃/震动镜头(指定玩家)
+/**停止摇晃/震动镜头(指定玩家)
 停止${Player}镜头的摇晃和震动
 可以用本地玩家实现对所有玩家停止摇晃/震动镜头.
 */
@@ -248,41 +248,41 @@ public function player.cameraClearNoise()
 */
 public function player.setCameraBoundsToRect(rect r)
 	SetCameraBoundsToRectForPlayerBJ(this, r)
-/**扩张/收缩-可用镜头区域(指定玩家)
+/**扩张/收缩可用镜头区域(指定玩家)
 ${Extend/Shrink}${Player}的可用镜头区域,西:${West},东${East},北:${North},南:${South}
 该动作同样会影响小地图的显示.但小地图的图片是无法改变的.实际可用区域要大于可用镜头区域.
 */
 public function player.adjustCameraBounds(integer adjustMethod, real dxWest, real dxEast, real dyNorth, real dySouth)
 	AdjustCameraBoundsForPlayerBJ(adjustMethod, this, dxWest, dxEast, dyNorth, dySouth)
-/** 设置-相机位置 (快速)
+/** 设置相机位置 (快速)
 */
 public function player.setCameraQuickPosition(vec2 pos)
 	SetCameraQuickPositionForPlayer(this, pos.x, pos.y)
-/**停止-播放镜头(指定玩家)
+/**停止播放镜头(指定玩家)
 让${Player}停止播放镜头
 比如在平移镜头的过程中可用该动作来中断平移.
 */
 public function player.stopCamera()
 	StopCameraForPlayerBJ(this)
-/**锁定-镜头到单位(固定镜头源)(指定玩家)
+/**锁定镜头到单位(固定镜头源)(指定玩家)
 锁定${Player}的镜头到${单位},偏移坐标(${X},${Y})
 偏移坐标(X,Y)以单位脚底为原点坐标.
 */
 public function player.setCameraOrientController(unit whichUnit, vec2 offset)
 	SetCameraOrientControllerForPlayerBJ(this, whichUnit, offset.x, offset.y)
-/**锁定-镜头到单位(所有玩家)[R]
+/**锁定镜头到单位(所有玩家)[R]
 锁定玩家镜头到${单位},偏移坐标(${X},${Y}),使用${RotationSource}
 偏移坐标(X,Y)以单位脚底为原点坐标.
 */
 public function unit.setCameraTargetController(vec2 offset, boolean inheritOrientation)
 	SetCameraTargetController(this, offset.x, offset.y, inheritOrientation)
-/**锁定-镜头到单位(固定镜头源)(所有玩家)[R]
+/**锁定镜头到单位(固定镜头源)(所有玩家)[R]
 锁定玩家镜头到${单位},偏移坐标(${X},${Y})
 偏移坐标(X,Y)以单位脚底为原点坐标.
 */
 public function unit.setCameraOrientController(vec2 offset)
 	SetCameraOrientController(this, offset.x, offset.y)
-/**锁定-镜头到单位(固定镜头源)(指定玩家)
+/**锁定镜头到单位(固定镜头源)(指定玩家)
 锁定${Player}的镜头到${单位},偏移坐标(${X},${Y})
 偏移坐标(X,Y)以单位脚底为原点坐标.
 */

@@ -2,165 +2,133 @@ package Destructable
 import NoWurst
 import Vectors
 import Wurstunit
-/**新建-可毁坏物
-*/
+
 public function createDestructable(int id, vec3 pos, angle direction, real scale, int variation) returns destructable
 	return createDestructable(id, pos.toVec2(), direction, scale, variation)
-/**新建-可毁坏物
-*/
+
 public function createDestructable(int id, vec2 pos, angle direction, real scale, int variation) returns destructable
 	return CreateDestructable(id, pos.x, pos.y, direction.degrees(), scale, variation)
-/**等待翻译
-*/
+
 public function destructable.getPos() returns vec2
 	return vec2(this.getX(), this.getY())
-/**获取-可毁坏物所在X轴坐标
-*/
+
 public function destructable.getX() returns real
 	return GetDestructableX(this)
-/**获取-可毁坏物所在Y轴坐标
-*/
+
 public function destructable.getY() returns real
 	return GetDestructableY(this)
-/**杀死-可毁坏物
-*/
+
 public function destructable.kill()
 	KillDestructable(this)
-/**获取-指定可破坏物的类型
-*/
+
 public function destructable.getTypeId() returns int
 	return GetDestructableTypeId(this)
-/**设置-可破坏物的动画
-*/
+
 public function destructable.setAnimation(string anim)
 	SetDestructableAnimation(this, anim)
-/**删除-可毁坏物
-*/
+
 public function destructable.remove()
 	RemoveDestructable(this)
-/**设置-可破坏物无敌
-*/
+
 public function destructable.setInvulnerable(bool flag)
 	SetDestructableInvulnerable(this, flag)
-/**获取-可破坏物是否无敌
-*/
+
 public function destructable.getInvulnerable() returns bool
 	return IsDestructableInvulnerable(this)
-/**设置-生命值(指定值)
-设置${可破坏物}的生命值为${Value}
-*/
+
 public function destructable.setLife(real life)
 	SetDestructableLife(this, life)
-/**获取-可破坏物当前生命值
-*/
+
 public function destructable.getLife() returns real
 	return GetDestructableLife(this)
-/**设置-可破坏物的最大生命值
-*/
+
 public function destructable.setMaxLife(real max)
 	SetDestructableMaxLife(this, max)
-/**获取-最大生命值 (可毁坏物)
-*/
+
 public function destructable.getMaxLife() returns real
 	return GetDestructableMaxLife(this)
-/**复活-可毁坏物
-*/
+
 public function destructable.restoreLife(real life, boolean birth)
 	DestructableRestoreLife(this, life, birth)
-/**队列-可破坏物的动画
-*/
+
 public function destructable.queueAnimation(string anim)
 	QueueDestructableAnimation(this, anim)
-/**改变可破坏物动画播放速度
-改变${可破坏物}的动画播放速度为正常的${Percent}倍
-设置1倍动画播放速度来恢复正常状态.
-*/
+
 public function destructable.setAnimationSpeed(real speedFactor)
 	SetDestructableAnimationSpeed(this, speedFactor)
-/**显示/隐藏
-设置${可破坏物}的状态为${Show/Hide}
-隐藏的可破坏物不被显示,但仍影响通行和视线.
-*/
+
 public function destructable.show(bool flag)
 	ShowDestructable(this, flag)
-/**获取-可破坏物闭塞高度
-*/
+
 public function destructable.getOccluderHeight() returns real
 	return GetDestructableOccluderHeight(this)
-/**设置-可破坏物闭塞高度
-*/
+
 public function destructable.setOccluderHeight(real height)
 	SetDestructableOccluderHeight(this, height)
-/**获取-可毁坏物的名字
-*/
+
 public function destructable.getName() returns string
 	return GetDestructableName(this)
 
 // Extensions
 
-/** 等待翻译Tuple wrapper for destructable gates API */
+/** Tuple wrapper for destructable gates API */
 public tuple gate(destructable killable)
 
-/** 打开可破坏的门 */
+/** Opens a destructable gate */
 public function gate.open()
 	if (GetDestructableLife(this.killable) > 0)
 		KillDestructable(this.killable)
 
-/**关闭可破坏的门
-*/
+/** Closes a destructable gate */
 public function gate.close()
 	this.open()
 	DestructableRestoreLife(this.killable, GetDestructableMaxLife(this.killable), true)
 	SetDestructableAnimation(this.killable, "stand")
 
-/** 注销可破坏门 */
+/** Destroys a destructable gate */
 public function gate.kill()
 	this.open()
 	SetDestructableAnimation(this.killable, "death")
 
-/** 设置可破坏的门状态 开/关 */
+/** Sets the gate's open/close state */
 public function gate.setOpen(bool flag)
 	if flag
 		this.open()
 	else
 		this.close()
 
-/**等待翻译 Tuple wrapper for destructable elevator API
-*/
+/** Tuple wrapper for destructable elevator API */
 public tuple elevator(destructable elevatable)
 
 constant ELEVATOR_HEIGHT_MIN = 1
 constant ELEVATOR_HEIGHT_MAX = 3
 
-/**等待翻译Moves a destructable elevator one step up 
-*/
+/** Moves a destructable elevator one step up */
 public function elevator.up()
 	this.setHeight(this.getHeight() + 1)
 
-/**等待翻译Moves a destructable elevator one step down 
-*/
+/** Moves a destructable elevator one step down */
 public function elevator.down()
 	this.setHeight(this.getHeight() - 1)
 
-/**等待翻译Moves a destructable elevator to given height 
-*/
+/** Moves a destructable elevator to given height */
 public function elevator.elevatorSetHeight(int height)
 	this.setHeight(height)
 
-/**等待翻译Get a destructable elevator height */
+/** Get a destructable elevator height */
 public function elevator.getHeight() returns int
 	let height = ELEVATOR_HEIGHT_MIN + (this.elevatable.getOccluderHeight() / bj_CLIFFHEIGHT).toInt()
 	return height < ELEVATOR_HEIGHT_MIN or height > ELEVATOR_HEIGHT_MAX ? ELEVATOR_HEIGHT_MIN : height
 
-/** 等待翻译Returns elevator adjusted height based on given bounds */
+/** Returns elevator adjusted height based on given bounds */
 public function isElevatorHeightInBounds(int height) returns bool
 	return height >= ELEVATOR_HEIGHT_MIN and height <= ELEVATOR_HEIGHT_MAX
 	
-/**等待翻译Returns elevator adjusted height based on given bounds */
+/** Returns elevator adjusted height based on given bounds */
 public function getElevatorHeightBound(int height) returns int
 	return height < ELEVATOR_HEIGHT_MIN ? ELEVATOR_HEIGHT_MIN : (height > ELEVATOR_HEIGHT_MAX ? ELEVATOR_HEIGHT_MAX : height)
 
-/**等待翻译Set elevator height to given value. */
+/** Set elevator height to given value. */
 public function elevator.setHeight(int height)
 	let oldHeight = this.getHeight()
 	let newHeight = getElevatorHeightBound(height)
