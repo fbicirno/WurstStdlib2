@@ -1,70 +1,47 @@
 package Force
 import NoWurst
-/**删除玩家组[R]
-注意:不要删除系统预置的玩家组.
-*/
+
 public function force.destr()
 	DestroyForce(this)
-/**添加玩家[R]
-${玩家组}添加${玩家}
-并不影响玩家本身.
-*/
+
 public function force.addPlayer(player whichPlayer)
 	ForceAddPlayer(this, whichPlayer)
-/**循环添加一群玩家[R]
-*/
+
 public function force.addPlayers(vararg player players)
 	for whichPlayer in players
 		ForceAddPlayer(this, whichPlayer)
-/**移除玩家
-*/
+
 public function force.removePlayer(player whichPlayer)
 	ForceRemovePlayer(this, whichPlayer)
-/**循环移除一群玩家
-*/
+
 public function force.removePlayers(vararg player players)
 	for whichPlayer in players
 		ForceRemovePlayer(this, whichPlayer)
-/**清空玩家组
-*/
+
 public function force.clear()
 	ForceClear(this)
-/**匹配玩家
-*/
+
 public function force.enumPlayers(boolexpr filter)
 	ForceEnumPlayers(this, filter)
-/**匹配玩家 [countLimit 上限]
-*/
+
 public function force.enumPlayersCounted(boolexpr filter, int countLimit)
 	ForceEnumPlayersCounted(this, filter, countLimit)
-/**匹配联盟
-*/
+
 public function force.enumAllies(player whichPlayer, boolexpr filter)
 	ForceEnumAllies(this, whichPlayer, filter)
-/**匹配敌对
-*/
+
 public function force.enumEnemies(player whichPlayer, boolexpr filter)
 	ForceEnumEnemies(this, whichPlayer, filter)
-/**选取玩家组内玩家做动作
-选取${玩家组}内所有玩家${做动作}
-玩家组动作中可使用'选取玩家'来获取对应的玩家.等待不能在组动作中运行.
-*/
+
 public function force.forEach(code callback)
 	ForForce(this, callback)
-/**玩家组中随机玩家
-${玩家组}中随机抽取的一名玩家.
-*/
+
 public function force.getRandomPlayer() returns player
 	return ForcePickRandomPlayer(this)
-/**是玩家组里玩家的单位
-${单位}属于${玩家组}里的玩家
-判断单位是否属于这个玩家组里的玩家。
-*/
+
 public function force.containsUnit(unit whichUnit) returns boolean
 	return IsUnitInForce(whichUnit, this)
-/**在玩家组
-${Player}在${玩家组}中
-*/
+
 public function force.containsPlayer(player whichPlayer) returns boolean
 	return IsPlayerInForce(whichPlayer, this)
 

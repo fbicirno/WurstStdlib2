@@ -8,36 +8,27 @@ import YD_Effect
 import Hashtable
 import MagicFunctions
 
-/**删除特效
-*/
 public function effect.destr()
 	DestroyEffect(this)
-/**
-*/
+
 public function flashEffect(string path, vec3 pos)
 	flashEffect(path, pos, 1.0)
-/**
-*/
+
 public function flashEffect(string path, vec2 pos)
 	flashEffect(path, pos, 1.0, GetRandomReal(0, 359).fromDeg())
-/**
-*/
+
 public function flashEffect(string path, vec2 pos, real scale)
 	flashEffect(path, pos, scale, GetRandomReal(0, 359).fromDeg())
-/**
-*/
+
 public function flashEffect(string path, vec3 pos, real scale)
 	flashEffect(path, pos, scale, GetRandomReal(0, 359).fromDeg())
-/**
-*/
+
 public function flashEffect(string path, vec2 pos, real scale, angle yaw)
 	addEffect(path, pos)..setScale(scale)..setYaw(yaw)..destr()
-/**
-*/
+
 public function flashEffect(string path, vec3 pos, real scale, angle yaw)
 	addEffect(path, pos)..setScale(scale)..setYaw(yaw)..destr()
-/**
-*/
+
 public function flashEffect(string path, widget target, string attachPointName)
 	addEffect(path, target, attachPointName).destr()
 
@@ -55,59 +46,45 @@ public function flashEffect(int abilityId, effecttype effType, vec2 pos)
 	Works for custom abilities. */
 public function flashEffect(int abilityId, effecttype effType, widget target, string attachPointName)
 	addEffect(abilityId, effType, target, attachPointName).destr()
-/**新建-特效(创建到坐标)
-*/
+
 public function addEffect(string path, vec2 pos) returns effect
 	return AddSpecialEffect(path, pos.x, pos.y)
-/**新建-特效(创建到坐标)
-*/
+
 public function addEffect(string path, vec3 pos) returns effect
 	return AddSpecialEffect(path, pos.x, pos.y)..setPos(pos)
-/**新建-特效-单位 (创建到单位)[R]
-新建特效${ModelFile}并绑定到${单位}的${AttachmentPoint}附加点上
-*/
+
 public function addEffect(string path, widget target, string attachPointName) returns effect
 	return AddSpecialEffectTarget(path, target, attachPointName)
 
-/** 新建-技能-特效(指定技能，创建到坐标)[R]
-${技能}的${EffectType},创建到坐标(${X},${Y}) 
-*/
+/** Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities. */
 public function addEffect(int abilityId, effecttype effType, vec2 pos) returns effect
 	return AddSpellEffectById(abilityId, effType, pos.x, pos.y)
 
-/** 新建-技能-特效(指定技能，创建到坐标)[R]
-${技能}的${EffectType},创建到坐标(${X},${Y}) 
-*/
+/** Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities. */
 public function addEffect(int abilityId, effecttype effType, vec3 pos) returns effect
 	return AddSpellEffectById(abilityId, effType, pos.x, pos.y)..setPos(pos)
 
-/** 新建-技能-特效-单位 (指定技能，创建到单位)
-${技能}的${EffectType},绑定到${单位}的${String}附加点
-会创建特效. 
-*/
+/** Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities. */
 public function addEffect(int abilityId, effecttype effType, widget target, string attachPointName) returns effect
 	return AddSpellEffectTargetById(abilityId, effType, target, attachPointName)
-/**设置-特效-大小
-*/
+
 public function effect.setScale(real scale)
 	EXSetEffectSize(this, scale)
-/**设置-特效-位置XY
-*/
+
 public function effect.setPosition(real x, real y, real z)
 	EXSetEffectXY(this, x, y)
 	EXSetEffectZ(this, z)
-/**设置-特效-高度Z
-*/
+
 public function effect.setHeight(real height)
 	EXSetEffectZ(this, height)
-/**设置-特效-速度
-*/
+
 public function effect.setTimeScale(real timeScale)
 	EXSetEffectSpeed(this, timeScale)
 
 let fxMatTable = InitHashtable()
-/**
-*/
 function effect.updateMat()
 	let key = GetHandleId(this)
 	let scaleX  = fxMatTable.loadReal(key, compiletime(StringHash("scaleX")))
@@ -121,16 +98,14 @@ function effect.updateMat()
 	EXEffectMatRotateX(this, rotateX)
 	EXEffectMatRotateY(this, rotateY)
 	EXEffectMatRotateZ(this, rotateZ)
-/**
-*/
+
 public function effect.setOrientation(real yaw, real pitch, real roll)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateY")), pitch)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll)
 	this.updateMat()
-/**
-*/
+
 public function effect.setOrientation(mat3 matrix)
 	let euler = matrix.toEuler()
 	let key = GetHandleId(this)
@@ -138,8 +113,7 @@ public function effect.setOrientation(mat3 matrix)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateY")), euler.y)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), euler.x)
 	this.updateMat()
-/**
-*/
+
 public function effect.setOrientation(quat quaternion)
 	let euler = quaternion.toEuler()
 	let key = GetHandleId(this)
@@ -147,38 +121,31 @@ public function effect.setOrientation(quat quaternion)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateY")), euler.y)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), euler.x)
 	this.updateMat()
-/**
-*/
+
 public function effect.setYaw(real yaw)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw)
 	this.updateMat()
-/**
-*/
+
 public function effect.setPitch(real pitch)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateY")), pitch)
 	this.updateMat()
-/**
-*/
+
 public function effect.setRoll(real roll)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll)
 	this.updateMat()
-/**
-*/
+
 public function effect.setX(real x)
 	EXSetEffectXY(this, x, EXGetEffectY(this))
-/**
-*/
+
 public function effect.setY(real y)
 	EXSetEffectXY(this, EXGetEffectX(this), y)
-/**
-*/
+
 public function effect.setZ(real z)
 	EXSetEffectZ(this, z)
-/**
-*/
+
 public function effect.setPositionLoc(location loc)
 	EXSetEffectXY(this, GetLocationX(loc), GetLocationY(loc))
 
@@ -186,40 +153,33 @@ public function effect.setPositionLoc(location loc)
 	Works for custom abilities. */
 public function getAbilityEffect(int abilityId, effecttype effType, int index) returns string
 	return GetAbilityEffectById(abilityId, effType, index)
-/**获取-特效X
-*/
+
 public function effect.getLocalX() returns real
 	return EXGetEffectX(this)
-/**获取-特效Y
-*/
+
 public function effect.getLocalY() returns real
 	return EXGetEffectY(this)
-/**获取-特效Z
-*/
+
 public function effect.getLocalZ() returns real
 	return EXGetEffectZ(this)
-/**设置-特效XYZ
-*/
+
 public function effect.setPos(vec3 pos)
 	EXSetEffectXY(this, pos.x, pos.y)
 	EXSetEffectZ(this, pos.z)
-/**设置-特效XY
-*/
+
 public function effect.setPos(vec2 pos)
 	EXSetEffectXY(this, pos.x, pos.y)
-/**获取-特效XYZ
-*/
+
 public function effect.getPos3() returns vec3
 	return vec3(EXGetEffectX(this), EXGetEffectY(this), EXGetEffectZ(this))
-/**获取-特效XY
-*/
+
 public function effect.getPos() returns vec2
 	return vec2(EXGetEffectX(this), EXGetEffectY(this))
 /**
-	更改特殊效果的方向。
-	偏航 ： z 轴
-	节距：Y轴
-	卷筒 ： x 轴
+	Change the orientation of the special effect.
+	yaw  : z-axis
+	pitch: y-axis
+	roll : x-axis
 */
 public function effect.setOrientation(angle yaw, angle pitch, angle roll)
 	let key = GetHandleId(this)
@@ -250,11 +210,11 @@ public function effect.setRoll(angle roll)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll.degrees())
 	this.updateMat()
 
-/** 获取-特效-大小*/
+/** Get effect scale.*/
 public function effect.getScale() returns real
 	return EXGetEffectSize(this)
 
-/** 设置-特效-模型大小*/
+/** Set effect 3D scale*/
 public function effect.setScale(vec3 scaleVector)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("scaleX")), scaleVector.x)
@@ -262,7 +222,7 @@ public function effect.setScale(vec3 scaleVector)
 	fxMatTable.saveReal(key, compiletime(StringHash("scaleZ")), scaleVector.z)
 	this.updateMat()
 
-/** 重置-特效-模型大小*/
+/** Reset effect scale.*/
 public function effect.resetScale()
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("scaleX")), 1.0)
