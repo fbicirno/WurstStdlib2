@@ -1,29 +1,29 @@
 /**
-	Use the `Knockback3.add(..)` functions to apply 3D knockback to units.
-	Using angles:
+	使用 `Knockback3.add(..)` 函数为单位应用 3D knockback .
+	角度 的用法:
 		import Knockback3
 		...
 		let u = ...
 		Knockback3.add(u, 1000., 0 .fromDeg(), 45 .fromDeg())
 
-	Using a target position:
+	目标点 的用法:
 		let caster = GetSpellAbilityUnit()
 		let target = getSpellTargetPos()
 
 		Knockback3.add(caster, target, 500.)
 
-	Configure this system by overriding the @configurable globals and setting
-	the static class members:
-
+	通过@configurable globals 和 
+	设置static class members :
 		Knockback3.gravity = 25.
+	来设置这个系统
 
-	By default, this package allows units to collide with destructables and
-	destroy them. To disable this feature, make the global
-	destroyDestructableSpeedThreshold a very high value:
+	默认时, 这个库允许 units 碰撞 destructables并销毁它们.
+	想屏蔽这个功能, 设置 global 
+	destroyDestructableSpeedThreshold 一个非常大的数值:
 
 		Knockback3.destroyDestructableSpeedThreshold = 999999999.
 
-	This value defaults to 300.
+	默认值为: 300.
 */
 package Knockback3
 import TerrainUtils
@@ -60,17 +60,17 @@ Override this value if you want to prevent bouncing, reflect on planes, etc.
 	vel.rotate(vec3(0., 0., 1.), PI) * Knockback3.restitutionCoefficientGround
 )
 
-/** The square rect size used for finding destructables. */
+/** 这个矩形区域尺寸用于finding destructables. */
 @configurable let DESTRUCTABLE_ENUM_SIZE = 130.
 
 /**
-If enabled, units have their move-speed changed while airborne.
+如果开启, units have their move-speed changed while airborne.
 Warning: this is not a lock-safe form of crowd control.
 */
 @configurable let USE_MOVE_SPEED_MODIFIERS = true
 
 /**
-If enabled, units have their prop window changed while airborne.
+如果开启, units have their prop window changed while airborne.
 Warning: this is not a lock-safe form of crowd control.
 */
 @configurable let USE_PROP_WINDOW_MODIFIERS = true
@@ -93,8 +93,9 @@ public class Knockback3
 	static var gravity = 90.
 
 	/**
-	If a unit is not falling faster than this, it will not bounce. Units
-	per second.
+	如果一个单位比这个下降的慢,他就不会弹跳。
+	If a unit is not falling faster than this, it will not bounce. 
+	Units per second.
 	*/
 	static var elasticityThreshold = -300.
 
@@ -124,9 +125,9 @@ public class Knockback3
 	static var destroyDestructableHeightThreshold = 150.
 
 	/**
-	 	Apply a knockback vector to unit u. `velocity` is initial speed in units
-	 	per second. `groundAngle` and `airAngle` are the direction and trajectory
-	 	parameters, respectively. Example:
+	 	Apply a knockback vector to unit u. `velocity` 是初速度 in units
+	 	per second. `groundAngle`方向  `airAngle` 轨迹
+		Example:
 	 */
 	static function add(unit u, real velocity, angle groundAngle, angle airAngle)
 		if not UNIT_FILTER.get(u)
