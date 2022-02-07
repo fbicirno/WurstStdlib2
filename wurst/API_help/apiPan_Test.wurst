@@ -96,7 +96,7 @@ API总览手册
     InstantDummyCaster.castTarget(DUMMY_PLAYER, 'A006', 1, OrderIds.polymorph, GetTriggerUnit())
     //获得一个非蝗虫马甲单位(不要杀死/销毁它！)
     let dummyUnit = DummyRecycler.get(ZERO2, 0 .fromDeg())
-    dummyUnit.damageTarget(target, 100)
+    dummyUnit.damageTargetNormal(target, 100)
     DummyRecycler.recycle(dummyUnit)
 
 // 临时计时器——>DoAfter...

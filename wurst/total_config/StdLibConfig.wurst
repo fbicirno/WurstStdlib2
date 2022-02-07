@@ -1,4 +1,4 @@
 package StdLibConfig
 import NoWurst
 
-public constant let STD_WURST_DMGSYSTEM=false
+public constant let STD_WURST_DMGSYSTEM=true

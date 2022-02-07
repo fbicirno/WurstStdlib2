@@ -68,6 +68,7 @@ public function texttag.match(unit target, vec2 offset)
 public function texttag.destr()
 	DestroyTextTag(this)
 
+/**漂浮文字——创建永久的文字*/
 public function createTTEx(vec3 pos, string message, real size) returns texttag
 	return CreateTextTag()
 		..setPermanent(true)
@@ -75,6 +76,7 @@ public function createTTEx(vec3 pos, string message, real size) returns texttag
 		..setPos(pos)
 		..setVisibility(true)
 
+/**漂浮文字——创建永久的文字(颜色)*/
 public function createTTEx(vec3 pos, string message, real size, colorA col) returns texttag
 	return CreateTextTag()
 		..setPos(pos.toVec2().withZ(20.))
@@ -82,6 +84,7 @@ public function createTTEx(vec3 pos, string message, real size, colorA col) retu
 		..setColor(col)
 		..setVisibility(true)
 
+/**漂浮文字——创建本地玩家可见永久的文字(颜色)*/
 public function createTTEx(vec3 pos, string message, real size, colorA col, player p) returns texttag
 	return CreateTextTag()
 		..setPos(pos.toVec2().withZ(20.))
@@ -89,9 +92,10 @@ public function createTTEx(vec3 pos, string message, real size, colorA col, play
 		..setColor(col)
 		..setVisibility(localPlayer == p)
 
-public function createTTEx(vec3 pos, vec2 vel, string message, real size, real duration, colorA col) returns texttag
+/**漂浮文字——创建消散文字(坐标2，速度坐标，文字，大小，生命周期，颜色)*/
+public function createTTExFade(vec2 pos, vec2 vel, string message, real size, real duration, colorA col) returns texttag
 	return CreateTextTag()
-		..setPos(pos.toVec2().withZ(20.))
+		..setPos(pos.withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVelocity(vel.x, vel.y)
@@ -99,7 +103,7 @@ public function createTTEx(vec3 pos, vec2 vel, string message, real size, real d
 		..setFadepoint(.1)
 		..setPermanent(false)
 
-public function createTTEx(vec3 pos, vec2 vel, string message, real size, real duration, colorA col, player p) returns texttag
-	return createTTEx(pos, vel, message,size,duration,col)
+public function createTTEx(vec2 pos, vec2 vel, string message, real size, real duration, colorA col, player p) returns texttag
+	return createTTExFade(pos, vel, message,size,duration,col)
 		..setVisibility(localPlayer == p)
 
