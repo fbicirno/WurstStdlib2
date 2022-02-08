@@ -1,6 +1,10 @@
 package HashSet
 import public HashList
-
+/*
+HashSet 基于 HashMap 来实现的，是一个不允许有重复元素的集合。
+HashSet 允许有 null 值。
+HashSet 是无序的，即不会记录插入的顺序。
+*/
 /** Generic set implementation */
 public class HashSet<T> extends HashList<T>
 	private static constant position = compiletime(InitHashtable())
