@@ -158,17 +158,9 @@ public function unit.damageTarget(widget target, real amount, bool attack, bool 
 
 public function unit.damageTarget(widget target, real amount, bool attack, bool ranged, attacktype attackType)
 	UnitDamageTarget(this, target, amount, attack, ranged, attackType, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
-/** 单位——造成伤害--(非攻击非技能)--(混乱)*/
-public function unit.damageTargetChaos(widget target, real amount)
-	UnitDamageTarget(this, target, amount, false, false, ATTACK_TYPE_CHAOS, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
 /** 单位——造成伤害--(非攻击非技能)--(普通)*/
-public function unit.damageTargetNormal(widget target, real amount)
+public function unit.damageTarget(widget target, real amount)
 	UnitDamageTarget(this, target, amount, false, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-/** 单位——造成伤害--(非攻击非技能)--(魔法)*/
-public function unit.damageTargetMagic(widget target, real amount)
-	UnitDamageTarget(this, target, amount, false, false, ATTACK_TYPE_MAGIC, DAMAGE_TYPE_MAGIC, WEAPON_TYPE_WHOKNOWS)
-
-
 public function unit.damageTarget(widget target, real amount, attacktype attacktyp)
 	UnitDamageTarget(this, target, amount, false, false, attacktyp, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS)
 
