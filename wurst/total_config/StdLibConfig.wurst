@@ -6,11 +6,3 @@ import Printing
 public bool STD_WURST_DMGSYSTEM=true
 //全局生效——开启DEBUG模式
 public bool STD_WURST_DEBUG=true
-public var DEBUG_LEVEL = Loglevel.WARNING
-//DEBUG模式_消息显示时间
-public var DEBUG_MSG_DURATION = 20.
-public var DEBUG_LOCAL_LEVEL = Loglevel.DEBUG
-//DEBUG模式_输出信息在游戏中
-public var PRINT_IN_GAME  = true
-//DEBUG模式_输出信息在控制台中
-public var PRINT_TO_LOCAL = true

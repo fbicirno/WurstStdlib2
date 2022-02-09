@@ -1,4 +1,4 @@
-package String_useless
+package StringUseless
 import ObjectIds
 //使得字母支持转换为整数
 public function makeId(string idStr,int offset) returns string

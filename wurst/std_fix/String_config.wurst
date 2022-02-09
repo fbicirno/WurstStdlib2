@@ -5,8 +5,7 @@ import Printing
 import Integer
 import Annotations
 import Wurstunit
-import public String_useless
-
+import public StringUseless
 //编译函数集
 /** 编译时计算哈希值 **/
 @compiletimenative public function string.autoHash() returns int
