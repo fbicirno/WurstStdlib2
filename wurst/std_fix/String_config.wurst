@@ -1,10 +1,11 @@
-package compileFuncPlus
+package String_config
 import NoWurst
 import String
 import Printing
 import Integer
 import Annotations
 import Wurstunit
+import public String_useless
 
 //编译函数集
 /** 编译时计算哈希值 **/

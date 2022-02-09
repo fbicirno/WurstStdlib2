@@ -1,6 +1,35 @@
 package Vectors_config
 import NoWurst
 import Vectors
+import MapBounds
 
+//HEAD 向量扩充函数
+// 让向量被地图坐标修正，
+// 扩充getSpellTargetPos
 public function getSpellTargetPos() returns vec2
     return vec2(GetSpellTargetX(), GetSpellTargetY())
+    
+public function vec3.airAngleTo(vec3 p) returns angle
+    let diff = p - this
+    let len =  diff.length()
+    let lenxy = diff.toVec2().length()
+    if len != 0
+        return Acos(lenxy/len) .asAngleRadians() * (diff.z > 0?1:-1)
+    else
+        return 0 .fromDeg()
+public function vec2.fix() returns vec2
+    var v = this
+    if v.inBounds()
+        return v
+    else
+        if v.x < boundMin.x
+            v.x = boundMin.x
+        if v.x > boundMax.x 
+            v.x = boundMax.x
+        if v.y < boundMin.y 
+            v.y = boundMin.y 
+        if v.y > boundMax.y
+            v.y = boundMax.y
+        return v
+public function vec3.fix() returns vec3
+    return this.toVec2().fix().withZ(this.z)

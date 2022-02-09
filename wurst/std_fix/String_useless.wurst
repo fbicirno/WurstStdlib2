@@ -1,0 +1,168 @@
+package String_useless
+import ObjectIds
+//使得字母支持转换为整数
+public function makeId(string idStr,int offset) returns string
+	var ids = idStr
+	var off = offset
+	string array t
+	for i = 1 to 4
+		t[i] = ids.sub(i-1, i)
+	var j = 4
+	while j != 0 
+		var a = decode(t[j].toUpperCase()) + off
+		off = luaDiv(a,36)//a div 36
+		a = luaMod(a,36)//a mod 36
+		t[j] = encode(a)
+		if off == 0
+			break
+		j --
+	ids = ""
+	for i = 1 to 4
+		ids += t[i]
+	return ids
+
+let codingList = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+function decode (string str) returns int
+	if(str=="0")
+		return 0
+	else if(str=="1")
+		return 1
+	else if(str=="2")
+		return 2
+	else if(str=="3")
+		return 3
+	else if(str=="4")
+		return 4
+	else if(str=="5")
+		return 5
+	else if(str=="6")
+		return 6
+	else if(str=="7")
+		return 7
+	else if(str=="8")
+		return 8
+	else if(str=="9")
+		return 9
+	else if(str=="A")
+		return 10
+	else if(str=="B")
+		return 11
+	else if(str=="C")
+		return 12
+	else if(str=="D")
+		return 13
+	else if(str=="E")
+		return 14
+	else if(str=="F")
+		return 15
+	else if(str=="G")
+		return 16
+	else if(str=="H")
+		return 17
+	else if(str=="I")
+		return 18
+	else if(str=="J")
+		return 19
+	else if(str=="K")
+		return 20
+	else if(str=="L")
+		return 21
+	else if(str=="M")
+		return 22
+	else if(str=="N")
+		return 23
+	else if(str=="O")
+		return 24
+	else if(str=="P")
+		return 25
+	else if(str=="Q")
+		return 26
+	else if(str=="R")
+		return 27
+	else if(str=="S")
+		return 28
+	else if(str=="T")
+		return 29
+	else if(str=="U")
+		return 30
+	else if(str=="V")
+		return 31
+	else if(str=="W")
+		return 32
+	else if(str=="X")
+		return 33
+	else if(str=="Y")
+		return 34
+	else if(str=="Z")
+		return 35
+	return 0
+
+function encode (int id) returns string
+	return codingList.sub(id, id+1)
+
+function luaMod(int a,int b) returns int
+	if a < 0
+		return (a + b) mod b
+	return a mod b
+
+function luaDiv(int a,int b) returns int
+	if a < 0
+		return -(( -a - 1) div b + 1 )
+	return a div b
+
+@Test function asa()
+	for i= 0 downto -100
+		print(makeId("QW00",i))
+
+
+public function string.sub(int i , int j) returns string
+	return this.substring(i, j)
+public function string.toIdCode() returns int
+	return this.fromRawCode()
+
+/**
+  * 将String字符串转换为数字
+ ** @param s
+ ** @return
+ ** @throws -1
+  */
+public function string.forInt() returns int
+	var lenth = this.length()
+	var usefulLenth = 0
+	if (this == null or lenth == 0)
+		return 0
+	int retInt = 0
+	int array num
+	int x = 10
+	for i=0 to lenth - 1
+		string c = this.charAt(i)
+		if c.toInt()!=0
+			num[usefulLenth] = c.toInt()
+		else
+			if i == 0 and c == "-"
+				num[usefulLenth] = -1
+			else
+				switch c 
+					case "0"
+						num[usefulLenth] = 0
+					default
+						usefulLenth--
+		usefulLenth++
+	for  i = 1 to usefulLenth-1
+		retInt += x.pow(usefulLenth - i - 1) * num[i]
+	
+	if (num[0] == -1)
+		retInt = -retInt
+	else
+		retInt += x.pow(usefulLenth - 1) * num[0]
+	return retInt
+
+@Test function aa()
+	"123".forInt().assertEquals(123)
+	"024".forInt().assertEquals(24)
+	"-59".forInt().assertEquals(-59)
+	"a59".forInt().assertEquals(59)
+	"a59b".forInt().assertEquals(59)
+	"a5c9b".forInt().assertEquals(59)
+	"a5-9b".forInt().assertEquals(59)
+	"a5-09b".forInt().assertEquals(509)

@@ -1,5 +1,5 @@
-package HashTableExtra
-import compileFuncPlus
+package Hashtable_config
+import String_config
 import HashList
 public function HashList<int>.getRandom() returns int
     if this==null
