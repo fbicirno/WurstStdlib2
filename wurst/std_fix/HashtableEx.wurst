@@ -1,5 +1,5 @@
-package Hashtable_config
-import String_config
+package HashtableEx
+import StringEx
 import HashList
 public function HashList<int>.getRandom() returns int
     if this==null

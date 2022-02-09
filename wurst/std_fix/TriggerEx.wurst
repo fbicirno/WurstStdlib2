@@ -1,4 +1,4 @@
-package Trigger_config
+package TriggerEx
 import NoWurst
 import Trigger
 

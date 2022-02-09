@@ -1,34 +1,83 @@
 package baseTypePlus
-import NoWurst
-import Integer
-import Colors
-import Real
-import Printing
-import Annotations
+import ObjectIds
+import StringUseless
 import YD_Scripts
-import Wurstunit
 
 /**获取ID属性【类型，属性名】*/
 public function string.getProp(string utype,string uprop) returns string
     return EXExecuteScript("(require 'jass.slk')."+utype+"['"+this+"']."+uprop)
+public function int.pow(real i) returns real
+    return this.toReal().pow(i)
+/** 让整数判断是否在范围内*/
+public function int.inIdRange(int min,int max) returns bool
+	return this >= min and this < max
+/**
+ *  整数偏移范围【最小值，偏移值】
+ ** 例：5.inIdOffsetRange(3,3) == 3<5<7
+*/
+public function int.inIdOffsetRange(int min,int offset) returns bool
+	return this >= min and this < (min+offset + 1)
+/** 转换整数id为字符串id(不推荐)*/
+public function int.toIdString() returns string
+	return toRawCode(this)
 /** 颜色.输出文字格式**/
 public function color.forString(string s) returns string
 	return this.toColorString() + s + "|r"
 
-//字符串支持加法运算！
-@inline public function string.op_plus(int i) returns string
-	return this + i.toString()
-@inline public function string.op_plus(real i) returns string
-	return this + i.toString()
-@inline public function int.op_plus(string i) returns string
-	return this.toString() + i
-@inline public function real.op_plus(string i) returns string
-	return this.toString() + i
+public function color.print(string s)
+	print(this.forString(s))
 
-@Test function test_stringplus()
-    let point=100
-    let hp=100.0
-    print("得分:"+point+" 血量："+hp)
-@Test function test_colorplus()
-    print(color(0, 255, 255).forString("我是可以调颜色的字"))
-	
+//加法运算plus【string,int,real,bool,unit,item】
+public function string.op_plus(int i) returns string
+	return this + i.toString()
+public function string.op_plus(real i) returns string
+	return this + i.toString()
+public function string.op_plus(bool i) returns string
+	return this + i.toString()
+public function int.op_plus(string i) returns string
+	return this.toString() + i
+public function int.op_plus(bool i) returns int
+	return this + i.toInt()
+public function real.op_plus(string i) returns string
+	return this.toString() + i
+public function real.op_plus(bool i) returns real
+	return this + i.toInt()
+public function bool.op_plus(string i) returns string
+	return this.toString() + i
+public function bool.op_plus(real i) returns real
+	return this.toInt() + i
+public function bool.op_plus(int i) returns int
+	return this.toInt() + i
+public function bool.op_plus(bool i) returns bool
+	return this and i
+public function unit.op_plus(string i) returns string
+	return this.getName() + i
+public function string.op_plus(unit i) returns string
+	return this + i.getName()
+public function item.op_plus(string i) returns string
+	return this.getName() + i
+public function string.op_plus(item i) returns string
+	return this + i.getName()
+//减法运算plus【string,int,real,bool】
+public function string.op_minus(int i) returns int
+	return this.forInt() - i
+public function string.op_minus(real i) returns real
+	return this.forInt() - i
+public function string.op_minus(bool i) returns int
+	return this.forInt() - i.toInt()
+public function int.op_minus(string i) returns int
+	return this - i.forInt()
+public function int.op_minus(bool i) returns int
+	return this - i.toInt()
+public function real.op_minus(bool i) returns real
+	return this - i.toInt()
+public function real.op_minus(string i) returns real
+	return this - i.forInt()
+public function bool.op_minus(string i) returns int
+	return this.toInt() - i.forInt()
+public function bool.op_minus(int i) returns int
+	return this.toInt() - i
+public function bool.op_minus(real i) returns real
+	return this.toInt() - i
+public function bool.op_minus(bool i) returns bool
+	return this or i

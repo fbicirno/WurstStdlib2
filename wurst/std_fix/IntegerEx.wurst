@@ -1,4 +1,4 @@
-package Integer_config
+package IntegerEx
 import NoWurst
 import Real
 import Integer

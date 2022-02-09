@@ -1,4 +1,4 @@
-package Vectors_config
+package VectorsEx
 import NoWurst
 import Vectors
 import MapBounds

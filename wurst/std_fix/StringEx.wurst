@@ -1,4 +1,4 @@
-package String_config
+package StringEx
 import NoWurst
 import String
 import Printing
