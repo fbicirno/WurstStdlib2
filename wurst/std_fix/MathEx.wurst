@@ -1,0 +1,65 @@
+package MathEx
+import NoWurst
+import Real
+import Integer
+import ObjectIds
+import Printing
+import Annotations
+import Wurstunit
+
+
+/** 判断整数是否在范围中*/
+public function int.inLimit(int min,int max) returns bool
+    return min<this and max>this
+/** 取一个范围内的值*/
+public function int.clamp(int min,int max) returns int
+	if min == max
+		return this
+	else if this<min
+		return min
+	else if this>max
+		return max
+	return this
+
+/** 判断real是否在范围中*/
+public function real.inLimit(real min,real max) returns bool
+    return min<this and max>this
+@inline public function getRandomR(real low,real high) returns real
+    return GetRandomReal(low, high)
+
+
+/*
+核心——随机函数扩充
+*/
+public function random(real percent) returns bool
+    return GetRandomReal(0, 100)<percent
+public function real.random() returns bool
+    return GetRandomReal(0, 100)<this
+public function real.next() returns real
+    return GetRandomReal(0, this)
+public function real.nextInt() returns int
+    return GetRandomInt(0, (this - 0.5).toInt())
+public function real.float(real percent) returns real
+    return GetRandomReal(this*(1 - percent),this*(1 + percent))
+public function real.floatVal(real val) returns real
+    return GetRandomReal(this - val,this + val)
+
+/** 取一个范围内的值*/
+public function real.clamp(real min,real max) returns real
+	if min == max
+		return this
+	else if this<min
+		return min
+	else if this>max
+		return max
+	return this
+/** 计算整数的实数幂**/
+public function int.pow(real i) returns real
+    return this.toReal().pow(i)
+/** 转换整数id为字符串id**/
+@deprecated("浪费运算效率，不推荐")
+public function int.toIdString() returns string
+	return toRawCode(this)
+    
+@Test function test_idstrplus()
+    print("步兵的id是"+'hfoo'.toIdString())
