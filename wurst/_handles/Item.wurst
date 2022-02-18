@@ -7,6 +7,8 @@ import YD_Scripts
 import YD_Item
 
 public function createItem(int itemId, vec2 pos) returns item
+	if itemId==0
+		return null
 	return createItem(itemId, pos.toVec3())
 
 public function createItem(int itemId, vec3 pos) returns item

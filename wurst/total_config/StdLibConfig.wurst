@@ -2,6 +2,6 @@ package StdLibConfig
 import NoWurst
 
 //全局生效——开启伤害系统
-public bool STD_WURST_DMGSYSTEM=true
+public bool STD_WURST_DMGSYSTEM=false
 //全局生效——开启DEBUG模式
 public bool STD_WURST_DEBUG=true

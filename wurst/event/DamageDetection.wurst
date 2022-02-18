@@ -1,7 +1,7 @@
 package DamageDetection
 import OnUnitEnterLeave
 import StdLibConfig
-
+//会出现问题，1.29用，暂时关闭
 /**
 	Use `addOnDamageFunc` to add a listener to any damage event that happens on the map.
 	Example:
