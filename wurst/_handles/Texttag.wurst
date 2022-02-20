@@ -4,106 +4,102 @@ import public Vectors
 import public Colors
 import Player
 import Unit
-
+/**设置漂浮文字xyz坐标*/
 public function texttag.setPos(real x, real y, real z)
 	SetTextTagPos(this, x ,y , z)
-
+/**设置漂浮文字Vec3坐标*/
 public function texttag.setPos(vec3 pos)
 	SetTextTagPos(this, pos.x , pos.y , pos.z)
-
+/**设置漂浮文字rgba颜色*/
 public function texttag.setColor(int r, int g, int b, int a)
 	SetTextTagColor(this, r, g , b, a)
-
+/**设置漂浮文字暂停(暂停状态暂停漂浮文字的移动和生命计时)*/
 public function texttag.setSuspended(boolean flag)
 	SetTextTagSuspended(this, flag)
-
+/**设置漂浮文字colorA颜色*/
 public function texttag.setColor(colorA col)
 	SetTextTagColor(this, col.red, col.green , col.blue, col.alpha)
-
+/**设置漂浮文字文本和大小*/
 public function texttag.setText(string text, real size)
 	SetTextTagText(this, text, size * 0.0023)
-
+/**设置漂浮文字显示时间*/
 public function texttag.setLifespan(real span)
 	SetTextTagLifespan(this, span)
-
+/**设置漂浮文字永久显示启用/禁用*/
 public function texttag.setPermanent(boolean flag)
 	SetTextTagPermanent(this, flag)
-
+/**设置漂浮文字消逝时间点*/
 public function texttag.setFadepoint(real fadepoint)
 	SetTextTagFadepoint(this, fadepoint)
-
+/**设置漂浮文字已存在时间*/
 public function texttag.setAge(real age)
 	SetTextTagAge(this, age)
-
+/**设置漂浮文字速率xy*/
 public function texttag.setVelocity(real xvel, real yvel)
 	SetTextTagVelocity(this, xvel, yvel)
-
+/**设置漂浮文字速率Vec2*/
 public function texttag.setVelocity(vec2 vel)
 	SetTextTagVelocity(this, vel.x, vel.y)
-
+/**设置漂浮文字显示/隐藏*/
 public function texttag.setVisibility(boolean flag)
 	SetTextTagVisibility(this, flag)
 
-/** Change the visibility based on whether the local player can see the given unit.
-    This won't update if the unit moves or the local player gains vision of it. */
+/**根据本地玩家是否能看到给定的单位来更改漂浮文字可见性。
+如果单位移动或本地玩家看到它，则不会更新*/
 public function texttag.matchVisibility(unit target)
 	this.setVisibility(localPlayer.hasVisibility(target))
 
-/** Change the visibility based on whether the local player can see the given position.
-    This won't update if local player gains vision of it. */
+/**根据本地玩家是否能看到给定位置更改漂浮文字可见性。
+如果本地玩家看到它，则不会更新*/
 public function texttag.matchVisibility(vec2 pos)
 	this.setVisibility(localPlayer.hasVisibility(pos))
 
-/** Match the visibility and position of the texttag to the given unit.
-    This won't update if the unit moves or the local player gains vision of it. */
+/**将漂浮文字的可见性和位置与指定单位匹配。
+如果单位移动或本地玩家看到它，则不会更新*/
 public function texttag.match(unit target)
 	this.match(target, vec2(0, 0))
 
-/** Match the visibility and position with an offest of the texttag to the given unit.
-    This won't update if the unit moves or the local player gains vision of it. */
+/**将可见位置与漂浮文字的位置匹配到指定的单位。
+如果单位移动或本地玩家看到它，则不会更新*/
 public function texttag.match(unit target, vec2 offset)
 	this.setPos((target.getPos() + offset).toVec3())
 	this.matchVisibility(target)
-
+/**销毁漂浮文字*/
 public function texttag.destr()
 	DestroyTextTag(this)
-
-/**漂浮文字——创建永久的文字*/
+/**创建并永久显示漂浮文字*/
 public function createTTEx(vec3 pos, string message, real size) returns texttag
 	return CreateTextTag()
 		..setPermanent(true)
 		..setText(message, size)
 		..setPos(pos)
 		..setVisibility(true)
-
-/**漂浮文字——创建永久的文字(颜色)*/
+/**创建并显示漂浮文字(可设置colorA颜色)*/
 public function createTTEx(vec3 pos, string message, real size, colorA col) returns texttag
 	return CreateTextTag()
 		..setPos(pos.toVec2().withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVisibility(true)
-
-/**漂浮文字——创建本地玩家可见永久的文字(颜色)*/
+/**创建并对指定玩家显示漂浮文字(可设置colorA颜色)*/
 public function createTTEx(vec3 pos, string message, real size, colorA col, player p) returns texttag
 	return CreateTextTag()
 		..setPos(pos.toVec2().withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVisibility(localPlayer == p)
-
-/**漂浮文字——创建消散文字(坐标2，速度坐标，文字，大小(def 10)，生命周期，颜色)*/
-public function createTTExFade(vec2 pos, vec2 vel, string message, real size, real duration, colorA col) returns texttag
+/**创建漂浮文字(指定时间)*/
+public function createTTEx(vec3 pos, vec2 vel, string message, real size, real duration, colorA col) returns texttag
 	return CreateTextTag()
-		..setPos(pos.withZ(20.))
+		..setPos(pos.toVec2().withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVelocity(vel.x, vel.y)
 		..setLifespan(duration)
 		..setFadepoint(.1)
 		..setPermanent(false)
-
-public function createTTEx(vec2 pos, vec2 vel, string message, real size, real duration, colorA col, player p) returns texttag
-	return createTTExFade(pos, vel, message,size,duration,col)
+/**创建漂浮文字并对指定玩家显示(指定时间)*/
+public function createTTEx(vec3 pos, vec2 vel, string message, real size, real duration, colorA col, player p) returns texttag
+	return createTTEx(pos, vel, message,size,duration,col)
 		..setVisibility(localPlayer == p)
 

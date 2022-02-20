@@ -1,11 +1,27 @@
 package YD_Item
 import NoWurst
+import Annotations
 
+/**物品-显示-界面图标*/
 public constant ITEM_DATA_ART         = 1 // 图标
+/**物品-文本-提示(基础)*/
 public constant ITEM_DATA_TIP         = 2 // 提示
+/**物品-文本-提示(拓展)*/
 public constant ITEM_DATA_UBERTIP     = 3 // 提示(扩展)
+/**物品-文本-名字*/
 public constant ITEM_DATA_NAME        = 4 // 名字
+/**物品-文本-说明*/
 public constant ITEM_DATA_DESCRIPTION = 5 // 说明
 
+/**获取物品数据
+物品ID:${itemcode}
+获取项(1-5对应图标/提示/提示拓展/名字/说明):${data_type}
+*/
 @ifNotDefined public native EXGetItemDataString(int itemcode, int data_type) returns string
+
+/**设置物品字符串数据
+物品ID:${itemcode}
+修改项(1-5对应图标/提示/提示拓展/名字/说明):${data_type}
+修改值:${value}
+*/
 @ifNotDefined public native EXSetItemDataString(int itemcode, int data_type, string value) returns bool

@@ -1,14 +1,14 @@
 package QuestItem
-
+/**改变任务项目描述*/
 public function questitem.setDescription(string text)
 	QuestItemSetDescription(this, text)
-
+/**判断任务项目是否完成*/
 public function questitem.isCompleted() returns boolean
 	return IsQuestItemCompleted(this)
-
+/**设置任务项目完成状态*/
 public function questitem.complete(boolean b)
 	QuestItemSetCompleted(this, b)
-
+/**任务项目类*/
 public class QuestItem
 	questitem qi
 	quest parent

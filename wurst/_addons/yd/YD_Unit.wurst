@@ -1,62 +1,115 @@
 package YD_Unit
 import NoWurst
+import Annotations
 
 // original
+/**攻击1-伤害骰子数量*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_DICE          = ConvertUnitState(0x10)
+/**攻击1-伤害骰子面数*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_SIDE          = ConvertUnitState(0x11)
+/**攻击1-基础伤害*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_BASE          = ConvertUnitState(0x12)
+/**攻击1-附加伤害*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_BONUS         = ConvertUnitState(0x13)
+/**攻击1-伤害最小值*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_MIN           = ConvertUnitState(0x14)
+/**攻击1-伤害最大值*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_MAX           = ConvertUnitState(0x15)
+/**攻击1-攻击范围*/
 public constant UNIT_STATE_ATTACK1_RANGE                = ConvertUnitState(0x16)
+/**基础护甲*/
 public constant UNIT_STATE_ARMOR                        = ConvertUnitState(0x20)
 // attack 1 attribute adds
+/**攻击1-伤害衰减参数*/
 public constant UNIT_STATE_ATTACK1_DAMAGE_LOSS_FACTOR   = ConvertUnitState(0x21)
+/**攻击1-武器声音*/
 public constant UNIT_STATE_ATTACK1_WEAPON_SOUND         = ConvertUnitState(0x22)
+/**攻击1-攻击类型*/
 public constant UNIT_STATE_ATTACK1_ATTACK_TYPE          = ConvertUnitState(0x23)
+/**攻击1-最大目标数*/
 public constant UNIT_STATE_ATTACK1_MAX_TARGETS          = ConvertUnitState(0x24)
+/**攻击1-攻击间隔*/
 public constant UNIT_STATE_ATTACK1_INTERVAL             = ConvertUnitState(0x25)
+/**攻击1-动画伤害点*/
 public constant UNIT_STATE_ATTACK1_INITIAL_DELAY        = ConvertUnitState(0x26)
+/**攻击1-动画恢复点*/
 public constant UNIT_STATE_ATTACK1_BACK_SWING           = ConvertUnitState(0x28)
+/**攻击1-攻击范围缓冲*/
 public constant UNIT_STATE_ATTACK1_RANGE_BUFFER         = ConvertUnitState(0x27)
+/**攻击1-作为目标类型*/
 public constant UNIT_STATE_ATTACK1_TARGET_TYPES         = ConvertUnitState(0x29)
+/**攻击1-穿透伤害距离*/
 public constant UNIT_STATE_ATTACK1_SPILL_DIST           = ConvertUnitState(0x56)
+/**攻击1-穿透伤害范围*/
 public constant UNIT_STATE_ATTACK1_SPILL_RADIUS         = ConvertUnitState(0x57)
+/**攻击1-武器类型*/
 public constant UNIT_STATE_ATTACK1_WEAPON_TYPE          = ConvertUnitState(0x58)
 // attack 2 attributes (sorted in a sequencial order based on memory address)
+/**攻击2-伤害骰子数量*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_DICE          = ConvertUnitState(0x30)
+/**攻击2-伤害骰子面数*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_SIDE          = ConvertUnitState(0x31)
+/**攻击2-基础伤害*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_BASE          = ConvertUnitState(0x32)
+/**攻击2-附加伤害*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_BONUS         = ConvertUnitState(0x33)
+/**攻击2-伤害衰减参数*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_LOSS_FACTOR   = ConvertUnitState(0x34)
+/**攻击2-武器声音*/
 public constant UNIT_STATE_ATTACK2_WEAPON_SOUND         = ConvertUnitState(0x35)
+/**攻击2-攻击类型*/
 public constant UNIT_STATE_ATTACK2_ATTACK_TYPE          = ConvertUnitState(0x36)
+/**攻击2-最大目标数*/
 public constant UNIT_STATE_ATTACK2_MAX_TARGETS          = ConvertUnitState(0x37)
+/**攻击2-攻击间隔*/
 public constant UNIT_STATE_ATTACK2_INTERVAL             = ConvertUnitState(0x38)
+/**攻击2-动画伤害点*/
 public constant UNIT_STATE_ATTACK2_INITIAL_DELAY        = ConvertUnitState(0x39)
+/**攻击2-攻击范围*/
 public constant UNIT_STATE_ATTACK2_RANGE                = ConvertUnitState(0x40)
+/**攻击2-攻击范围缓冲*/
 public constant UNIT_STATE_ATTACK2_RANGE_BUFFER         = ConvertUnitState(0x41)
+/**攻击2-伤害最小值*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_MIN           = ConvertUnitState(0x42)
+/**攻击2-伤害最大值*/
 public constant UNIT_STATE_ATTACK2_DAMAGE_MAX           = ConvertUnitState(0x43)
+/**攻击2-动画恢复点*/
 public constant UNIT_STATE_ATTACK2_BACK_SWING           = ConvertUnitState(0x44)
+/**攻击2-作为目标类型*/
 public constant UNIT_STATE_ATTACK2_TARGET_TYPES         = ConvertUnitState(0x45)
+/**攻击2-穿透伤害距离*/
 public constant UNIT_STATE_ATTACK2_SPILL_DIST           = ConvertUnitState(0x46)
+/**攻击2-穿透伤害范围*/
 public constant UNIT_STATE_ATTACK2_SPILL_RADIUS         = ConvertUnitState(0x47)
+/**攻击2-武器类型*/
 public constant UNIT_STATE_ATTACK2_WEAPON_TYPE          = ConvertUnitState(0x59)
 // general attributes
+/**战斗-护甲类型*/
 public constant UNIT_STATE_ARMOR_TYPE                   = ConvertUnitState(0x50)
+/**战斗-攻击速度*/
 public constant UNIT_STATE_RATE_OF_FIRE                 = ConvertUnitState(0x51) // global attack rate of unit, work on both attacks
+/**战斗-主动攻击范围*/
 public constant UNIT_STATE_ACQUISITION_RANGE            = ConvertUnitState(0x52) // how far the unit will automatically look for targets
+/**状态-生命恢复*/
 public constant UNIT_STATE_LIFE_REGEN                   = ConvertUnitState(0x53)
+/**状态-魔法恢复*/
 public constant UNIT_STATE_MANA_REGEN                   = ConvertUnitState(0x54)
+/**状态-生命最大值*/
 public constant UNIT_STATE_MAX_LIFE                     = ConvertUnitState(0x01)
+/**状态-魔法最大值*/
 public constant UNIT_STATE_MAX_MANA                     = ConvertUnitState(0x03)
+/**战斗-最小攻击范围*/
 public constant UNIT_STATE_MIN_RANGE                    = ConvertUnitState(0x55)
+/**战斗-作为目标类型*/
 public constant UNIT_STATE_AS_TARGET_TYPE               = ConvertUnitState(0x60)
+/**状态-单位类别*/
 public constant UNIT_STATE_TYPE                         = ConvertUnitState(0x61)
 // ...starts from 0x62
-
+/**设置单位面向角度*/
 @ifNotDefined public native EXSetUnitFacing        (unit u, real angle)
+/**暂停单位*/
 @ifNotDefined public native EXPauseUnit            (unit u, boolean flag)
+/**设置单位的碰撞类型*/
 @ifNotDefined public native EXSetUnitCollisionType (boolean enable, unit u, integer t)
+/**设置单位的移动类型*/
 @ifNotDefined public native EXSetUnitMoveType      (unit u, integer t)

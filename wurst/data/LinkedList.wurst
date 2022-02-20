@@ -8,13 +8,13 @@ import Real
 import Annotations
 
 /**
- * Doubly-linked list implementation that implements all common list, stack and queue operations.
- * Permits all elements (including null).
- * Use the Typecasting package if you require lists of warcraft handles.
- * LinkedLists should be generally used anywhere you need a list, because they are the most versatile
- * and fast in common operations. If you need faster contains or access operations on big lists,
- * use HashList. If you want to limit each element's occurance to one, consider HashSet.
- */
+*双链表实现，实现所有常见的列表、堆栈和队列操作。
+*允许所有元素（包括null）。
+*如果你需要魔兽handle列表，可以使用Typecasting软件包。
+*LinkedList通常应该在需要列表的任何地方使用，因为它们是最通用的
+*而且在日常操作中速度很快。如果您需要更快地包含或访问大列表上的操作，
+*使用HashList。如果你想把每个元素的发生限制到一个，那么考虑HashSet。
+*/
 public class LinkedList<T>
 	private var dummy = new LLEntry<T>(null, null, null)
 	protected var size = 0
@@ -22,14 +22,14 @@ public class LinkedList<T>
 	private LLIterator<T> staticItr = null
 	private LLBackIterator<T> staticBackItr = null
 
-	/** Creates a new list by copying all elements from another list into it */
+	/**通过将其他列表中的所有元素复制到新列表中来创建新列表*/
 	construct(thistype base)
 		dummy.next = dummy
 		dummy.prev = dummy
 		for elem in base
 			add(elem)
 
-	/** Creates a new empty list */
+	/**创建一个新的空列表*/
 	construct()
 		dummy.next = dummy
 		dummy.prev = dummy
@@ -47,10 +47,9 @@ public class LinkedList<T>
 		for elem in elems
 			add(elem)
 
-	/** Adds all elements from the other list to the end of this list and removes them from the provided list.
-
-		It does not add/remove elements internally, only the internal pointers of the list nodes are re-pointed.
-		The other list will be empty, but not destroyed. */
+	/**将其他列表中的所有元素添加到此列表的末尾，并将其从提供的列表中删除。
+	它不会在内部添加/删除元素，只会重新指向列表节点的内部指针。
+	另一个列表将为空，但不会被销毁*/
 	function splice(LinkedList<T> other)
 		dummy.prev.next = other.dummy.next
 		dummy.prev.next.prev = dummy.prev
@@ -61,7 +60,7 @@ public class LinkedList<T>
 		other.dummy.prev = other.dummy
 		other.size = 0
 
-	/** Returns the element at the specified index */
+	/**返回指定索引处的元素*/
 	function get(int index) returns T
 		return getEntry(index).elem
 
@@ -84,11 +83,11 @@ public class LinkedList<T>
 	function push(T elem)
 		add(elem)
 
-	/** Returns the first element in the list */
+	/**返回列表中的第一个元素*/
 	function getFirst() returns T
 		return dummy.next.elem
 
-	/** Returns and removes the first added Element (FIFO) */
+	/**返回并移除第一个添加的元素，先进先出 (FIFO) */
 	function dequeue() returns T
 		let top = dummy.next
 		T result = null
@@ -97,7 +96,7 @@ public class LinkedList<T>
 			removeEntry(top)
 		return result
 
-	/** 返回并删除最后添加的元素（LIFO） */
+	/** 返回并删除最后添加的元素，后进先出（LIFO） */
 	function pop() returns T
 		let top = dummy.prev
 		T result = null
@@ -106,7 +105,7 @@ public class LinkedList<T>
 			removeEntry(top)
 		return result
 
-	/** Returns the lastly added Element */
+	/**返回最后添加的元素 */
 	function peek() returns T
 		return dummy.prev.elem
 
@@ -133,8 +132,8 @@ public class LinkedList<T>
 		size--
 		return res
 
-	/** Removes the first occurence of t from this list.
-		Returns true if an element was removed from the list. */
+	/**从列表中删除第一个？出现的元素。
+	如果从列表中删除了元素，则返回true*/
 	function remove(T elem) returns bool
 		var result = false
 		var entry = dummy.next

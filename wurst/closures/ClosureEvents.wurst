@@ -7,18 +7,17 @@ import HashMap
 import ErrorHandling
 
 
-/** Use this chat event if you want to access the entered message */
+/**如果要访问输入的信息，请使用此聊天事件*/
 public constant EVENT_PLAYER_CHAT_FILTER = ConvertPlayerEvent(96)
 
-/** Configure this function if you want some logic to prevent events being
-	fired for specific units */
+/**如果需要一些逻辑来防止事件发生，请为特定单位配置此函数*/
 @configurable function fireEvents(unit _u) returns boolean
 	return true
 
 
 
 public abstract class OnCastListener
- 	OnCastListener next = null
+	OnCastListener next = null
 	OnCastListener prev = null
 	int abilId
 	unit eventUnit = null

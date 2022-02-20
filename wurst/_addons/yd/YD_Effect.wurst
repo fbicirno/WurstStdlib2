@@ -1,16 +1,30 @@
 package YD_Effect
 import NoWurst
+import Annotations
 
+/**获取特效的坐标X值*/
 @ifNotDefined public native EXGetEffectX       (effect e) returns real
+/**获取特效的坐标Y值*/
 @ifNotDefined public native EXGetEffectY       (effect e) returns real
+/**获取特效的坐标Z值*/
 @ifNotDefined public native EXGetEffectZ       (effect e) returns real
+/**设置特效的坐标XY值*/
 @ifNotDefined public native EXSetEffectXY      (effect e, real x, real y)
+/**设置特效坐标的Z值*/
 @ifNotDefined public native EXSetEffectZ       (effect e, real z)
+/**获取特效的大小*/
 @ifNotDefined public native EXGetEffectSize    (effect e) returns real
+/**设置特效的大小*/
 @ifNotDefined public native EXSetEffectSize    (effect e, real size)
+/**特效围绕X轴旋转*/
 @ifNotDefined public native EXEffectMatRotateX (effect e, real angle)
+/**特效围绕Y轴旋转*/
 @ifNotDefined public native EXEffectMatRotateY (effect e, real angle)
+/**特效围绕Z轴旋转*/
 @ifNotDefined public native EXEffectMatRotateZ (effect e, real angle)
+/**分别设置特效XYZ缩放*/
 @ifNotDefined public native EXEffectMatScale   (effect e, real x, real y, real z)
+/**重置特效为初始状态*/
 @ifNotDefined public native EXEffectMatReset   (effect e)
+/**设置特效动画速度*/
 @ifNotDefined public native EXSetEffectSpeed   (effect e, real speed)

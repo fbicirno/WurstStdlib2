@@ -197,187 +197,303 @@ public constant OSKEY_NONAME                         = oskeytype(0xFC)
 public constant OSKEY_PA1                            = oskeytype(0xFD)
 public constant OSKEY_OEM_CLEAR                      = oskeytype(0xFE)
 
-
-// hardware
+// 硬件
+/**获取鼠标在游戏内的坐标X*/
 @ifNotDefined public native DzGetMouseTerrainX () returns real
+/**获取鼠标在游戏内的坐标y*/
 @ifNotDefined public native DzGetMouseTerrainY () returns real
+/**获取鼠标在游戏内的坐标z*/
 @ifNotDefined public native DzGetMouseTerrainZ () returns real
+/**鼠标是否在游戏内*/
 @ifNotDefined public native DzIsMouseOverUI () returns bool
+/**获取鼠标在屏幕的坐标X*/
 @ifNotDefined public native DzGetMouseX () returns int
+/**获取鼠标在屏幕的坐标Y*/
 @ifNotDefined public native DzGetMouseY () returns int
+/**获取鼠标在游戏控件坐标X*/
 @ifNotDefined public native DzGetMouseXRelative () returns int
+/**获取鼠标在游戏控件坐标Y*/
 @ifNotDefined public native DzGetMouseYRelative () returns int
+/**设置鼠标的坐标*/
 @ifNotDefined public native DzSetMousePos (int x, int y)
+/**触发注册鼠标点击事件（sync为true时，调用TriggerExecute。为false时，直接运行action函数，可以异步不掉线，action里不要有同步操作）*/
 @ifNotDefined public native DzTriggerRegisterMouseEvent (trigger trig, int btn, int status, bool sync, string func)
+/**通过code注册鼠标点击事件（sync为true时，调用TriggerExecute。为false时，直接运行action函数，可以异步不掉线，action里不要有同步操作）*/
 @ifNotDefined public native DzTriggerRegisterMouseEventByCode (trigger trig, int btn, int status, bool sync, code funcHandle)
+/**触发注册键盘点击事件*/
 @ifNotDefined public native DzTriggerRegisterKeyEvent (trigger trig, int key, int status, bool sync, string func)
+/**通过code注册按键事件*/
 @ifNotDefined public native DzTriggerRegisterKeyEventByCode (trigger trig, int key, int status, bool sync, code funcHandle)
+/**触发注册鼠标滚轮事件*/
 @ifNotDefined public native DzTriggerRegisterMouseWheelEvent (trigger trig, bool sync, string func)
+/**通过code注册鼠标滚轮事件*/
 @ifNotDefined public native DzTriggerRegisterMouseWheelEventByCode (trigger trig, bool sync, code funcHandle)
+/**注册鼠标移动事件*/
 @ifNotDefined public native DzTriggerRegisterMouseMoveEvent (trigger trig, bool sync, string func)
+/**通过code注册鼠标移动事件*/
 @ifNotDefined public native DzTriggerRegisterMouseMoveEventByCode (trigger trig, bool sync, code funcHandle)
+/**获取触发器的按键码*/
 @ifNotDefined public native DzGetTriggerKey () returns int
+/**获取滚轮delta*/
 @ifNotDefined public native DzGetWheelDelta () returns int
+/**判断按键是否按下*/
 @ifNotDefined public native DzIsKeyDown (int iKey) returns bool
+/**获取触发key的玩家*/
 @ifNotDefined public native DzGetTriggerKeyPlayer () returns player
+/**获取war3控件宽度*/
 @ifNotDefined public native DzGetWindowWidth () returns int
+/**获取war3控件高度*/
 @ifNotDefined public native DzGetWindowHeight () returns int
+/**获取war3控件X坐标*/
 @ifNotDefined public native DzGetWindowX () returns int
+/**获取war3控件Y坐标*/
 @ifNotDefined public native DzGetWindowY () returns int
+/**注册war3控件大小变化事件*/
 @ifNotDefined public native DzTriggerRegisterWindowResizeEvent (trigger trig, bool sync, string func)
+/**通过code注册war3控件大小变化事件*/
 @ifNotDefined public native DzTriggerRegisterWindowResizeEventByCode (trigger trig, bool sync, code funcHandle)
+/**判断控件是否激活*/
 @ifNotDefined public native DzIsWindowActive () returns bool
+
 // plus
+/**设置可摧毁物位置*/
 @ifNotDefined public native DzDestructablePosition (destructable d, real x, real y)
+/**设置单位位置-本地调用*/
 @ifNotDefined public native DzSetUnitPosition (unit whichUnit, real x, real y)
+/**异步执行函数*/
 @ifNotDefined public native DzExecuteFunc (string funcName)
+/**获取鼠标指向的单位*/
 @ifNotDefined public native DzGetUnitUnderMouse () returns unit
+/**设置单位的贴图*/
 @ifNotDefined public native DzSetUnitTexture (unit whichUnit, string path, int texId)
+/**设置内存大小（废物函数）*/
 @ifNotDefined public native DzSetMemory (int address, real value)
+/**替换单位类型 [BZAPI]*/
 @ifNotDefined public native DzSetUnitID (unit whichUnit, int id)
+/**替换单位模型 [BZAPI]*/
 @ifNotDefined public native DzSetUnitModel (unit whichUnit, string path)
+/**原生 - 设置小地图背景贴图*/
 @ifNotDefined public native DzSetWar3MapMap (string map)
+/**获取语言环境*/
 @ifNotDefined public native DzGetLocale () returns string
+/**获取单位需要的xp*/
 @ifNotDefined public native DzGetUnitNeededXP (unit whichUnit, int level) returns int
+
 // sync
+/**注册数据同步触发器*/
 @ifNotDefined public native DzTriggerRegisterSyncData (trigger trig, string prefix, bool server)
+/**同步游戏数据*/
 @ifNotDefined public native DzSyncData (string prefix, string data)
+/**获取同步的数据*/
 @ifNotDefined public native DzGetTriggerSyncData () returns string
+/**获取同步数据的玩家*/
 @ifNotDefined public native DzGetTriggerSyncPlayer () returns player
-// gui
+
+// GUI
+/**隐藏界面元素*/
 @ifNotDefined public native DzFrameHideInterface ()
+/**修改游戏世界控件位置*/
 @ifNotDefined public native DzFrameEditBlackBorders (real upperHeight, real bottomHeight)
+/**获取头像*/
 @ifNotDefined public native DzFrameGetPortrait () returns int
+/**获取小地图*/
 @ifNotDefined public native DzFrameGetMinimap () returns int
+/**获取技能按钮*/
 @ifNotDefined public native DzFrameGetCommandBarButton (int row, int column) returns int
+/**获取英雄按钮*/
 @ifNotDefined public native DzFrameGetHeroBarButton (int buttonId) returns int
+/**获取英雄血条*/
 @ifNotDefined public native DzFrameGetHeroHPBar (int buttonId) returns int
+/**获取英雄蓝条*/
 @ifNotDefined public native DzFrameGetHeroManaBar (int buttonId) returns int
+/**获取物品栏按钮*/
 @ifNotDefined public native DzFrameGetItemBarButton (int buttonId) returns int
+/**获取小地图按钮*/
 @ifNotDefined public native DzFrameGetMinimapButton (int buttonId) returns int
+/**获取上方菜单按钮*/
 @ifNotDefined public native DzFrameGetUpperButtonBarButton (int buttonId) returns int
+/**获取鼠标提示*/
 @ifNotDefined public native DzFrameGetTooltip () returns int
+/**获取聊天信息*/
 @ifNotDefined public native DzFrameGetChatMessage () returns int
+/**获取单位信息*/
 @ifNotDefined public native DzFrameGetUnitMessage () returns int
+/**获取顶置的信息*/
 @ifNotDefined public native DzFrameGetTopMessage () returns int
+/**获取RGBA颜色值*/
 @ifNotDefined public native DzGetColor (int r, int g, int b, int a) returns int
+/**设置界面更新回调（非同步）*/
 @ifNotDefined public native DzFrameSetUpdateCallback (string func)
+/**界面更新回调*/
 @ifNotDefined public native DzFrameSetUpdateCallbackByCode (code funcHandle)
+/**显示/隐藏控件*/
 @ifNotDefined public native DzFrameShow (int frame, bool enable)
+/**创建控件*/
 @ifNotDefined public native DzCreateFrame (string frame, int parent, int id) returns int
+/**创建简单的控件*/
 @ifNotDefined public native DzCreateSimpleFrame (string frame, int parent, int id) returns int
+/**销毁控件*/
 @ifNotDefined public native DzDestroyFrame (int frame)
+/**加载Toc文件*/
 @ifNotDefined public native DzLoadToc (string fileName)
+/**设置控件相对位置 [0:左上|1:上|2:右上|3:左|4:中|5:右|6:左下|7:下|8:右下]*/
 @ifNotDefined public native DzFrameSetPoint (int frame, int point, int relativeFrame, int relativePoint, real x, real y)
+/**设置控件绝对位置*/
 @ifNotDefined public native DzFrameSetAbsolutePoint (int frame, int point, real x, real y)
+/**清空控件锚点*/
 @ifNotDefined public native DzFrameClearAllPoints (int frame)
+/**设置控件禁用/启用*/
 @ifNotDefined public native DzFrameSetEnable (int name, bool enable)
+/**设置窗体禁用/启用*/
 @ifNotDefined public native DzFrameSetScript (int frame, int eventId, string func, bool sync)
+/**注册UI事件回调(func handle)*/
 @ifNotDefined public native DzFrameSetScriptByCode (int frame, int eventId, code funcHandle, bool sync)
+/**获取触发用户界面事件的玩家*/
 @ifNotDefined public native DzGetTriggerUIEventPlayer () returns player
+/**获取触发用户界面事件的控件*/
 @ifNotDefined public native DzGetTriggerUIEventFrame () returns int
+/**通过名称查找控件*/
 @ifNotDefined public native DzFrameFindByName (string name, int id) returns int
+/**通过名称查找普通控件*/
 @ifNotDefined public native DzSimpleFrameFindByName (string name, int id) returns int
+/**通过名字查找字体字符串*/
 @ifNotDefined public native DzSimpleFontStringFindByName (string name, int id) returns int
+/**通过名字查找BACKDROP frame*/
 @ifNotDefined public native DzSimpleTextureFindByName (string name, int id) returns int
+/**获取游戏用户界面*/
 @ifNotDefined public native DzGetGameUI () returns int
+/**点击控件*/
 @ifNotDefined public native DzClickFrame (int frame)
+/**自定义屏幕Fov比例*/
 @ifNotDefined public native DzSetCustomFovFix (real value)
+/**使用宽屏模式*/
 @ifNotDefined public native DzEnableWideScreen (bool enable)
+/**设置文字（支持EditBox, TextFrame, TextArea, SimpleFontString、GlueEditBoxWar3、SlashChatBox、TimerTextFrame、TextButtonFrame、GlueTextButton）*/
 @ifNotDefined public native DzFrameSetText (int frame, string text)
+/**获取文字（支持EditBox, TextFrame, TextArea, SimpleFontString）*/
 @ifNotDefined public native DzFrameGetText (int frame) returns string
+/**设置字数限制（支持EditBox）*/
 @ifNotDefined public native DzFrameSetTextSizeLimit (int frame, int size)
+/**获取字数限制（支持EditBox）*/
 @ifNotDefined public native DzFrameGetTextSizeLimit (int frame) returns int
+/**设置文字颜色（支持TextFrame, EditBox）*/
 @ifNotDefined public native DzFrameSetTextColor (int frame, int color)
+/**获取鼠标所在位置的用户界面控件(伪全屏获取不到，设置改建后获取不到，移动快了获取不到手动点才刷新，不好用的话用坐标判断)*/
 @ifNotDefined public native DzGetMouseFocus () returns int
+/**设置所有锚点到目标控件上*/
 @ifNotDefined public native DzFrameSetAllPoints (int frame, int relativeFrame) returns bool
+/**设置焦点*/
 @ifNotDefined public native DzFrameSetFocus (int frame, bool enable) returns bool
+/**设置模型（支持Sprite、Model、StatusBar）*/
 @ifNotDefined public native DzFrameSetModel (int frame, string modelFile, int modelType, int flag)
+/**获取控件是否启用*/
 @ifNotDefined public native DzFrameGetEnable (int frame) returns bool
+/**设置控件透明度（0-255）*/
 @ifNotDefined public native DzFrameSetAlpha (int frame, int alpha)
+/**获取控件透明度（0-255）*/
 @ifNotDefined public native DzFrameGetAlpha (int frame) returns int
+/**设置控件动画*/
 @ifNotDefined public native DzFrameSetAnimate (int frame, int animId, bool autocast)
+/**设置控件动画进度（autocast为false是可用）*/
 @ifNotDefined public native DzFrameSetAnimateOffset (int frame, real offset)
+/**设置控件texture（支持Backdrop、SimpleStatusBar）*/
 @ifNotDefined public native DzFrameSetTexture (int frame, string texture, int flag)
+/**设置控件缩放*/
 @ifNotDefined public native DzFrameSetScale (int frame, real scale)
+/**设置控件提示*/
 @ifNotDefined public native DzFrameSetTooltip (int frame, int tooltip)
+/**鼠标限制在控件内*/
 @ifNotDefined public native DzFrameCageMouse (int frame, bool enable)
+/**获取控件当前值（支持Slider、SimpleStatusBar、StatusBar）*/
 @ifNotDefined public native DzFrameGetValue (int frame) returns real
+/**设置控件最大最小值（支持Slider、SimpleStatusBar、StatusBar）*/
 @ifNotDefined public native DzFrameSetMinMaxValue (int frame, real minValue, real maxValue)
+/**设置控件Step值（支持Slider）*/
 @ifNotDefined public native DzFrameSetStepValue (int frame, real val)
+/**设置控件当前值（支持Slider、SimpleStatusBar、StatusBar）*/
 @ifNotDefined public native DzFrameSetValue (int frame, real value)
+/**设置控件大小*/
 @ifNotDefined public native DzFrameSetSize (int frame, real w, real h)
+/**根据tag创建控件*/
 @ifNotDefined public native DzCreateFrameByTagName (string frameType, string name, int parent, string template, int id) returns int
+/**设置控件颜色（支持SimpleStatusBar）*/
 @ifNotDefined public native DzFrameSetVertexColor (int frame, int color)
+/**原生界面控件自动复位*/
 @ifNotDefined public native DzOriginalUIAutoResetPoint (bool enable)
+/**设置控件优先级 [NEW]*/
 @ifNotDefined public native DzFrameSetPriority (int frame, int priority)
+/**设置控件父控件 [NEW]*/
 @ifNotDefined public native DzFrameSetParent (int frame, int parent)
+/** 获取控件的高度 [NEW]*/
 @ifNotDefined public native DzFrameGetHeight (int frame) returns real
+/**设置控件字体 [NEW]*/
 @ifNotDefined public native DzFrameSetFont (int frame, string fileName, real height, int flag)
+/**获取控件的父控件 [NEW]*/
 @ifNotDefined public native DzFrameGetParent (int frame) returns int
+/**设置文本控件的对齐方式 [NEW]*/
 @ifNotDefined public native DzFrameSetTextAlignment (int frame, int align)
+/**获取控件名字*/
 @ifNotDefined public native DzFrameGetName (int frame) returns string
-
-
+/**注册鼠标点击事件（sync为true时，调用TriggerExecute。为false时，直接运行action函数，可以异步不掉线，action里不要有同步操作）*/
 @ifNotDefined public function DzTriggerRegisterMouseEventTrg ( trigger trg, integer status, integer btn ) 
     if trg == null 
         return
     
     DzTriggerRegisterMouseEvent(trg, btn, status, true, "")
 
-
+/**注册键盘点击事件*/
 @ifNotDefined public function DzTriggerRegisterKeyEventTrg ( trigger trg, integer status, integer btn ) 
     if trg == null 
         return
     
     DzTriggerRegisterKeyEvent(trg, btn, status, true, null)
 
-
+/**注册鼠标移动事件*/
 @ifNotDefined public function DzTriggerRegisterMouseMoveEventTrg ( trigger trg ) 
     if trg == null 
         return
     
     DzTriggerRegisterMouseMoveEvent(trg, true, null)
 
-
+/**注册鼠标滚轮事件*/
 @ifNotDefined public function DzTriggerRegisterMouseWheelEventTrg ( trigger trg ) 
     if trg == null 
         return
     
     DzTriggerRegisterMouseWheelEvent(trg, true, null)
 
-
+/**注册war3窗口大小变化事件*/
 @ifNotDefined public function DzTriggerRegisterWindowResizeEventTrg ( trigger trg ) 
     if trg == null 
         return
     
     DzTriggerRegisterWindowResizeEvent(trg, true, null)
 
-
+/**转换控件为整数*/
 @ifNotDefined public function DzF2I ( integer i ) returns integer
     return i
 
-
+/**转换整数为控件*/
 @ifNotDefined public function DzI2F ( integer i ) returns integer
     return i
 
-
+/**转换按键为整数*/
 @ifNotDefined public function DzK2I ( integer i ) returns integer
     return i
 
-
+/**转换整数为按键*/
 @ifNotDefined public function DzI2K ( integer i ) returns integer
     return i
 
-
+/**注册数据同步触发器*/
 @ifNotDefined public function DzTriggerRegisterMallItemSyncData ( trigger trig ) 
     DzTriggerRegisterSyncData(trig, "DZMIA", true)
 
-
+/**获取同步数据的玩家*/
 @ifNotDefined public function DzGetTriggerMallItemPlayer (  ) returns player
     return DzGetTriggerSyncPlayer()
 
-
+/**获取同步的数据*/
 @ifNotDefined public function DzGetTriggerMallItem (  ) returns string
     return DzGetTriggerSyncData()
 

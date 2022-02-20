@@ -6,7 +6,7 @@ import Boolean
 import Annotations
 // Wurst unit testing library
 
-/** Functions annotated with @test can be executed as unit tests. */
+/**用@test注释的函数可以作为单元测试执行*/
 @annotation public function test()
 
 @deprecated("Use 'println' instead")

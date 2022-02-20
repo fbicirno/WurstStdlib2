@@ -1,17 +1,17 @@
 package Reference
 /**
-	A simple wrapper class which contains a reference to a value of the given type.
-	The main usage is to wrap primitives to modify them inside closures.
+	一个简单的包装类，其中包含对给定类型值的引用。
+主要用途是包装原语以在闭包内修改它们。
 
 	> function limited_sum(LinkedList someList) returns real
 	> 	let dist_ref = new Reference(0.)
 	> 	someList.for_each() (real elem) ->
 	> 		if dist_ref.val < 500
 	> 			dist_ref.val += elem
-	> 	// Destroy the reference and use the contained value.
+	> 	//销毁引用并使用包含的值。
 	> 	return dist_ref.into()
 
-	Make sure to destroy references if you don't need them anymore.
+	如果不再需要引用，请确保销毁引用。
 */
 
 public class Reference<T:>
@@ -20,7 +20,7 @@ public class Reference<T:>
 	construct(T val)
 		this.val = val
 
-	/** Consumes the reference, destroying it and returning the contained value. */
+	/**使用引用，销毁它并返回包含的值。 */
 	function into() returns T
 		let val = this.val
 		destroy this

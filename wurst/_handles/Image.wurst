@@ -24,7 +24,7 @@ public enum ImageLayer
 	L2
 	L4
 
-/** Create an image at the target location, the Image has to be a blp, with transparent borders */
+/**在目标位置创建图像，图像必须是具有透明边框的blp.设置永久渲染才会显示图像*/
 public function createImage(string path, vec2 pos, real sizeX, real sizeY) returns image
 	return CreateImage(path, sizeX, sizeY, 0, pos.x, pos.y, 0, sizeX / 2, sizeY / 2, 0, 1)
 
@@ -32,51 +32,51 @@ public function createImage(string path, vec2 pos, real sizeX, real sizeY) retur
 public function createImage(string path, vec2 pos, real sizeX, real sizeY, Layer layer) returns image
 	return CreateImage(path, sizeX, sizeY, 0, pos.x, pos.y, 0, sizeX / 2, sizeY / 2, 0, layer castTo int + 1)
 
-/** Create an image at the target location, the Image has to be a blp, with transparent borders.
-The layer specifies which image overlaps another: Level 1 is always on the top, and level 4 always in the background. Use the enums "ImageLayer.LX" */
+/**在目标位置创建图像，并设置层级.图像必须是具有透明边框的blp。设置永久渲染才会显示图像
+层级定哪个图像与另一图像重叠：层级1始终位于顶部，层级4始终位于背景中。使用枚举ImageLayer.L${x}*/
 public function createImage(string path, vec2 pos, real sizeX, real sizeY, ImageLayer layer) returns image
 	return CreateImage(path, sizeX, sizeY, 0, pos.x, pos.y, 0, sizeX / 2, sizeY / 2, 0, layer castTo int + 1)
 
-/** Shows the image */
+/** 永久渲染图像 */
 public function image.show()
 	SetImageRenderAlways(this, true)
 
-/** Hides the image */
+/**隐藏图像*/
 public function image.hide()
 	SetImageRenderAlways(this, false)
 
-/** Shows the image for a specific player  */
+/** 对指定玩家显示图像  */
 public function image.showForPlayer(player p)
 	if localPlayer == p
 		SetImageRenderAlways(this, true)
 
-/** Hides the image for a specific player */
+/** 对指定玩家隐藏图像 */
 public function image.hideForPlayer(player p)
 	if localPlayer == p
 		SetImageRenderAlways(this, false)
 
-/** Set the image 2D position */
+/** 设置图像Vec2位置 */
 public function image.setPos(vec2 pos)
 	SetImagePosition(this, pos.x, pos.y, 0)
 
-/** Set the image 3D position */
+/** 设置图像Vec3位置 */
 public function image.setPos(vec3 pos)
 	SetImagePosition(this, pos.x, pos.y, 0)
 	SetImageConstantHeight(this, true, pos.z)
 
-/** Set the image height */
+/** 设置图像高度 */
 public function image.setHeight(real z)
 	SetImageConstantHeight(this, true, z)
 
-/** Wrap the image on the terrain */
+/** 设置图像高度为0(在地面上) */
 public function image.wrap()
 	SetImageConstantHeight(this, false, 0)
 
-/** Set the image color by using the colorA tuple */
+/**使用colorA元组设置图像颜色及透明度*/
 public function image.setColor(colorA col)
 	SetImageColor(this, col.red, col.green, col.blue, col.alpha)
 
-/** Set the image color by using the color tuple */
+/**使用color元组设置图像颜色*/
 public function image.setColor(color col)
 	SetImageColor(this, col.red, col.green, col.blue, 255)
 
@@ -84,13 +84,13 @@ public function image.setColor(color col)
 public function image.setLevel(Layer layer)
 	SetImageType(this, layer castTo int + 1)
 
-/** Set the image layer (use the constants) */
+/** 改变图像的类型并设置层级 */
 public function image.setLevel(ImageLayer layer)
 	SetImageType(this, layer castTo int + 1)
 
-/** Destroy the image */
+/** 销毁图像 */
 public function image.remove()
 	if this == null
-		error("Nullpointer exeption by destroying an image")
+		error("销毁图像空指针，不存在该图像")
 	DestroyImage(this)
 

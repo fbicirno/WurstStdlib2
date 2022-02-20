@@ -1,36 +1,76 @@
 package Fogmodifier
 import NoWurst
 import Vectors
-
+/**新建-可见的(圆范围)可见度修正器
+新建的${玩家forWhichPlayer}
+可见度修正器.可见度:${whichState}
+圆心坐标:(${vec2.X},${vec2.Y})
+半径:${数值radius}
+(对盟友${共享useSharedVision}视野${覆盖afterUnits}单位视野)*/
 public function createFogModifier(player forWhichPlayer, fogstate whichState, vec2 center, real radius, bool useSharedVision, bool afterUnits) returns fogmodifier
 	return CreateFogModifierRadius(forWhichPlayer, whichState, center.x, center.y, radius, useSharedVision, afterUnits)
 
+/**新建-黑色阴影(圆范围)可见度修正器.可见度:FOG_OF_WAR_MASKED
+新建的${玩家forWhichPlayer}
+圆心坐标:(${vec2.X},${vec2.Y})
+半径:${数值radius}
+(对盟友${共享useSharedVision}视野${覆盖afterUnits}单位视野)*/
 public function createBlackMask(player forWhichPlayer, vec2 center, real radius, bool useSharedVision, bool afterUnits) returns fogmodifier
 	return CreateFogModifierRadius(forWhichPlayer, FOG_OF_WAR_MASKED, center.x, center.y, radius, useSharedVision, afterUnits)
 
+/**新建-战争迷雾(圆范围)可见度修正器.可见度:FOG_OF_WAR_FOGGED
+新建的${玩家forWhichPlayer}
+圆心坐标:(${vec2.X},${vec2.Y})
+半径:${数值radius}
+(对盟友${共享useSharedVision}视野${覆盖afterUnits}单位视野)*/
 public function createFogOfWar(player forWhichPlayer, vec2 center, real radius, bool useSharedVision, bool afterUnits) returns fogmodifier
 	return CreateFogModifierRadius(forWhichPlayer, FOG_OF_WAR_FOGGED, center.x, center.y, radius, useSharedVision, afterUnits)
-/** 给玩家创建一个Vec2可见度修正器 */
+
+/** 新建-可见的(圆范围)可见度修正器 可见度修正器.可见度:FOG_OF_WAR_VISIBLE
+新建的${玩家forWhichPlayer}
+圆心坐标:(${vec2.X},${vec2.Y})
+半径:${数值radius}
+(对盟友${共享useSharedVision}视野)*/
 public function createVision(player forWhichPlayer, vec2 center, real radius, bool useSharedVision) returns fogmodifier
 	return CreateFogModifierRadius(forWhichPlayer, FOG_OF_WAR_VISIBLE, center.x, center.y, radius, useSharedVision, false)
 
+/**新建-可见度修正器(矩形区域)[R]
+新建的${玩家forWhichPlayer}
+可见度修正器.可见度:${whichState}
+影响区域:${矩形区域where}
+(对盟友${共享useSharedVision}视野,${覆盖afterUnits}单位视野)*/
 public function createFogModifier(player forWhichPlayer, fogstate whichState, rect where, bool useSharedVision, bool afterUnits) returns fogmodifier
 	return CreateFogModifierRect(forWhichPlayer, whichState, where, useSharedVision, afterUnits)
 
+/**新建-黑色阴影可见度修正器(矩形区域)[R] 可见度:FOG_OF_WAR_MASKED
+新建的${玩家forWhichPlayer}
+影响区域:${矩形区域where}
+(对盟友${共享useSharedVision}视野,${覆盖afterUnits}单位视野)*/
 public function createBlackMask(player forWhichPlayer, rect where, bool useSharedVision, bool afterUnits) returns fogmodifier
 	return CreateFogModifierRect(forWhichPlayer, FOG_OF_WAR_MASKED, where, useSharedVision, afterUnits)
 
+/**新建-战争迷雾可见度修正器(矩形区域)[R] 可见度:FOG_OF_WAR_FOGGED
+新建的${玩家forWhichPlayer}可见度修正器.
+影响区域:${矩形区域where}
+(对盟友${共享useSharedVision}视野,${覆盖afterUnits}单位视野)*/
 public function createFogOfWar(player forWhichPlayer, rect where, bool useSharedVision, bool afterUnits) returns fogmodifier
 	return CreateFogModifierRect(forWhichPlayer, FOG_OF_WAR_FOGGED, where, useSharedVision, afterUnits)
-/** 给玩家创建一个矩形可见度修正器 */
+
+/**新建可见度修正器(矩形区域) 可见度:FOG_OF_WAR_VISIBLE
+新建的${玩家forWhichPlayer}可见度修正器.
+影响区域:${矩形区域where}
+(对盟友${共享useSharedVision}视野*/
 public function createVision(player forWhichPlayer, rect where, bool useSharedVision) returns fogmodifier
 	return CreateFogModifierRect(forWhichPlayer, FOG_OF_WAR_VISIBLE, where, useSharedVision, false)
 
+/**删除可见度修正器*/
 public function fogmodifier.destr()
 	DestroyFogModifier(this)
 
+/**启用可见度修正器*/
 public function fogmodifier.start()
 	FogModifierStart(this)
 
+/**禁用可见度修正器*/
 public function fogmodifier.stop()
 	FogModifierStop(this)

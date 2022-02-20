@@ -3,38 +3,38 @@ import NoWurst
 
 // Meta-annotation:
 
-/** This annotation allows this function to be used as an annotation. */
+/**此注解允许将此函数用作注解*/
 @annotation public function annotation()
 
 // built-in annotations
 
-/** This annotation means that this function will be executed when the map is compiled. */
+/**这个注解的意思是这个函数会在map编译的时候执行。 */
 @annotation public function compiletime()
 
-/** This annotation means that this function should no longer be used. */
+/**这个注解意味着不再使用这个函数。 */
 @annotation public function deprecated()
 
-/** This annotation means that this function should no longer be used.
-    The corresponding message is a hint for which function to use instead. */
+/**这个注解意味着不再使用这个函数。
+    相应的消息是要使用哪个函数的提示。 */
 @annotation public function deprecated(string _message)
 
-/** Functions annotated with @compiletimenative are natives that are only available at compiletime, but not ingame.  */
+/**用@compiletimenative 注解的函数是本地函数，只在编译时可用，在游戏中不可用。 */
 @annotation public function compiletimenative()
 
-/** Elements annotated with @configurable can be configured (i.e. replaced by a different implementation) in configuration packages.  */
+/**用@configurable 注解的元素可以在配置包中配置（即被替换为不同的实现）。 */
 @annotation public function configurable()
 
-/** Functions annotated with @inline will have a higher priority of being inlined by the optimizer. */
+/**用@inline 注解的函数将有更高的优先级被优化器内联。 */
 @annotation public function inline()
 
-/** Functions annotated with @inline will have a lower priority of being inlined by the optimizer. */
+/**用@inline 注解的函数被优化器内联的优先级较低。 */
 @annotation public function noinline()
 
-/** Elements annotated with @config configure an element in the correspoding package (i.e. replaced by a different implementation).  */
+/**用@config 注解的元素在相应的包中配置一个元素（即替换不同的实现）。 */
 @annotation public function config()
 
-/** Functions annotated with @extern are assumed to be defined in external sources and are thus not included in the compilation output. */
+/**用@extern 注解的函数被假定在外部源中定义，因此不包含在编译输出中。 */
 @annotation public function extern()
 
-/** Functions annotated with @ifNotDefined are only output into the mapscript if they don't already exist. */
+/**用@ifNotDefined 注解的函数只有在它们不存在时才会输出到mapscript 中。 */
 @annotation public function ifnotdefined()

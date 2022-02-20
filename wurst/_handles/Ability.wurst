@@ -14,38 +14,44 @@ function createAbility(int abilCode) returns ability
 	let result = EXGetUnitAbility(dummy, abilCode)
 	dummy.removeAbility(abilCode)
 	return result
+/** 设置-文本-名字[月光] */
+public function setAbilityName(int abilCode, string name, int level)
+	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_NAME, name)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-普通 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function setAbilityTooltip(int abilCode, string tooltip, int level)
 	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_TIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-关闭 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function setAbilityActivatedTooltip(int abilCode, string tooltip, int level)
 	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_UNTIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-普通-拓展Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function setAbilityExtendedTooltip(int abilCode, string tooltip, int level)
 	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_UBERTIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-关闭-拓展Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function setAbilityActivatedExtendedTooltip(int abilCode, string tooltip, int level)
 	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_UNUBERTIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-文本-提示工具-学习Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function setAbilityResearchTooltip(int abilCode, string tooltip, int level)
 	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_RESEARCH_TIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-文本-提示工具-学习-拓展Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function setAbilityResearchExtendedTooltip(int abilCode, string tooltip, int level)
 	EXSetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_RESEARCH_UBERTIP, tooltip)
-
+/**设置-显示-图标-关闭*/
 public function setAbilityActivatedIcon(int abilCode, string iconPath)
 	EXSetAbilityDataString(createAbility(abilCode), 1, ABILITY_DATA_UNART, iconPath)
-
+/**设置-显示-图标-普通*/
 public function setAbilityIcon(int abilCode, string iconPath)
 	EXSetAbilityDataString(createAbility(abilCode), 1, ABILITY_DATA_ART, iconPath)
-
+/**设置-等级-状态-魔法施放时间间隔*/
 public function setAbilityCooldown(int abilCode, real val, int level)
+	EXSetAbilityDataReal(createAbility(abilCode), level, ABILITY_DATA_COOL,val)
+/**设置-等级1-状态-魔法施放时间间隔*/
+public function setAbilityCooldown(int abilCode, real val)
 	EXSetAbilityDataReal(createAbility(abilCode), 1, ABILITY_DATA_COOL,val)
 
 /** 技能ID——设置技能数据整数(JAPI)*/
@@ -71,48 +77,53 @@ public function int.setAbilityString ( integer level, integer data_type, string 
 
 // public function setAbilityActivatedPosY(int abilCode, int y)
 // 	BlzSetAbilityActivatedPosY(abilCode, y)
+/** 设置-文本-名字[月光] */
+public function player.setAbilityName(int abilCode, string name, int level)
+	let abil = createAbility(abilCode)
+	if localPlayer == this
+		EXSetAbilityDataString(abil, level, ABILITY_DATA_NAME, name)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-普通 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function player.setAbilityTooltip(int abilCode, string tooltip, int level)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, level, ABILITY_DATA_TIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-关闭 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function player.setAbilityActivatedTooltip(int abilCode, string tooltip, int level)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, level, ABILITY_DATA_UNTIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-普通-拓展 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function player.setAbilityExtendedTooltip(int abilCode, string tooltip, int level)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, level, ABILITY_DATA_UBERTIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-关闭-拓展Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function player.setAbilityActivatedExtendedTooltip(int abilCode, string tooltip, int level)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, level, ABILITY_DATA_UNUBERTIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-文本-提示工具-学习Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function player.setAbilityResearchTooltip(int abilCode, string tooltip, int level)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, level, ABILITY_DATA_RESEARCH_TIP, tooltip)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 设置-等级-文本-提示工具-关闭-拓展Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function player.setAbilityResearchExtendedTooltip(int abilCode, string tooltip, int level)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, level, ABILITY_DATA_RESEARCH_UBERTIP, tooltip)
-
+/** 设置-显示-图标-关闭 */
 public function player.setAbilityActivatedIcon(int abilCode, string iconPath)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
 		EXSetAbilityDataString(abil, 1, ABILITY_DATA_UNART, iconPath)
-
+/** 设置-显示-图标-普通 */
 public function player.setAbilityIcon(int abilCode, string iconPath)
 	let abil = createAbility(abilCode)
 	if localPlayer == this
@@ -133,34 +144,37 @@ public function player.setAbilityIcon(int abilCode, string iconPath)
 // public function player.setAbilityActivatedPosY(int abilCode, int y)
 // 	if localPlayer == this
 // 		BlzSetAbilityActivatedPosY(abilCode, y)
+/**获取-文本-名字[月光]*/
+public function getAbilityName(int abilCode, int level) returns string
+	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_NAME)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 获取-等级-文本-提示工具-普通 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function getAbilityTooltip(int abilCode, int level) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_TIP)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 获取-等级-文本-提示工具-关闭 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function getAbilityActivatedTooltip(int abilCode, int level) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_UNTIP)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 获取-等级-文本-提示工具-普通-拓展 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function getAbilityExtendedTooltip(int abilCode, int level) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_UBERTIP)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 获取-等级-文本-提示工具-关闭-拓展 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function getAbilityActivatedExtendedTooltip(int abilCode, int level) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_UNUBERTIP)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 获取-文本-提示工具-学习 Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function getAbilityResearchTooltip(int abilCode, int level) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_RESEARCH_TIP)
 
-/** Levels are indexed, first level is 0, second is 1 e.t.c. */
+/** 获取-文本-提示工具-学习-拓展Levels are indexed, first level is 0, second is 1 e.t.c. */
 public function getAbilityResearchExtendedTooltip(int abilCode, int level) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), level, ABILITY_DATA_RESEARCH_UBERTIP)
-
+/**获取-显示-图标-普通*/
 public function getAbilityIcon(int abilCode) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), 1, ABILITY_DATA_ART)
-
+/**获取-显示-图标-关闭*/
 public function getAbilityActivatedIcon(int abilCode) returns string
 	return EXGetAbilityDataString(createAbility(abilCode), 1, ABILITY_DATA_UNART)
 
@@ -176,35 +190,38 @@ public function getAbilityActivatedIcon(int abilCode) returns string
 // public function getAbilityActivatedPosY(int abilCode) returns int
 // 	return BlzGetAbilityActivatedPosY(abilCode)
 
+/** 获取-等级-状态-魔法消耗 */
 function getAbilityManaCost(int abilId, int level) returns integer
 	return EXGetAbilityDataInteger(createAbility(abilId), level, ABILITY_DATA_COST)
-
+/** 获取-等级-状态-魔法施放时间间隔 */
 function getAbilityCooldown(int abilId, int level) returns real
 	return EXGetAbilityDataReal(createAbility(abilId), level, ABILITY_DATA_COOL)
 
 // Ability Field Getters
+/** 获取slk物编-技能的字符串数据 */
 public function getAbilityFieldStr(int abilId, string field) returns string
 	return EXExecuteScript("(require'jass.slk').ability[" + I2S(abilId) + "]." + field)
-
+/** 获取slk物编-技能的布尔值数据 */
 public function getAbilityFieldBool(int abilId, string field) returns bool
 	return EXExecuteScript("(require'jass.slk').ability[" + I2S(abilId) + "]." + field) == "1"
-
+/** 获取slk物编-技能的整数数据 */
 public function getAbilityFieldInt(int abilId, string field) returns int
 	return S2I(EXExecuteScript("(require'jass.slk').ability[" + I2S(abilId) + "]." + field))
-
+/** 获取slk物编-技能的实数数据 */
 public function getAbilityFieldReal(int abilId, string field) returns real
 	return S2R(EXExecuteScript("(require'jass.slk').ability[" + I2S(abilId) + "]." + field))
 
 // Ability Level-Field Getters
+/** 获取x等级的技能字符串数据 */
 public function getAbilityFieldStr(int abilId, string field, int level) returns string
 	return getAbilityFieldStr(abilId, field + I2S(level))
-
+/** 获取x等级的技能布尔值数据 */
 public function getAbilityFieldBool(int abilId, string field, int level) returns bool
 	return getAbilityFieldBool(abilId, field + I2S(level))
-
+/** 获取x等级的技能整数数据 */
 public function getAbilityFieldInt(int abilId, string field, int level) returns int
 	return getAbilityFieldInt(abilId, field + I2S(level))
-
+/** 获取x等级的技能实数数据 */
 public function getAbilityFieldReal(int abilId, string field, int level) returns real
 	return getAbilityFieldReal(abilId, field + I2S(level))
 

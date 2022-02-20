@@ -13,16 +13,16 @@ import ClosureTimers
 import Annotations
 import Orders
 
-/* 	Provides event API for units entering and leaving the map.
-	The event will also fire for preplaced units on the map.
+/*为进入和离开地图的单位提供事件API。
+该事件还将为地图上预先放置的单位所触发。
 
-	NOTE: Any move applied to a unit as response to an enter event
-		will fire the enter event again. */
+	注意：作为对enter事件的响应而应用于单位的任何移动
+	将再次触发enter事件*/
 
 let eventTrigger = CreateTrigger()
 let preplacedUnits = CreateGroup()
 
-/* Unit stack for nested usage */
+/*嵌套使用的单位堆栈*/
 unit array tempUnits
 var tempUnitsCount = 0
 
@@ -35,19 +35,19 @@ function popUnit()
 
 /* @API */
 
-/** Returns the unit that caused the enter/leave event to happen */
+/**获取-进入/离开事件的单位*/
 public function getEnterLeaveUnit() returns unit
 	return tempUnits[tempUnitsCount - 1]
 
-/** Adds a callback that is run when a unit enters the map */
+/**增加单位进入地图时的回调(动作)*/
 public function onEnter(code c)
 	eventTrigger.addCondition(Filter(c))
 
-/** Adds a callback that is run when a unit leaves the map */
+/**增加单位离开地图时的回调(动作)*/
 public function onLeave(code c)
 	eventTrigger.addAction(c)
 
-/* === Internals === */
+/*===内部的===*/
 constant ABILITY_ID = compiletime(ABIL_ID_GEN.next())
 
 function prepareUnit(unit u)
@@ -57,15 +57,15 @@ function prepareUnit(unit u)
 	popUnit()
 
 init
-	// Make the ability invisible to the player
+	//使该技能对玩家不可见
 	for i = 0 to bj_MAX_PLAYER_SLOTS - 1
 		players[i].setAbilityAvailable(ABILITY_ID, false)
 
 	nullTimer() ->
-		// Create the enter event
+		//创建enter事件
 		CreateTrigger()..registerEnterRegion(boundRegion, Filter(() -> prepareUnit(GetFilterUnit())))
 
-		// Create the leave event
+		//创建leave事件
 		registerPlayerUnitEvent(EVENT_PLAYER_UNIT_ISSUED_ORDER) ->
 			let leavingUnit = GetTriggerUnit()
 			if leavingUnit.getAbilityLevel(ABILITY_ID) == 0 and GetIssuedOrderId() == Orders.undefend
@@ -73,7 +73,7 @@ init
 				eventTrigger.execute()
 				popUnit()
 
-		// Process preplaced units
+		//预置单位进程
 		preplacedUnits.enumUnitsInRect(boundRect)
 		ForGroup(preplacedUnits, () -> prepareUnit(GetEnumUnit()))
 		preplacedUnits..clear()..destr()

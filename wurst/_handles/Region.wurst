@@ -1,24 +1,24 @@
 package Region
 import NoWurst
 import Vectors
-
+/**判断Vec2是否在不规则区域内*/
 public function vec2.isInRegion(region whichRegion) returns boolean
 	return IsPointInRegion(whichRegion, this.x, this.y)
-
+/**判断单位是否在不规则区域内*/
 public function unit.isInRegion(region whichRegion) returns boolean
 	return IsUnitInRegion(whichRegion, this)
-
+/**不规则区域添加矩形区域*/
 public function region.addRect(rect rct)
 	RegionAddRect(this, rct)
-
+/**不规则区域清除矩形区域*/
 public function region.clearRect(rect rct)
 	RegionClearRect(this, rct)
-
+/**不规则区域添加单元点Vec2(单元点为32*32)*/
 public function region.addCell(vec2 point)
 	RegionAddCell(this, point.x, point.y)
-
+/**不规则区域清除单元点Vec2*/
 public function region.clearCell(vec2 point)
 	RegionClearCell(this, point.x, point.y)
-
+/**删除不规则区域*/
 public function region.destr()
 	RemoveRegion(this)

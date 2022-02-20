@@ -2,15 +2,17 @@ package Weather
 import NoWurst
 import public WeatherEffects
 
-/** For some strange reason, weathereffect-variables always contain 'null' value and return '0' from GetHandleId function but they can still be used and compared. */
+/**
+新建天气效果在矩形区域
+(出于某种奇怪的原因，weathereffect变量始终包含“null”值，并从GetHandleId函数返回“0”，但它们仍然可以使用和比较)*/
 public function addWeather(rect where, int effectID) returns weathereffect
 	return AddWeatherEffect(where, effectID)
-
+/**打开天气效果*/
 public function weathereffect.enable()
 	EnableWeatherEffect(this, true)
-
+/**关闭天气效果*/
 public function weathereffect.disable()
 	EnableWeatherEffect(this, false)
-
+/**删除天气效果*/
 public function weathereffect.remove()
 	RemoveWeatherEffect(this)

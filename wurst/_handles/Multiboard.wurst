@@ -5,176 +5,177 @@ import Colors
 import Player
 import Annotations
 import ErrorHandling
-
+/**删除多面板*/
 public function multiboard.destr()
 	DestroyMultiboard(this)
-
+/**多面板是否已显示*/
 public function multiboard.isDisplayed() returns boolean
 	return IsMultiboardDisplayed(this)
-
+/**多面板是否是最小化的*/
 public function multiboard.isMinimized() returns boolean
 	return IsMultiboardMinimized(this)
-
+/**多面板是否是最大化的*/
 public function multiboard.isMaximized() returns boolean
 	return not this.isMinimized()
-
+/**清除多面板中的行和列*/
 public function multiboard.clear()
 	MultiboardClear(this)
-
+/**显示/隐藏多面板*/
 public function multiboard.display(boolean show)
 	MultiboardDisplay(this, show)
-
+/**对指定玩家显示/隐藏多面板*/
 public function multiboard.display(player p, boolean show)
 	if localPlayer == p
 		MultiboardDisplay(this,show)
-
+/**显示多面板*/
 public function multiboard.show()
 	this.display(true)
-
+/**对指定玩家显示多面板*/
 public function multiboard.show(player p)
 	if localPlayer == p
 		this.display(true)
-
+/**隐藏多面板*/
 public function multiboard.hide()
 	this.display(false)
-
+/**对指定玩家隐藏多面板*/
 public function multiboard.hide(player p)
 	if localPlayer == p
 		this.display(false)
-
+/**获取多面板的列数*/
 public function multiboard.getColumnCount() returns int
 	return MultiboardGetColumnCount(this)
-
+/**获取多面板行和列的项目*/
 public function multiboard.getItem(int row, int column) returns multiboarditem
 	return MultiboardGetItem(this,row,column)
-
+/**获取多面的行数*/
 public function multiboard.getRowCount() returns int
 	return MultiboardGetRowCount(this)
-
+/**获取多面板标题*/
 public function multiboard.getTitleText() returns string
 	return MultiboardGetTitleText(this)
 
 @deprecated("Use .minimize() instead")
 public function multiboard.minimalize(boolean minimalize)
 	MultiboardMinimize(this, minimalize)
-
+/**多面板最小化*/
 public function multiboard.minimize()
 	MultiboardMinimize(this, true)
-
+/**指定玩家多面板最小化*/
 public function multiboard.minimize(player p)
 	if localPlayer == p
 		this.minimize()
-
+/**多面板最大化*/
 public function multiboard.maximize()
 	MultiboardMinimize(this, false)
-
+/**指定玩家多面板最大化*/
 public function multiboard.maximize(player p)
 	if localPlayer == p
 		this.maximize()
-
+/**设置多面板列数*/
 public function multiboard.setColumnCount(int count)
 	MultiboardSetColumnCount(this, count)
-
+/**设置多面板行数*/
 public function multiboard.setRowCount(int count)
 	MultiboardSetRowCount(this, count)
-
+/**设置多面板所有项目图标*/
 public function multiboard.setItemsIcon(string path)
 	MultiboardSetItemsIcon(this, path)
-
+/**设置多面板所有项目展示风格*/
 public function multiboard.setItemsStyle(boolean showValues, boolean showIcons)
 	MultiboardSetItemsStyle(this, showValues, showIcons)
-
+/**设置多面板所有项目文本*/
 public function multiboard.setItemsValue(string value)
 	MultiboardSetItemsValue(this,value)
-
+/**设置多面板所有项目颜色*/
 public function multiboard.setItemsValueColor(int r,int g, int b, int a)
 	MultiboardSetItemsValueColor(this,r,g,b,a)
-
+/**设置多面板所有项目宽度*/
 public function multiboard.setItemsWidth(real width)
 	MultiboardSetItemsWidth(this, width)
-
+/**设置多面板标题*/
 public function multiboard.setTitle(string label)
 	MultiboardSetTitleText(this, label)
-
+/**设置多面板标题颜色*/
 public function multiboard.setTitleColor(int r,int g, int b, int a)
 	MultiboardSetTitleTextColor(this, r,g,b,a)
-
+/**设置多面板标题colorA颜色*/
 public function multiboard.setTitleColor(colorA col)
 	MultiboardSetTitleTextColor(this, col.red, col.green, col.blue, col.alpha)
-
+/**设置多面板指定行列项目的字符串*/
 public function multiboard.setItemValue(int row, int column, string value)
 	this.getItem(row, column)
 	..setValue(value)
 	..release()
-
+/**设置多面板指定行列项目的整数值*/
 public function multiboard.setItemValue(int row, int column, int value)
 	this.setItemValue(row, column, value.toString())
-
+/**设置多面板指定行列项目的实数值*/
 public function multiboard.setItemValue(int row, int column, real value)
 	this.setItemValue(row, column, value.toString())
-
+/**设置多面板指定行列项目的布尔值*/
 public function multiboard.setItemValue(int row, int column, bool value)
 	this.setItemValue(row, column, value.toString())
-
+/**设置多面板指定行列项目的RGBA颜色*/
 public function multiboard.setItemValueColor(int row, int column, int r, int g, int b, int a)
 	this.getItem(row, column)
 	..setValueColor(r, g, b, a)
 	..release()
-
+/**设置多面板指定行列项目的colorA颜色*/
 public function multiboard.setItemValueColor(int row, int column, colorA col)
 	this.setItemValueColor(row, column, col.red, col.green, col.blue, col.alpha)
-
+/**设置多面板指定行列项目的图标*/
 public function multiboard.setItemIcon(int row, int column, string iconFileName)
 	this.getItem(row, column)
 	..setIcon(iconFileName)
 	..release()
-
+/**设置多面板指定行列项目的宽度*/
 public function multiboard.setItemWidth(int row, int column, real width)
 	this.getItem(row, column)
 	..setWidth(width)
 	..release()
-
+/**设置多面板指定列的宽度*/
 public function multiboard.setColumnWidth(int column, real width)
 	if column >= this.getColumnCount() or column < 0
-		error("Column index out of range.")
+		error("列索引超出范围.")
 	for row = 0 to this.getRowCount() - 1
 		this.setItemWidth(row, column, width)
-
+/**设置多面板指定行的宽度*/
 public function multiboard.setRowWidth(int row, real width)
 	if row >= this.getRowCount() or row < 0
-		error("Row index out of range.")
+		error("行索引超出范围.")
 	for column = 0 to this.getColumnCount() - 1
 		this.setItemWidth(row, column, width)
 
-// multiboarditems
+// 多面板项目
+/**删除项目(并不会影响对多面板的显示. 多面板项目指向多面板但不附属于多面板)*/
 public function multiboarditem.release()
 	MultiboardReleaseItem(this)
-
+/**设置项目图标*/
 public function multiboarditem.setIcon(string iconFileName)
 	let v = iconFileName == null ? "" : iconFileName
 	MultiboardSetItemIcon(this, v)
-
+/**设置项目显示风格*/
 public function multiboarditem.setStyle(boolean showValue, boolean showIcon)
 	MultiboardSetItemStyle(this, showValue, showIcon)
-
+/**设置项目文本*/
 public function multiboarditem.setValue(string value)
 	let v = value == null ? "" : value
 	MultiboardSetItemValue(this, v)
-
+/**设置项目整数值*/
 public function multiboarditem.setValue(int value)
 	this.setValue(value.toString())
-
+/**设置项目实数值*/
 public function multiboarditem.setValue(real value)
 	this.setValue(value.toString())
-
+/**设置项目布尔值*/
 public function multiboarditem.setValue(bool value)
 	this.setValue(value.toString())
-
+/**设置项目RGBA颜色*/
 public function multiboarditem.setValueColor(int r, int g, int b, int a)
 	MultiboardSetItemValueColor(this, r, g, b, a)
-
+/**设置项目colorA颜色*/
 public function multiboarditem.setValueColor(colorA col)
 	MultiboardSetItemValueColor(this, col.red, col.green, col.blue, col.alpha)
-
+/**设置项目宽度*/
 public function multiboarditem.setWidth(real width)
 	MultiboardSetItemWidth(this, width)

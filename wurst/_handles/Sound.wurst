@@ -10,20 +10,20 @@ public function sound.play()
 /**停止播放声音*/
 public function sound.stop(boolean killWhenDone, boolean fadeOut)
 	StopSound(this, killWhenDone, fadeOut)
-
+/**设置声音声道*/
 public function sound.setChannel(int channel)
 	SetSoundChannel(this, channel)
-
+/**设置声音速率*/
 public function sound.setPitch(real pitch)
 	SetSoundPitch(this, pitch)
 
 /** 设置声音的音量[0-100] */
 public function sound.setVolume(int volume)
 	SetSoundVolume(this, volume)
-
+/**设置声音衰减？*/
 public function sound.setConeAngles(real inside, real outside, int outsideVolume)
 	SetSoundConeAngles(this, inside, outside, outsideVolume)
-
+/**设置声音截断距离*/
 public function sound.setCutoff(real cutoff)
 	SetSoundDistanceCutoff(this, cutoff)
 
@@ -33,12 +33,11 @@ public function sound.playPosition(int millisecs)
 	SetSoundPlayPosition(this, millisecs)
 
 /** 以毫秒为单位返回声音长度.
-
 请注意，不同玩家的游戏资源的声音长度可能不同，从而返回不同的持续时间。
 如果以同步方式使用异步持续时间，将导致异步. */
 public function sound.getDuration() returns int
 	return GetSoundDuration(this)
-
+/**判断声音是否在播放*/
 public function sound.isPlaying() returns boolean
 	return GetSoundIsPlaying(this)
 

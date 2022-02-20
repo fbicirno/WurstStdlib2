@@ -1,41 +1,42 @@
 package TimerDialog
 import NoWurst
 import Colors
-
+/**新建计时器窗口*/
 public function timer.createTimerDialog() returns timerdialog
 	return CreateTimerDialog(this)
-
+/**销毁计时器窗口*/
 public function timerdialog.destr()
 	DestroyTimerDialog(this)
-
+/**设置计时器窗口标题*/
 public function timerdialog.setTitle(string title)
 	TimerDialogSetTitle(this, title)
-
+/**设置计时器窗口标题颜色RGBA*/
 public function timerdialog.setTitleColor(int red, int green, int blue, int alpha)
 	TimerDialogSetTitleColor(this, red, green, blue, alpha)
-
+/**设置计时器窗口标题颜色colorA*/
 public function timerdialog.setTitleColor(colorA colorA)
 	TimerDialogSetTitleColor(this, colorA.red, colorA.green, colorA.blue, colorA.alpha)
-
+/**设置计时器窗口计时颜色RGBA*/
 public function timerdialog.setTimeColor(int red, int green, int blue, int alpha)
 	TimerDialogSetTimeColor(this, red, green, blue, alpha)
-
+/**设置计时器窗口计时颜色colorA*/
 public function timerdialog.setTimeColor(colorA colorA)
 	TimerDialogSetTimeColor(this, colorA.red, colorA.green, colorA.blue, colorA.alpha)
 
-/** Multiplies the  timer's tick rate and remaining time, so that the overall elapsed time stays the same.
-For example, timer was started with initial time 60 seconds.
-If speed is set to 2, then the time shown in dialog will be 120 seconds, but counting is two times faster.
-If speed is set to 0.5, then the time shown in dialog will be 30 seconds, but counting is two times slower. */
+/**将计时器的滴答声频率与剩余时间相乘，使总运行时间保持不变。
+例如，计时器以60秒的初始时间启动。
+如果速度设置为2，则对话框中显示的时间将为120秒，但计数速度快两倍。
+如果速度设置为0.5，则对话框中显示的时间为30秒，但计数速度要慢两倍*/
 public function timerdialog.setSpeed(real speedMultFactor)
 	TimerDialogSetSpeed(this, speedMultFactor)
-
+/**显示/隐藏计时器窗口(所有玩家)*/
 public function timerdialog.display(boolean display)
 	TimerDialogDisplay(this, display)
-
+/**判断计时器窗口是否显示*/
 public function timerdialog.isDisplayed() returns boolean
 	return IsTimerDialogDisplayed(this)
-
+/**设置计时器窗口剩余时间
+(可以开启另一个计时器每隔一段时间，修改倒计时窗口时间，从而实现正计时)*/
 public function timerdialog.setRealTimeRemaining(real timeRemaining)
 	TimerDialogSetRealTimeRemaining(this, timeRemaining)
 

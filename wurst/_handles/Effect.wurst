@@ -1,90 +1,122 @@
 package Effect
 import NoWurst
 import Quaternion
-import Colors
 import Wurstunit
-
 import YD_Effect
 import Hashtable
 import MagicFunctions
+import Colors
+import Annotations
 
+/**删除特效*/
 public function effect.destr()
 	DestroyEffect(this)
 
+/**立即销毁的特效在vec3播放特效*/
 public function flashEffect(string path, vec3 pos)
 	flashEffect(path, pos, 1.0)
 
+/**立即销毁的特效随机角度播放特效(vec2)*/
 public function flashEffect(string path, vec2 pos)
 	flashEffect(path, pos, 1.0, GetRandomReal(0, 359).fromDeg())
 
+/**立即销毁的特效设置特效缩放并随机角度播放(vec2)*/
 public function flashEffect(string path, vec2 pos, real scale)
 	flashEffect(path, pos, scale, GetRandomReal(0, 359).fromDeg())
 
+/**立即销毁的特效设置特效缩放并随机角度播放(vec3)*/
 public function flashEffect(string path, vec3 pos, real scale)
 	flashEffect(path, pos, scale, GetRandomReal(0, 359).fromDeg())
 
+/**立即销毁的特效设置特效缩放和Z轴并播放特效(vec2)*/
 public function flashEffect(string path, vec2 pos, real scale, angle yaw)
 	addEffect(path, pos)..setScale(scale)..setYaw(yaw)..destr()
 
+/**立即销毁的特效设置特效缩放和Z轴并播放特效(vec3)*/
 public function flashEffect(string path, vec3 pos, real scale, angle yaw)
 	addEffect(path, pos)..setScale(scale)..setYaw(yaw)..destr()
 
+/**新建-立即销毁的特效-单位 (创建到单位)[R]
+新建特效${ModelFile}并绑定到${单位}的${AttachmentPoint}附加点上*/
 public function flashEffect(string path, widget target, string attachPointName)
 	addEffect(path, target, attachPointName).destr()
 
-/** Creates and immediatly destroys an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
-	Works for custom abilities. */
+/** Creates and immediatly destroys an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc."
+新建-立即销毁的特效(指定技能，创建到vec3)[R]
+${技能}的${EffectType},创建到坐标(${X},${Y}${Z}) (full list in common.j)Works for custom abilities.*/
 public function flashEffect(int abilityId, effecttype effType, vec3 pos)
 	addEffect(abilityId, effType, pos).destr()
 
-/** Creates and immediatly destroys an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j)
-	Works for custom abilities. */
+/** Creates and immediatly destroys an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc."
+新建-立即销毁的特效(指定技能，创建到vec2)[R]
+${技能}的${EffectType},创建到坐标(${X},${Y}) (full list in common.j)Works for custom abilities.*/
 public function flashEffect(int abilityId, effecttype effType, vec2 pos)
 	addEffect(abilityId, effType, pos).destr()
 
-/** Creates and immediatly destroys an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
-	Works for custom abilities. */
+/** Creates and immediatly destroys an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc."
+新建-立即销毁的特效-单位 (指定技能，创建到单位)
+${技能}的${EffectType},绑定到${单位}的${String}附加点 (full list in common.j)Works for custom abilities.*/
 public function flashEffect(int abilityId, effecttype effType, widget target, string attachPointName)
 	addEffect(abilityId, effType, target, attachPointName).destr()
 
+/**新建-特效(创建到坐标vec2)*/
 public function addEffect(string path, vec2 pos) returns effect
 	return AddSpecialEffect(path, pos.x, pos.y)
 
+/**新建-特效(创建到坐标vec3)*/
 public function addEffect(string path, vec3 pos) returns effect
 	return AddSpecialEffect(path, pos.x, pos.y)..setPos(pos)
 
+/**新建-特效-单位 (创建到单位)[R]
+新建特效${ModelFile}并绑定到${单位}的${AttachmentPoint}附加点上
+*/
 public function addEffect(string path, widget target, string attachPointName) returns effect
 	return AddSpecialEffectTarget(path, target, attachPointName)
 
-/** Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
-	Works for custom abilities. */
+/** 新建-技能-特效(指定技能，创建到坐标)[R]
+${技能}的${EffectType},创建到坐标(${X},${Y}) 
+Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities.
+*/
 public function addEffect(int abilityId, effecttype effType, vec2 pos) returns effect
 	return AddSpellEffectById(abilityId, effType, pos.x, pos.y)
 
-/** Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
-	Works for custom abilities. */
+/** 新建-技能-特效(指定技能，创建到坐标)[R]
+${技能}的${EffectType},创建到坐标(${X},${Y}) 
+Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities.
+*/
 public function addEffect(int abilityId, effecttype effType, vec3 pos) returns effect
 	return AddSpellEffectById(abilityId, effType, pos.x, pos.y)..setPos(pos)
 
-/** Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
-	Works for custom abilities. */
+/** 新建-技能-特效-单位 (指定技能，创建到单位)
+${技能}的${EffectType},绑定到${单位}的${String}附加点
+会创建特效. 
+Creates an effect from the data defined in the ability's field "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities.
+*/
 public function addEffect(int abilityId, effecttype effType, widget target, string attachPointName) returns effect
 	return AddSpellEffectTargetById(abilityId, effType, target, attachPointName)
 
+/**设置特效大小*/
 public function effect.setScale(real scale)
 	EXSetEffectSize(this, scale)
 
+/**设置特效位置XYZ*/
 public function effect.setPosition(real x, real y, real z)
 	EXSetEffectXY(this, x, y)
 	EXSetEffectZ(this, z)
 
+/**设置-特效-高度Z*/
 public function effect.setHeight(real height)
 	EXSetEffectZ(this, height)
 
+/**设置特效动画速度*/
 public function effect.setTimeScale(real timeScale)
 	EXSetEffectSpeed(this, timeScale)
 
 let fxMatTable = InitHashtable()
+/**重置特效(用来辅助其他func修改特效)*/
 function effect.updateMat()
 	let key = GetHandleId(this)
 	let scaleX  = fxMatTable.loadReal(key, compiletime(StringHash("scaleX")))
@@ -99,6 +131,7 @@ function effect.updateMat()
 	EXEffectMatRotateY(this, rotateY)
 	EXEffectMatRotateZ(this, rotateZ)
 
+/**设置特效的方向(z,y,x)*/
 public function effect.setOrientation(real yaw, real pitch, real roll)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw)
@@ -106,6 +139,7 @@ public function effect.setOrientation(real yaw, real pitch, real roll)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll)
 	this.updateMat()
 
+/**设置特效的方向(矩阵)*/
 public function effect.setOrientation(mat3 matrix)
 	let euler = matrix.toEuler()
 	let key = GetHandleId(this)
@@ -114,6 +148,7 @@ public function effect.setOrientation(mat3 matrix)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), euler.x)
 	this.updateMat()
 
+/**设置特效的方向(四元数)*/
 public function effect.setOrientation(quat quaternion)
 	let euler = quaternion.toEuler()
 	let key = GetHandleId(this)
@@ -122,64 +157,80 @@ public function effect.setOrientation(quat quaternion)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), euler.x)
 	this.updateMat()
 
+/**设置特效的Z轴旋转*/
 public function effect.setYaw(real yaw)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw)
 	this.updateMat()
 
+/**设置特效的Y轴旋转*/
 public function effect.setPitch(real pitch)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateY")), pitch)
 	this.updateMat()
 
+/**设置特效的X旋转*/
 public function effect.setRoll(real roll)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll)
 	this.updateMat()
 
+/**设置特效的X值*/
 public function effect.setX(real x)
 	EXSetEffectXY(this, x, EXGetEffectY(this))
 
+/**设置特效的Y值*/
 public function effect.setY(real y)
 	EXSetEffectXY(this, EXGetEffectX(this), y)
 
+/**设置特效的Z值*/
 public function effect.setZ(real z)
 	EXSetEffectZ(this, z)
 
+/**设置特效坐标*/
 public function effect.setPositionLoc(location loc)
 	EXSetEffectXY(this, GetLocationX(loc), GetLocationY(loc))
 
-/** Returns the data defined in the ability's field  "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
-	Works for custom abilities. */
+/** 通过技能ID获取效果-目标的特效模型路径 
+Returns the data defined in the ability's field  "Art - Caster/Target/Missile/Ligtning/etc." (full list in common.j).
+	Works for custom abilities.*/
 public function getAbilityEffect(int abilityId, effecttype effType, int index) returns string
 	return GetAbilityEffectById(abilityId, effType, index)
 
+/**获取特效坐标X值*/
 public function effect.getLocalX() returns real
 	return EXGetEffectX(this)
 
+/**获取特效坐标Y值*/
 public function effect.getLocalY() returns real
 	return EXGetEffectY(this)
 
+/**获取特效坐标Z值*/
 public function effect.getLocalZ() returns real
 	return EXGetEffectZ(this)
 
+/**设置特效位置vec3*/
 public function effect.setPos(vec3 pos)
 	EXSetEffectXY(this, pos.x, pos.y)
 	EXSetEffectZ(this, pos.z)
 
+/**设置特效位置vec2*/
 public function effect.setPos(vec2 pos)
 	EXSetEffectXY(this, pos.x, pos.y)
 
+/**获取特效位置vec3*/
 public function effect.getPos3() returns vec3
 	return vec3(EXGetEffectX(this), EXGetEffectY(this), EXGetEffectZ(this))
 
+/**获取特效位置vec2*/
 public function effect.getPos() returns vec2
 	return vec2(EXGetEffectX(this), EXGetEffectY(this))
+
 /**
-	Change the orientation of the special effect.
-	yaw  : z-axis
-	pitch: y-axis
-	roll : x-axis
+	更改特殊效果的方向。
+	yaw  ： z 轴
+	pitch：	Y轴
+	roll ： x 轴
 */
 public function effect.setOrientation(angle yaw, angle pitch, angle roll)
 	let key = GetHandleId(this)
@@ -188,33 +239,33 @@ public function effect.setOrientation(angle yaw, angle pitch, angle roll)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll.degrees())
 	this.updateMat()
 
-/** Change the angle of the special effect around the z-axis.
-	This is like changing a unit's facing. */
+/**改变特效绕z轴的角度。
+这好比改变一个单位面朝方向。 */
 public function effect.setYaw(angle yaw)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw.degrees())
 	this.updateMat()
 
 /**
-	Change the  of the special effect around the y-axis.
-	Warning: As of 1.29.2, setPitch has issues for values between 1.57-4.7 radians or 90-270 degrees. It is recommended to use setOrientation.
+改变特效绕y轴角度。
+警告：从 1.29.2 开始，setPitch 的值在 1.57-4.7 弧度或 90-270 度之间存在问题。建议使用 setOrientation。
 */
 public function effect.setPitch(angle pitch)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateY")), pitch.degrees())
 	this.updateMat()
 
-/** Change the angle of the special effect around x-axis. */
+/**改变特效围绕x轴的角度。 */
 public function effect.setRoll(angle roll)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("rotateX")), roll.degrees())
 	this.updateMat()
 
-/** Get effect scale.*/
+/** 获取-特效-大小*/
 public function effect.getScale() returns real
 	return EXGetEffectSize(this)
 
-/** Set effect 3D scale*/
+/** 设置-特效-模型大小*/
 public function effect.setScale(vec3 scaleVector)
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("scaleX")), scaleVector.x)
@@ -222,7 +273,7 @@ public function effect.setScale(vec3 scaleVector)
 	fxMatTable.saveReal(key, compiletime(StringHash("scaleZ")), scaleVector.z)
 	this.updateMat()
 
-/** Reset effect scale.*/
+/** 重置-特效-模型大小*/
 public function effect.resetScale()
 	let key = GetHandleId(this)
 	fxMatTable.saveReal(key, compiletime(StringHash("scaleX")), 1.0)
@@ -240,6 +291,7 @@ function testEffect()
 	eff.destr()
 
 	
+
 
 @deprecated("魔兽1.32函数，暂不可用") 
 public function effect.setColorByPlayer(player whichPlayer)

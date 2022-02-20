@@ -1,25 +1,25 @@
 package Widget
 import NoWurst
 import public Vectors
-
+/**获取物体生命值*/
 public function widget.getLife() returns real
 	return GetWidgetLife(this)
-
+/**设置物体生命值*/
 public function widget.setLife(real newLife)
 	SetWidgetLife(this, newLife)
-
+/**获取物体Vec2位置*/
 public function widget.getPos() returns vec2
 	return vec2(this.getX(), this.getY())
-
+/**获取物体X位置*/
 public function widget.getX() returns real
 	return GetWidgetX(this)
-
+/**获取物体Y位置*/
 public function widget.getY() returns real
 	return GetWidgetY(this)
-
+/**新建特效至指定附加点*/
 public function widget.addEffect(string modelName, string attachment) returns effect
 	return AddSpecialEffectTarget(modelName, this, attachment)
 
-/** Checks if the widget is alive by testing current life > .405 */
+/** 判断物体是否存活(0.405生命值判断) */
 public function widget.isAliveTrick() returns bool
 	return .405 < this.getLife()

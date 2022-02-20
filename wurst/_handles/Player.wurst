@@ -8,7 +8,7 @@ import String
 import DZ_Blz
 import YD_Chat
 
-/** Use this array instead of Player() to avoid leaks */
+/**使用此数组而不是Player()以避免泄漏*/
 public player array players
 public constant localPlayer = GetLocalPlayer()
 init
@@ -17,24 +17,26 @@ init
 @compiletime function initPlayerArray()
 	for i = 0 to bj_MAX_PLAYER_SLOTS - 1
 		players[i] = Player(i)
-
+/**设置玩家属性-金币*/
 public function player.setGold(int val)
 	this.setState(PLAYER_STATE_RESOURCE_GOLD, val)
-
+/**增加玩家属性-金币*/
 public function player.addGold(int val)
 	this.addState(PLAYER_STATE_RESOURCE_GOLD, val)
-
+/**设置玩家属性-木材*/
 public function player.setLumber(int val)
 	this.setState(PLAYER_STATE_RESOURCE_LUMBER, val)
-
+/**增加玩家属性-木材*/
 public function player.addLumber(int val)
 	this.addState(PLAYER_STATE_RESOURCE_LUMBER, val)
-
+/**增加玩家属性
+属性类别:${state}
+值:${val}
+*/
 public function player.addState(playerstate state, int val)
 	SetPlayerState(this, state, this.getState(state) + val)
 
-/** Clears the selection for the player, deselecting all
-	widgets. */
+/**清除玩家的选择，取消选择全部物体*/
 public function player.clearSelection()
 	if localPlayer == this
 		ClearSelection()
@@ -56,132 +58,132 @@ public function player.clearSelection()
 // 	if localPlayer == this
 // 		BlzEnableSelections(enableSelection, enableSelectionCircle)
 
-/** Disable UI control for the player */
+/** 禁用玩家的UI控制权*/
 public function player.disableUserControl()
 	this.setUserControl(false)
 
-/** Enable UI control for the player */
+/** 启用玩家的UI控制权 */
 public function player.enableUserControl()
 	this.setUserControl(true)
-
+/**获取玩家的控制者*/
 public function player.getController() returns mapcontrol
 	return GetPlayerController(this)
-
+/**获取玩家的食物值*/
 public function player.getCurrentSupply() returns int
 	return this.getState(PLAYER_STATE_RESOURCE_FOOD_USED)
-
+/**获取玩家的金币值*/
 public function player.getGold() returns int
 	return this.getState(PLAYER_STATE_RESOURCE_GOLD)
-
+/**获取玩家ID(1-16)*/
 public function player.getId() returns int
 	return GetPlayerId(this)
-
+/**获取玩家的木材值*/
 public function player.getLumber() returns int
 	return this.getState(PLAYER_STATE_RESOURCE_LUMBER)
-
+/**获取玩家的食物上限*/
 public function player.getMaxSupply() returns int
 	return this.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
 
-public function player.getName() returns string
+@deprecated("重制版战网内容") public function player.getName() returns string
 	return this.getName(false)
 
 /** Reforged names have a number attached after a hash tag, like Bob#1234 */
-public function player.getName(boolean removeHash) returns string
+@deprecated("重制版战网内容") public function player.getName(boolean removeHash) returns string
 	return removeHash ? GetPlayerName(this).substring(0, GetPlayerName(this).indexOf("#")) : GetPlayerName(this)
-
+/**获取玩家游戏状态*/
 public function player.getSlotState() returns playerslotstate
 	return GetPlayerSlotState(this)
-
+/**获取玩家开始点Vec2*/
 public function player.getStartLocation() returns vec2
 	return vec2(GetPlayerStartLocationX(this), GetPlayerStartLocationY(this))
-
+/**获取玩家属性*/
 public function player.getState(playerstate state) returns int
 	return GetPlayerState(this, state)
-
+/**判断是否是同盟*/
 public function player.isAllyOf(player p) returns boolean
 	return IsPlayerAlly(this, p)
-
+/**判断是否是敌人*/
 public function player.isEnemyOf(player p) returns boolean
 	return IsPlayerEnemy(this, p)
-
+/**平移本地玩家镜头到指定单位*/
 public function player.panCamToTimed(unit u, real time)
 	if localPlayer == this
 		PanCameraToTimed(u.getX(), u.getY(), time)
-
+/**本地玩家选择单位(可能会选择到多个单位，未测试)*/
 public function player.select(unit u)
 	if localPlayer == this
 		SelectUnit(u, true)
-
+/**本地玩家选择单个指定单位*/
 public function player.selectSingle(unit u)
 	if localPlayer == this
 		ClearSelection()
 		SelectUnit(u, true)
-
+/**设置玩家启用/禁用技能*/
 public function player.setAbilityAvailable(int abilityId, boolean avail)
 	SetPlayerAbilityAvailable(this, abilityId, avail)
-
+/**设置玩家名字*/
 public function player.setName(string name)
 	SetPlayerName(this, name)
-
+/**设置玩家属性*/
 public function player.setState(playerstate state, int val)
 	SetPlayerState(this, state, val)
-
+/**减少玩家的金币值*/
 public function player.subGold(int val)
 	this.subState(PLAYER_STATE_RESOURCE_GOLD, val)
-
+/**减少玩家指定属性*/
 public function player.subState(playerstate state, int val)
 	SetPlayerState(this, state, this.getState(state) - val)
 
-/** Enables / disables user UI control for the player */
+/**启用/禁用玩家的UI控制权*/
 public function player.setUserControl(boolean enable)
 	if localPlayer == this
 		EnableUserControl(enable)
-
+/**本地玩家取消选择指定单位*/
 public function player.unselect(unit u)
 	if localPlayer == this
 		SelectUnit(u, false)
-
+/**判断玩家(用户)正在游戏*/
 public function player.isIngame() returns boolean
 	return this.getSlotState() == PLAYER_SLOT_STATE_PLAYING and this.getController() == MAP_CONTROL_USER
 
 // public function player.decTechResearched(int techId, int levels)
 // 	BlzDecPlayerTechResearched(this, techId, levels)
-
+/**强制玩家开始点*/
 public function player.forceStartLocation(int index)
 	ForcePlayerStartLocation(this, index)
-
+/**获取指定项目联盟状态*/
 public function player.getPlayerAlliance(player otherPlayer, alliancetype whichAllianceSetting) returns boolean
 	return GetPlayerAlliance(this, otherPlayer, whichAllianceSetting)
-
+/**设置指定项目联盟状态(可以对玩家自己设置联盟状态. 可用来实现一些特殊效果)*/
 public function player.setPlayerAlliance(player otherPlayer, alliancetype whichAllianceSetting, boolean value)
 	SetPlayerAlliance(this, otherPlayer, whichAllianceSetting, value)
-
+/**设置税率*/
 public function player.setTaxRate(player otherPlayer, playerstate whichResource, integer rate)
 	SetPlayerTaxRate(this, otherPlayer, whichResource, rate)
-
+/**设置玩家种族*/
 public function player.setRacePreference(racepreference whichRacePreference)
 	SetPlayerRacePreference(this, whichRacePreference)
-
+/**设置玩家种族(可选)*/
 public function player.setRaceSelectable(boolean value)
 	SetPlayerRaceSelectable(this, value)
-
+/**获取玩家队伍*/
 public function player.getTeam() returns int
 	return GetPlayerTeam(this)
-
+/**获取玩家是否可选*/
 public function player.isSelectable() returns bool
 	return GetPlayerSelectable(this)
-
+/**获取玩家指定资源的税率(取值0-100)*/
 public function player.getTaxRate(player otherPlayer, playerstate whichResource) returns int
 	return GetPlayerTaxRate(this, otherPlayer, whichResource)
-
+/**获取玩家的种族选择*/
 public function player.isRacePrefSet(racepreference preference) returns bool
 	return IsPlayerRacePrefSet(this, preference)
 
-/** Get width and height of current Warcraft 3 client window. Returns vec2(0,0) for non-local player.*/
+/**获取玩家当前魔兽争霸3客户端窗口的宽度和高度。返回非本地玩家的vec2（0,0）*/
 public function player.getScreenSize() returns vec2
 	return localPlayer == this ? vec2(I2R(DzGetWindowWidth()), I2R(DzGetWindowHeight())) : vec2(0,0)
 
-/** Check if client window is active. Will return false always for non-local player.*/
+/**检查玩家客户端窗口是否处于活动状态。对于非本地玩家，将始终返回false*/
 public function player.isScreenActive() returns bool
 	return localPlayer == this ? DzIsWindowActive() : false
 
@@ -203,33 +205,33 @@ public function player.isScreenActive() returns bool
 // 	if localPlayer == this
 // 		BlzEnableCursor(enableCursor)
 
-/** Set cursor position on screen. Uses int values internally.*/
+/** 设置本地玩家鼠标位置(内部使用int值) */
 public function player.setPosCursor(vec2 pos)
 	if localPlayer == this
 		DzSetMousePos(R2I(pos.x), R2I(pos.y))
 
-/** Get unit focused by mouse cursor.*/
+/** 获取鼠标指向的单位 */
 public function player.getCursorFocus() returns unit
 	return localPlayer == this ? DzGetUnitUnderMouse() : null
-
+/**设置小地图背景贴图*/
 public function player.setMinimapTerrainTex(string texFile)
 	if localPlayer == this
 		DzSetWar3MapMap(texFile)
-
+/**同步游戏数据*/
 public function player.sendSyncData(string prefix, string data)
 	if localPlayer == this
 		DzSyncData(prefix, data)
-
+/**设置玩家聊天频道和信息*/
 public function player.showChatMessage(int recipient, string message)
 	EXDisplayChat(this, recipient, message)
 
-/** Sets the maximum allowed hero amount for a player */
+/**设置玩家允许的最大英雄数量*/
 public function player.setHeroMaxAllowed(int amount)
 	SetPlayerTechMaxAllowed(this, 'HERO', amount)
-
+/**判断单位是否对玩家可见*/
 public function player.hasVisibility(unit target) returns bool
 	return IsUnitVisible(target, this)
-
+/**判断Vec2是否对玩家可见*/
 public function player.hasVisibility(vec2 pos) returns bool
 	return IsVisibleToPlayer(pos.x, pos.y, this)
 

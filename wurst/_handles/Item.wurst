@@ -5,130 +5,128 @@ import Annotations
 
 import YD_Scripts
 import YD_Item
-
+/**在Vec2创建物品*/
 public function createItem(int itemId, vec2 pos) returns item
-	if itemId==0
-		return null
 	return createItem(itemId, pos.toVec3())
-
+/**在Vec3创建物品*/
 public function createItem(int itemId, vec3 pos) returns item
 	return CreateItem(itemId, pos.x, pos.y)
-
+/**删除物品*/
 public function item.remove()
 	RemoveItem(this)
-
+/**获取物品的类型 Returns "itemtype" of this item. Do not confuse it with itemTypeId.*/
 public function item.getTypeId() returns int
 	return GetItemTypeId(this)
 
-/** Returns "itemtype" of this item. Do not confuse it with itemTypeId. */
+/**获取物品的分类*/
 public function item.getItemtype() returns itemtype
 	return GetItemType(this)
-
+/**获取物品等级*/
 public function item.getLevel() returns int
 	return GetItemLevel(this)
-
+/**获取物品的X坐标*/
 public function item.getX() returns real
 	return GetItemX(this)
-
+/**获取物品的Y坐标*/
 public function item.getY() returns real
 	return GetItemY(this)
-
+/**获取物品的Vec2坐标*/
 public function item.getPos() returns vec2
 	return vec2(this.getX(), this.getY())
 
 @Deprecated("use vec2 variant")
 public function item.setPos(real x, real y)
 	SetItemPosition(this, x, y)
-
+/**移动物品到指定Vec2*/
 public function item.setPos(vec2 pos)
 	SetItemPosition(this, pos.x, pos.y)
-
+/**设置物品是否在携带者死亡时掉落*/
 public function item.setDropOnDeath(boolean flag)
 	SetItemDropOnDeath(this, flag)
-
+/**设置物品是否可以被丢弃*/
 public function item.setDroppable(boolean flag)
 	SetItemDroppable(this, flag)
-
+/**设置物品是否可以被抵押*/
 public function item.setPawnable(boolean flag)
 	SetItemPawnable(this, flag)
-
+/**设置物品是否为无敌*/
 public function item.setInvulnerable(boolean flag)
 	SetItemInvulnerable(this, flag)
-
+/**显示/隐藏物品*/
 public function item.setVisible(boolean flag)
 	SetItemVisible(this, flag)
-
+/**判断物品是否为无敌*/
 public function item.isInvulnerable() returns boolean
 	return IsItemInvulnerable(this)
-
+/**判断物品是否可见*/
 public function item.isVisible() returns boolean
 	return IsItemVisible(this)
-
+/**判断物品是否被持有*/
 public function item.isOwned() returns boolean
 	return IsItemOwned(this)
-
+/**判断物品是否是拾取自动使用的*/
 public function item.isPowerup() returns boolean
 	return IsItemPowerup(this)
-
+/**判断物品是否可被市场随机出售*/
 public function item.isSellable() returns boolean
 	return IsItemSellable(this)
-
+/**判断物品是否可以被抵押*/
 public function item.isPawnable() returns boolean
 	return IsItemPawnable(this)
 
-/** Returns true if item is not destroyed and has a valid type id. */
+/** 判断物品是否存在Returns true if item is not destroyed and has a valid type id. */
 public function item.isAlive() returns boolean
 	return this.getTypeId() != 0 and GetWidgetLife(this) > .405
 
-/** Returns true if item can be picked up by a unit. */
+/** 判断物品是否可以被拾取 */
 public function item.isPickupable() returns boolean
 	return this.isAlive() and not this.isOwned() and this.isVisible()
-
+/**获取物品所有者*/
 public function item.getPlayer() returns player
 	return GetItemPlayer(this)
-
+/**设置物品所属*/
 public function item.setPlayer(player whichPlayer, boolean changeColor)
 	SetItemPlayer(this, whichPlayer, changeColor)
-
+/**获取物品的使用次数(无限返回0)*/
 public function item.getCharges() returns int
 	return GetItemCharges(this)
-
-// public function item.setCharges(int charges)
-// 	SetItemCharges(this, charges)
-
+/**设置物品的使用次数*/
+public function item.setCharges(int charges)
+	SetItemCharges(this, charges)
+/**获取物品的自定义值*/
 public function item.getUserData() returns int
 	return GetItemUserData(this)
-
+/**设置物品的自定义值*/
 public function item.setUserData(int data)
 	SetItemUserData(this, data)
-
+/**获取物品的名字*/
 public function item.getName() returns string
 	return GetItemName(this)
-
+/**设置物品名字*/
 public function item.setName(string name)
 	EXSetItemDataString(GetItemTypeId(this), ITEM_DATA_NAME, name)
-
+/**获取物品说明*/
 public function item.getDescription() returns string
 	return EXGetItemDataString(GetItemTypeId(this), ITEM_DATA_DESCRIPTION)
-
+/**设置物品说明*/
 public function item.setDescription(string description)
 	EXSetItemDataString(GetItemTypeId(this), ITEM_DATA_DESCRIPTION, description)
-
+/**获取物品提示(基础)*/
 public function item.getTooltip() returns string
 	return EXGetItemDataString(GetItemTypeId(this), ITEM_DATA_TIP)
-
+/**设置物品提示(基础)*/
 public function item.setTooltip(string tooltip)
 	EXSetItemDataString(GetItemTypeId(this), ITEM_DATA_TIP, tooltip)
-
+/**获取物品提示(拓展)*/
 public function item.getExtendedTooltip() returns string
 	return EXGetItemDataString(GetItemTypeId(this), ITEM_DATA_UBERTIP)
-
+/**设置物品提示(拓展)*/
 public function item.setExtendedTooltip(string tooltip)
 	EXSetItemDataString(GetItemTypeId(this), ITEM_DATA_UBERTIP, tooltip)
-
+/**获取物品图标*/
 public function item.getIconPath() returns string
 	return EXGetItemDataString(GetItemTypeId(this), ITEM_DATA_ART)
-
+/**设置物品图标*/
 public function item.setIconPath(string path)
 	EXSetItemDataString(GetItemTypeId(this), ITEM_DATA_ART, path)
 
@@ -145,16 +143,16 @@ public function item.setIconPath(string path)
 // public function item.removeAbility(int abiId) returns bool	
 // 	return BlzItemRemoveAbility(this, abiId)
 
-// Item Field Getters
+/**获取物品字段的字符串值*/
 public function item.getFieldStr(string field) returns string	
 	return EXExecuteScript("(require'jass.slk').item[" + I2S(GetItemTypeId(this)) + "]." + field)
-
+/**获取物品字段的布尔值*/
 public function item.getFieldBool(string field) returns bool	
 	return this.getFieldStr(field) == "1"
-
+/**获取物品字段的整数值*/
 public function item.getFieldInt(string field) returns int	
 	return S2I(this.getFieldStr(field))
-
+/**获取物品字段的实数值*/
 public function item.getFieldReal(string field) returns real	
 	return S2R(this.getFieldStr(field))
 
@@ -172,8 +170,8 @@ public function item.getFieldReal(string field) returns real
 // public function item.setField(itemstringfield field, string value) returns bool	
 // 	return BlzSetItemStringField(this, field, value)
 
-/** Updates the item's name, tooltip, extendedtooltip, description or icon for the specific player.
-	If p == null, the item is updated for all players */
+/**更新指定玩家的物品名字、工具提示(基础)、工具提示(扩展)、说明、图标。
+如果p==null，则为所有玩家更新该项目*/
 function item.updateDetails(player p, string itemName, string itemTooltip, string itemExtendedTooltip, string itemDesc, string itemIcon) returns bool
 	var valid = false
 	if this != null and (itemName != "" or itemTooltip != "" or itemExtendedTooltip != "" or itemDesc != "" or itemIcon != "")
@@ -191,14 +189,13 @@ function item.updateDetails(player p, string itemName, string itemTooltip, strin
 				this.setIconPath(itemIcon)
 	return valid
 	
-/** Updates the item's name, tooltip, extendedtooltip, description or icon for the specific player.
-	If p == null, the item is updated for all players 
-	Returns false if no player is given. */
+/**更新指定定玩家的物品名字、工具提示(基础)、工具提示(扩展)、说明、图标。
+如果p==null，则为所有玩家更新该项目
+如果未指定任何玩家，则返回false*/
 public function item.updateDetailsForPlayer(player p, string itemName, string itemTooltip, string itemExtendedTooltip, string itemDesc, string itemIcon) returns bool
 	return p != null ? this.updateDetails(p, itemName, itemTooltip, itemExtendedTooltip, itemDesc, itemIcon) : false
 
-/** Updates the item's name, tooltip, extendedtooltip, description or icon for the specific player.
-	If p == null, the item is updated for all players 
-	Returns false if no player is given. */
+/**更新所有玩家的物品名字、工具提示(基础)、工具提示(扩展)、说明、图标。
+如果没有到任何玩家，则返回false*/
 public function item.updateDetailsForAll(string itemName, string itemTooltip, string itemExtendedTooltip, string itemDesc, string itemIcon) returns bool
 	return this.updateDetails(null, itemName, itemTooltip, itemExtendedTooltip, itemDesc, itemIcon)

@@ -1,70 +1,89 @@
 package Force
 import NoWurst
 
+/**删除玩家组[R]
+注意:不要删除系统预置的玩家组.*/
 public function force.destr()
 	DestroyForce(this)
 
+/**单位组添加玩家[R]
+${玩家组}添加${玩家}
+并不影响玩家本身.*/
 public function force.addPlayer(player whichPlayer)
 	ForceAddPlayer(this, whichPlayer)
 
+/**循环添加多个玩家(player(0),player(1))*/
 public function force.addPlayers(vararg player players)
 	for whichPlayer in players
 		ForceAddPlayer(this, whichPlayer)
 
+/**移除玩家*/
 public function force.removePlayer(player whichPlayer)
 	ForceRemovePlayer(this, whichPlayer)
 
+/**循环移除多个玩家(player(0),player(1))*/
 public function force.removePlayers(vararg player players)
 	for whichPlayer in players
 		ForceRemovePlayer(this, whichPlayer)
 
+/**清空玩家组*/
 public function force.clear()
 	ForceClear(this)
 
+/**匹配玩家*/
 public function force.enumPlayers(boolexpr filter)
 	ForceEnumPlayers(this, filter)
 
+/**匹配玩家 [数量限制上限]*/
 public function force.enumPlayersCounted(boolexpr filter, int countLimit)
 	ForceEnumPlayersCounted(this, filter, countLimit)
 
+/**匹配盟友*/
 public function force.enumAllies(player whichPlayer, boolexpr filter)
 	ForceEnumAllies(this, whichPlayer, filter)
 
+/**匹配敌对*/
 public function force.enumEnemies(player whichPlayer, boolexpr filter)
 	ForceEnumEnemies(this, whichPlayer, filter)
 
+/**选取玩家组内玩家做动作
+选取${玩家组}内所有玩家${做动作}
+玩家组动作中可使用'选取玩家'来获取对应的玩家.等待不能在组动作中运行.*/
 public function force.forEach(code callback)
 	ForForce(this, callback)
 
+/**玩家组中随机一名玩家*/
 public function force.getRandomPlayer() returns player
 	return ForcePickRandomPlayer(this)
 
+/**判断单位是否属于这个玩家组里的玩家单位*/
 public function force.containsUnit(unit whichUnit) returns boolean
 	return IsUnitInForce(whichUnit, this)
 
+/**判断玩家是否在玩家组中*/
 public function force.containsPlayer(player whichPlayer) returns boolean
 	return IsPlayerInForce(whichPlayer, this)
 
 /* Force iterator */
 force iterForce
 
-/** Creates a new iterator for this group. */
+/**把所有匹配玩家加入该玩家组*/
 public function force.iterator() returns force
 	iterForce = CreateForce()
 	ForForce(this, () -> iterForce.addPlayer(GetEnumPlayer()))
 	return iterForce
 
-/** Returns whether the iterator has the next item */
+/**返回玩家组是否有玩家*/
 public function force.hasNext() returns boolean
 	return this.getRandomPlayer() != null
 
-/** Returns the next item from the iterator */
+/**随机取出一名玩家(item出栈) */
 public function force.next() returns player
 	let iterPlayer = this.getRandomPlayer()
 	this.removePlayer(iterPlayer)
 	return iterPlayer
 
-/** Closes the iterator, releaseing the group */
+/**清空并销毁该玩家组*/
 public function force.close()
 	this.clear()
 	this.destr()

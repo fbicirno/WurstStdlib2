@@ -2,67 +2,67 @@ package Rect
 import NoWurst
 import Vectors
 import Wurstunit
-
+/**矩形区域内随机Vec2坐标*/
 public function rect.randomPoint() returns vec2
 	return vec2(GetRandomReal(this.getMinX(), this.getMaxX()), GetRandomReal(this.getMinY(), this.getMaxY()))
-
+/**判断Vec2是否在矩形区域内*/
 public function vec2.isInRect(rect r) returns boolean
 	return this.x > r.getMinX() and this.x < r.getMaxX() and this.y > r.getMinY() and this.y < r.getMaxY()
-
+/**判断矩形区域包含Vec2坐标*/
 public function rect.contains(vec2 r) returns boolean
 	return r.x > this.getMinX() and r.x < this.getMaxX() and r.y > this.getMinY() and r.y < this.getMaxY()
-
+/**获取矩形区域中心Vec2*/
 public function rect.getCenter() returns vec2
 	return vec2(this.getCenterX(), this.getCenterY())
-
+/**获取矩形区域中心X坐标*/
 public function rect.getCenterX() returns real
 	return GetRectCenterX(this)
-
+/**获取矩形区域中心Y坐标*/
 public function rect.getCenterY() returns real
 	return GetRectCenterY(this)
-
+/**获取矩形区域最大X坐标*/
 public function rect.getMaxX() returns real
 	return GetRectMaxX(this)
-
+/**获取矩形区域最大Y坐标*/
 public function rect.getMaxY() returns real
 	return GetRectMaxY(this)
-
+/**获取矩形区域最小X坐标*/
 public function rect.getMinX() returns real
 	return GetRectMinX(this)
-
+/**获取矩形区域最小Y坐标*/
 public function rect.getMinY() returns real
 	return GetRectMinY(this)
-
+/**获取矩形区域左上角Vec2坐标*/
 public function rect.getLeftTop() returns vec2
 	return vec2(this.getMinX(), this.getMaxY())
-
+/**获取矩形区域右上角Vec2坐标*/
 public function rect.getRightTop() returns vec2
 	return vec2(this.getMaxX(), this.getMaxY())
-
+/**获取矩形区域左下角Vec2坐标*/
 public function rect.getLeftBot() returns vec2
 	return vec2(this.getMinX(), this.getMinY())
-
+/**获取矩形区域右下角Vec2坐标*/
 public function rect.getRightBot() returns vec2
 	return vec2(this.getMaxX(), this.getMinY())
-
+/**移动矩形区域至Vec2坐标*/
 public function rect.moveTo(vec2 newCenter)
 	MoveRectTo(this, newCenter.x, newCenter.y)
-
+/**移动矩形区域至XY坐标*/
 public function rect.moveTo(real newCenterX, real newCenterY)
 	MoveRectTo(this, newCenterX, newCenterY)
-
+/**重新设置矩形区域的大小(左下角Vec2,右上角Vec2)*/
 public function rect.resize(vec2 min, vec2 max)
 	SetRect(this, min.x, min.y, max.x, max.y)
-
+/**获取矩形区域的宽度*/
 public function rect.width() returns real
 	return this.getMaxX() - this.getMinX()
-
+/**后去矩形区域的高度*/
 public function rect.height() returns real
 	return this.getMaxY() - this.getMinY()
-
+/**删除矩形区域*/
 public function rect.remove()
 	RemoveRect(this)
-
+/**复制一个大小一样的矩形区域*/
 public function rect.copy() returns rect
 	return Rect(this.getMinX(), this.getMinY(), this.getMaxX(), this.getMaxY())
 

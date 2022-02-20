@@ -1,13 +1,22 @@
 package YD_Damage
 import NoWurst
+import Annotations
 
+/**伤害事件-是否开启*/
 public constant int EVENT_DAMAGE_DATA_VAILD       = 0
+/**伤害事件-物理伤害*/
 public constant int EVENT_DAMAGE_DATA_IS_PHYSICAL = 1
+/**伤害事件-攻击伤害*/
 public constant int EVENT_DAMAGE_DATA_IS_ATTACK   = 2
+/**伤害事件-范围伤害*/
 public constant int EVENT_DAMAGE_DATA_IS_RANGED   = 3
+/**伤害事件-伤害类型*/
 public constant int EVENT_DAMAGE_DATA_DAMAGE_TYPE = 4
+/**伤害事件-武器类型*/
 public constant int EVENT_DAMAGE_DATA_WEAPON_TYPE = 5
+/**伤害事件-攻击类型*/
 public constant int EVENT_DAMAGE_DATA_ATTACK_TYPE = 6
-
+/**获取伤害事件数据*/
 @ifNotDefined public native EXGetEventDamageData (int edd_type) returns int
+/**改变伤害事件造成的伤害*/
 @ifNotDefined public native EXSetEventDamage     (real amount) returns bool

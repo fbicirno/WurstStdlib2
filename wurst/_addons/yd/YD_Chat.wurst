@@ -1,10 +1,14 @@
 package YD_Chat
 import NoWurst
-
+/**聊天-[所有人]*/
 public constant int CHAT_RECIPIENT_ALL       = 0        // [所有人]
+/**聊天-[盟友]*/
 public constant int CHAT_RECIPIENT_ALLIES    = 1        // [盟友]
+/**聊天-[观看者]*/
 public constant int CHAT_RECIPIENT_OBSERVERS = 2        // [观看者]
+/**聊天-[裁判]*/
 public constant int CHAT_RECIPIENT_REFEREES  = 2        // [裁判]
+/**聊天-[私人的]*/
 public constant int CHAT_RECIPIENT_PRIVATE   = 3        // [私人的]
-
+/**聊天-设置频道并显示聊天信息*/
 @ifNotDefined public native EXDisplayChat (player p, int chat_recipient, string message)

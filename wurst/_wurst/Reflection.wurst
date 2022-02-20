@@ -1,8 +1,8 @@
 /**
- This package is designed for debugging.
- It can print some details from the runtime presentation
- of Wurst objects.
- Everything is highly implementation specific, so DO NOT use these functions for anything else than showing debugging text.
+ 这个包是为调试而设计的。
+ 它可以打印运行时演示文稿中的一些详细信息
+ Wurst的物体。
+ 所有内容都是高度特定于实现的，因此除了显示调试文本之外，不要将这些函数用于任何其他用途.
 */
 package Reflection
 

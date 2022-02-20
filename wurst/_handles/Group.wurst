@@ -4,45 +4,43 @@ import Vectors
 import Player
 import Annotations
 
-/** Use this group for your non-nested group enum calls
-	and then iterate through the group via **for from** or
-	clear the group after use */
+/**将此组用于非嵌套组枚举调用，通过**for/from**来进行迭代。使用后记得清除组*/
 public constant ENUM_GROUP = CreateGroup()
-
+/**选取范围内所有单位添加到单位组*/
 public function group.enumUnitsInRange(vec2 pos, real range)
 	GroupEnumUnitsInRange(this, pos.x, pos.y, range, null)
-
+/**选取范围内满足条件的单位添加到单位组*/
 public function group.enumUnitsInRange(vec2 pos, real range, boolexpr filter)
 	GroupEnumUnitsInRange(this, pos.x, pos.y, range, filter)
-
+/**选取矩形区域内所有单位*/
 public function group.enumUnitsInRect(rect rec)
 	this.enumUnitsInRect(rec, null)
-
+/**选取矩形区域满足条件的单位*/
 public function group.enumUnitsInRect(rect rec, boolexpr filter)
 	GroupEnumUnitsInRect(this, rec, filter)
-
+/**对指定玩家选取满足条件的单位*/
 public function group.enumUnitsSelected(player p, boolexpr filter)
 	GroupEnumUnitsSelected(this, p, filter)
-
+/**通过玩家匹配单位*/
 public function group.enumUnitsOfPlayer(player p, boolexpr filter)
 	GroupEnumUnitsOfPlayer(this, p, filter)
-
+/**通过单位类型匹配单位*/
 public function group.enumUnitsOfType(string unitname, boolexpr filter)
 	GroupEnumUnitsOfType(this, unitname, filter)
-
+/**通过单位ID匹配单位*/
 public function group.enumUnitsOfType(int id, boolexpr filter)
 	GroupEnumUnitsOfType(this, UnitId2String(id), filter)
-
+/**所有满足条件的单位*/
 public function group.enumUnitsAll(boolexpr filter)
 	for i = 0 to bj_MAX_PLAYER_SLOTS - 1
 		ENUM_GROUP.enumUnitsOfPlayer(players[i], filter)
 		this.add(ENUM_GROUP)
 	ENUM_GROUP.clear()
-
+/**清空单位组*/
 public function group.clear()
 	GroupClear(this)
 
-/** Returns the number of added units. */
+/**返回单位组添加的单位数量*/
 public function group.add(vararg unit units) returns int
 	var i = 0
 	for u in units
@@ -56,7 +54,7 @@ public function group.addUnit(vararg unit units)
 	for u in units
 		this.add(u)
 
-/** Retruns the number of removed units. */
+/** 返回单位组移除的单位数量 */
 public function group.remove(vararg unit units) returns int
 	var i = 0
 	for u in units
@@ -69,10 +67,10 @@ public function group.remove(vararg unit units) returns int
 public function group.removeUnit(vararg unit units)
 	for u in units
 		this.remove(u)
-
+/**销毁单位组*/
 public function group.destr()
 	DestroyGroup(this)
-
+/**判断单位是否在单位组*/
 public function group.has(unit u) returns bool
 	return IsUnitInGroup(u, this)
 
@@ -80,18 +78,17 @@ public function group.has(unit u) returns bool
 public function group.contains(unit u) returns bool
 	return this.has(u)
 
-
+/**返回单位组中单位数量*/
 public function group.size() returns int
 	var i = 0
 	for _ in this
 		i++
 	return i
-
+/**判断单位组是否为空*/
 public function group.isEmpty() returns bool
 	return not this.hasNext()
 
-/** Returns a random unit from this group without removing it
-	or null if the group is empty */
+/**从单位组选择一个随机单位，但不移除。如果组为空，则返回null*/
 public function group.getRandom() returns unit
 	let size = this.size()
 	if size > 0
@@ -105,25 +102,25 @@ public function group.getRandom() returns unit
 @deprecated("Use .getRandom instead.")
 public function group.getRandomUnit() returns unit
 	return this.getRandom()
-
+/**对单位组内单位发布命令*/
 public function group.immediateOrder(string order) returns bool
 	return GroupImmediateOrder(this, order)
-
+/**对单位组内单位发布命令ID*/
 public function group.immediateOrderById(int order) returns bool
 	return GroupImmediateOrderById(this, order)
-
+/**对单位组内单位发布命令到指定Vec2*/
 public function group.pointOrder(string order, vec2 point) returns bool
 	return GroupPointOrder(this, order, point.x, point.y)
-
+/**对单位组内单位发布命令ID到指定Vec2*/
 public function group.pointOrderById(int order, vec2 point) returns bool
 	return GroupPointOrderById(this, order, point.x, point.y)
-
+/**对单位组内指定单位发布命令*/
 public function group.targetOrder(string order, widget targetWidget) returns bool
 	return GroupTargetOrder(this, order, targetWidget)
-
+/**对单位组内指定单位发布命令ID*/
 public function group.targetOrder(int order, widget targetWidget) returns bool
 	return GroupTargetOrderById(this, order, targetWidget)
-
+/**返回多个单位组内单位数量*/
 public function group.add(vararg group groups) returns int
 	var i = 0
 	for g in groups
@@ -136,7 +133,7 @@ public function group.add(vararg group groups) returns int
 @deprecated("Use .add instead.")
 public function group.addGroup(group g) returns int
 	return this.add(g)
-
+/**返回多个单位组内移除单位的数量*/
 public function group.remove(vararg group groups) returns int
 	var i = 0
 	for g in groups
@@ -149,35 +146,36 @@ public function group.remove(vararg group groups) returns int
 @deprecated("Use .remove instead.")
 public function group.removeGroup(group g) returns int
 	return this.remove(g)
-
+/**返回单位组中第一个单位(index随便填)*/
 public function group.get(int index) returns unit
-	return BlzGroupUnitAt(this, index)
+	return FirstOfGroup(this)
+	//return BlzGroupUnitAt(this, index)
 
 @deprecated("Use .get instead.")
 public function group.getUnitAt(int index) returns unit
 	return this.get(index)
 
-/* Group iterator */
+/* 单位组 迭代器 */
 
 group iterGroup
 
-/** Creates a new iterator for this group. */
+/**为单位组创建新的迭代器*/
 public function group.iterator() returns group
 	iterGroup = CreateGroup()
 	ForGroup(this, () -> iterGroup.add(GetEnumUnit()))
 	return iterGroup
 
-/** Returns whether the iterator has the next item */
+/**返回单位组是否具有单位*/
 public function group.hasNext() returns bool
 	return FirstOfGroup(this) != null
 
-/** Returns the next item from the iterator */
+/**返回单位组中的下一个单位，并将该单位移出单位组*/
 public function group.next() returns unit
 	let iterUnit = FirstOfGroup(this)
 	GroupRemoveUnit(this, iterUnit)
 	return iterUnit
 
-/** Closes the iterator, releaseing the group */
+/**清空单位组并销毁*/
 public function group.close()
 	this.clear()
 	this.destr()

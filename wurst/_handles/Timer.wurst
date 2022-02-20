@@ -1,26 +1,26 @@
 package Timer
 import NoWurst
-
+/**销毁计时器*/
 public function timer.destr()
 	DestroyTimer(this)
-
+/**计时器逝去的时间*/
 public function timer.getElapsed() returns real
 	return TimerGetElapsed(this)
-
+/**获取计时器整数HandleID*/
 public function timer.getHandleId() returns int
 	return GetHandleId(this)
-
+/**暂停计时器*/
 public function timer.pause()
 	PauseTimer(this)
-
+/**获取计时器剩余时间*/
 public function timer.getRemaining() returns real
 	return TimerGetRemaining(this)
-
+/**恢复计时器*/
 public function timer.resume()
 	ResumeTimer(this)
-
+/**运行计时器(单次)*/
 public function timer.start(real time, code timerCallBack)
 	TimerStart(this, time, false, timerCallBack)
-
+/**运行计时器(循环)*/
 public function timer.startPeriodic(real time, code timerCallBack)
 	TimerStart(this, time, true, timerCallBack)

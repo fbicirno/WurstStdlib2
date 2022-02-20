@@ -31,115 +31,115 @@ import Framehandle
 
 // public function OSKEY_META.toInt() returns int
 // 	return this castTo int
-
+/**触发器添加动作 例子：..addAction()->*/
 public function trigger.addAction(code actionFunc) returns triggeraction
 	return TriggerAddAction(this, actionFunc)
-
+/**触发器添加条件 例子：..addCondition(Condition(()-> GetTriggerUnit().getTypeId()=='Hblm'))*/
 public function trigger.addCondition(boolexpr condition) returns triggercondition
 	return TriggerAddCondition(this, condition)
-
+/**触发器清空条件*/
 public function trigger.clearConditions()
 	TriggerClearConditions(this)
-
+/**触发器清空动作*/
 public function trigger.clearActions()
 	TriggerClearActions(this)
-
+/**删除触发器*/
 public function trigger.destr()
 	DestroyTrigger(this)
-
+/**禁用触发器*/
 public function trigger.disable()
 	DisableTrigger(this)
-
+/**启用触发器*/
 public function trigger.enable()
 	EnableTrigger(this)
-
+/**触发条件成立*/
 public function trigger.evaluate() returns boolean
 	return TriggerEvaluate(this)
-/**运行触发*/
+/**运行触发器(忽略条件)*/
 public function trigger.execute()
 	TriggerExecute(this)
-
+/**运行触发器执行等待？*/
 public function trigger.executeWait()
 	TriggerExecuteWait(this)
-
+/**判断触发器是否启用*/
 public function trigger.isEnabled() returns boolean
 	return IsTriggerEnabled(this)
-
+/**挂起触发器？*/
 public function trigger.waitOnSleeps(boolean flag)
 	TriggerWaitOnSleeps(this, flag)
-
+/**判断触发器是否被挂起*/
 public function trigger.isWaitOnSleeps() returns boolean
 	return IsTriggerWaitOnSleeps(this)
-
+/**获取触发条件判断次数*/
 public function trigger.getEvalCount() returns int
 	return GetTriggerEvalCount(this)
-
+/**获取触发器运行次数*/
 public function trigger.getExecCount() returns int
 	return GetTriggerExecCount(this)
-
+/**触发器注册-任意单位事件*/
 public function trigger.registerAnyUnitEvent(playerunitevent whichEvent)
 	TriggerRegisterAnyUnitEventBJ(this, whichEvent)
-
+/**触发器注册-单位死亡事件*/
 public function trigger.registerDeathEvent(widget whichWidget) returns event
 	return TriggerRegisterDeathEvent(this, whichWidget)
-
+/**触发器注册-对话框按钮被点击事件*/
 public function trigger.registerDialogButtonEvent(button whichButton) returns event
 	return TriggerRegisterDialogButtonEvent(this, whichButton)
-
+/**触发器注册-对话框事件*/
 public function trigger.registerDialogEvent(dialog whichDialog) returns event
 	return TriggerRegisterDialogEvent(this, whichDialog)
-
+/**触发器注册-单位进入不规则区域事件(指定条件)*/
 public function trigger.registerEnterRegion(region whichRegion, boolexpr filter) returns event
 	return TriggerRegisterEnterRegion(this, whichRegion, filter)
-
+/**触发器注册-比赛游戏事件*/
 public function trigger.registerGameEvent(gameevent whichGameEvent) returns event
 	return TriggerRegisterGameEvent(this, whichGameEvent)
-
+/**触发器注册-游戏状态事件*/
 public function trigger.registerGameStateEvent(gamestate whichState, limitop opcode, real limitval) returns event
 	return TriggerRegisterGameStateEvent(this, whichState, opcode, limitval)
-
+/**触发器注册-单位离开不规则区域事件(指定条件)*/
 public function trigger.registerLeaveRegion(region whichRegion, boolexpr filter) returns event
 	return TriggerRegisterLeaveRegion(this, whichRegion, filter)
-
+/**触发器注册-玩家输入聊天信息事件(事件ID 096)*/
 public function trigger.registerPlayerChatEvent(player whichPlayer, string chatMessageToDetect, boolean exactMatchOnly) returns event
 	return TriggerRegisterPlayerChatEvent(this, whichPlayer, chatMessageToDetect, exactMatchOnly)
-
+/**触发器注册-玩家事件*/
 public function trigger.registerPlayerEvent(player whichPlayer, playerevent whichPlayerEvent) returns event
 	return TriggerRegisterPlayerEvent(this, whichPlayer, whichPlayerEvent)
-
+/**触发器注册-玩家状态事件*/
 public function trigger.registerPlayerStateEvent(player whichPlayer, playerstate whichState, limitop opcode, real limitval) returns event
 	return TriggerRegisterPlayerStateEvent(this, whichPlayer, whichState, opcode, limitval)
-
+/**触发器注册-玩家单位事件*/
 public function trigger.registerPlayerUnitEvent(player whichPlayer, playerunitevent whichPlayerUnitEvent, boolexpr filter) returns event
 	return TriggerRegisterPlayerUnitEvent(this, whichPlayer, whichPlayerUnitEvent, filter)
-
+/**触发器注册-联盟状态改变事件*/
 public function trigger.registerPlayerAllianceChange(player whichPlayer, alliancetype whichAlliance) returns event
 	return TriggerRegisterPlayerAllianceChange(this, whichPlayer, whichAlliance)
-
+/**触发器注册-联盟状态改变事件*/
 public function trigger.registerPlayerSync(player whichPlayer, alliancetype whichAlliance) returns event
 	return TriggerRegisterPlayerAllianceChange(this, whichPlayer, whichAlliance)
-/**注册游戏时间事件,单次/循环*/
+/**触发器注册-游戏时间事件(单词/循环)*/
 public function trigger.registerTimerEvent(real timeout, boolean periodic) returns event
 	return TriggerRegisterTimerEvent(this, timeout, periodic)
-
+/**触发器注册-计时器到期事件*/
 public function trigger.registerTimerExpireEvent(timer whichTimer) returns event
 	return TriggerRegisterTimerExpireEvent(this, whichTimer)
-
+/**触发器注册-鼠标点击可追踪物事件*/
 public function trigger.registerTrackableHitEvent(trackable whichTrackable) returns event
 	return TriggerRegisterTrackableHitEvent(this, whichTrackable)
-
+/**触发器注册-鼠标移动到追踪对象事件*/
 public function trigger.registerTrackableTrackEvent(trackable whichTrackable) returns event
 	return TriggerRegisterTrackableTrackEvent(this, whichTrackable)
-
+/**触发器注册-指定单位事件*/
 public function trigger.registerUnitEvent(unit whichUnit, unitevent whichEvent) returns event
 	return TriggerRegisterUnitEvent(this, whichUnit, whichEvent)
-
+/**触发器注册-指定单位事件(指定条件)？*/
 public function trigger.registerFilterUnitEvent(unit whichUnit, unitevent whichEvent, boolexpr filter) returns event
 	return TriggerRegisterFilterUnitEvent(this, whichUnit, whichEvent, filter)
-
+/**触发器注册-进入指定单位的范围事件*/
 public function trigger.registerUnitInRange(unit whichUnit, real range, boolexpr filter) returns event
 	return TriggerRegisterUnitInRange(this, whichUnit, range, filter)
-
+/**触发器注册-单位状态事件*/
 public function trigger.registerUnitStateEvent(unit whichUnit, unitstate whichState, limitop opcode, real limitval) returns event
 	return TriggerRegisterUnitStateEvent(this, whichUnit, whichState, opcode, limitval)
 
@@ -151,21 +151,21 @@ public function trigger.registerUnitStateEvent(unit whichUnit, unitstate whichSt
 // 		BlzGetTriggerFrameText  - the value of the frame event (for editfields) // not yet part of common.j
 // 		GetTriggerPlayer        - the player causing the event
 // **/
-
+/**触发器注册-数据同步事件*/
 public function trigger.registerSyncData(string prefix)
 	DzTriggerRegisterSyncData(this, prefix, false)
-/**硬件-异步注册本地玩家按键事件*/
+/**异步注册本地玩家按键事件*/
 public function registerPlayerKeyPress(oskeytype key, bool onKeyDown, code callback)
 	DzTriggerRegisterKeyEventByCode(null, key.id, onKeyDown ? 1 : 0, false, callback)
-
+/**异步注册UI事件回调*/
 public function registerFrameEvent(framehandle frame, frameeventtype frameevent, code callback)
 	DzFrameSetScriptByCode(frame.id, frameevent.id, callback , false)
-
+/**触发器注册-移除动作*/
 public function trigger.removeAction(triggeraction action)
 	TriggerRemoveAction(this, action)
-
+/**触发器注册-移除条件*/
 public function trigger.removeCondition(triggercondition condition)
 	TriggerRemoveCondition(this, condition)
-
+/**触发器注册-重置触发器*/
 public function trigger.reset()
 	ResetTrigger(this)

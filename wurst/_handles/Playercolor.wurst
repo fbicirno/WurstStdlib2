@@ -38,16 +38,16 @@ constant LOOKUP = [
 	PLAYER_COLOR_UNKNOWN1,
 	PLAYER_COLOR_UNKNOWN2,
 	PLAYER_COLOR_BLACK_PASSIVE]
-
+/**设置玩家颜色*/
 public function player.setColor(playercolor color)
 	SetPlayerColor(this, color)
-
+/**获取玩家颜色*/
 public function player.getColor() returns playercolor
 	return GetPlayerColor(this)
-
+/**转换整数为玩家颜色*/
 public function int.toPlayerColor() returns playercolor
 	return LOOKUP[this]
-
+/**转换玩家颜色为整数*/
 public function playercolor.toInt() returns int
 	var value = 0
 	for i = 0 to bj_MAX_PLAYER_SLOTS - 1
@@ -57,12 +57,12 @@ public function playercolor.toInt() returns int
 	return value
 
 
-/** Returns the player that had this color *at the start of the game*. Does not
+/** 返回在游戏开始时具有此颜色*的玩家*. Does not
 	respect SetPlayerColor. */
 public function playercolor.getPlayer() returns player
 	return players[this.toInt()]
 
-/** Returns the players who are currently using this player color. Respects calls
+/** 返回当前使用此玩家颜色的玩家. Respects calls
 	to SetPlayerColor */
 public function playercolor.getPlayers() returns force
 	let matchingPlayers = CreateForce()

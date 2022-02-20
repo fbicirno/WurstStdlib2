@@ -1,4 +1,6 @@
 package YD_Scripts
 import NoWurst
+import Annotations
 
+/**执行脚本代码*/
 @ifNotDefined public native EXExecuteScript (string script) returns string

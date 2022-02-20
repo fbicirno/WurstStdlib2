@@ -1,45 +1,45 @@
 package Quest
 import QuestItem
-
+/**设置任务需求*/
 public function quest.setRequired(boolean req)
 	QuestSetRequired(this, req)
-
+/**设置任务标题*/
 public function quest.setTitle(string title)
 	QuestSetTitle(this, title)
-
+/**设置任务描述*/
 public function quest.setDescription(string text)
 	QuestSetDescription(this, text)
-
+/**设置任务图标*/
 public function quest.setIcon(string path)
 	QuestSetIconPath(this, path)
-
+/**设置任务完成*/
 public function quest.completed(boolean b)
 	QuestSetCompleted(this, b)
-
+/**设置任务失败*/
 public function quest.failed(boolean b)
 	QuestSetFailed(this, b)
-
+/**设置任务被发现*/
 public function quest.discovered(boolean b)
 	QuestSetDiscovered(this, b)
-
+/**判断任务是否激活*/
 public function quest.isEnabled() returns boolean
 	return IsQuestEnabled(this)
-
+/**判断任务是否完成*/
 public function quest.isCompleted() returns boolean
 	return IsQuestCompleted(this)
-
+/**删除任务*/
 public function quest.remove()
 	DestroyQuest(this)
-
+/**闪动任务按钮*/
 public function flashQuestDialogButton()
 	FlashQuestDialogButton()
-
+/**任务4个状态*/
 public enum QuestState
 	FAILED
 	COMPLETED
 	UNDISCOVERED
 	DISCOVERED
-
+/**任务类*/
 public class Quest
 	quest q
 	QuestState qState

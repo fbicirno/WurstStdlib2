@@ -15,8 +15,8 @@ constant PRIMARY_ERROR_KEY = -1
 constant HT = compiletime(InitHashtable())
 
 /**
-	Stores the last error thrown by error().
-	This error can be inspected when using try() from package Execute.
+存储error（）引发的最后一个错误。
+使用包Execute中的try（）时可以检查此错误。
 **/
 public var lastError = ""
 

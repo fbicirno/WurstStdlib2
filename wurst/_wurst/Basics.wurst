@@ -4,23 +4,23 @@ import Player
 import NoWurst
 import Annotations
 
-/** Standard Period for animation.
-	  Note that 0.03125 is also possible, but doesn't work with order cancel from SetUnitPos */
+/**动画的标准周期。
+请注意，0.03125也是可能的，但不适用于SetUnitPos的命令取消*/
 @configurable public constant ANIMATION_PERIOD   =  0.030
-/** Max collision size of any unit */
+/**任何单位的最大碰撞大小*/
 @configurable public constant MAX_COLLISION_SIZE =  197.0
 
-/** Id of Ravenform to allow setting fly height */
+/**允许设置飞行高度的乌鸦形态 Id*/
 public constant HEIGHT_ENABLER	 		= 'Amrf'
-/** Id of Eattree to recognize trees */
+/**用于识别树的树的吞食树木Id*/
 public constant TREE_RECOGNITION  		= 'Aeat'
-/** Id of Locust */
+/**蝗虫Id*/
 public constant LOCUST_ID				= 'Aloc'
-/** Id of Ghost (Visible) */
+/**幽灵Id（可见）*/
 public constant GHOST_INVIS_ID			= 'Agho'
-/** Id of Ghost (Invisible) */
+/**幽灵Id（不可见）*/
 public constant GHOST_VIS_ID			= 'Aeth'
-/** Neutral Passive (grey) */
+/**中立被动（灰色）*/
 public constant DUMMY_PLAYER 			= players[PLAYER_NEUTRAL_PASSIVE]
-/** Neutral Hostile (darkgreen) */
+/**中立敌对（暗绿色）*/
 public constant DUMMY_HOSTILE_PLAYER 	= players[PLAYER_NEUTRAL_AGGRESSIVE]
