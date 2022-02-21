@@ -75,23 +75,23 @@ public function createTTEx(vec3 pos, string message, real size) returns texttag
 		..setPos(pos)
 		..setVisibility(true)
 /**创建并显示漂浮文字(可设置colorA颜色)*/
-public function createTTEx(vec3 pos, string message, real size, colorA col) returns texttag
+public function createTTEx(vec2 pos, string message, real size, colorA col) returns texttag
 	return CreateTextTag()
-		..setPos(pos.toVec2().withZ(20.))
+		..setPos(pos.withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVisibility(true)
 /**创建并对指定玩家显示漂浮文字(可设置colorA颜色)*/
-public function createTTEx(vec3 pos, string message, real size, colorA col, player p) returns texttag
+public function createTTEx(vec2 pos, string message, real size, colorA col, player p) returns texttag
 	return CreateTextTag()
-		..setPos(pos.toVec2().withZ(20.))
+		..setPos(pos.withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVisibility(localPlayer == p)
 /**创建漂浮文字(指定时间)*/
-public function createTTEx(vec3 pos, vec2 vel, string message, real size, real duration, colorA col) returns texttag
+public function createTTExFade(vec2 pos, vec2 vel, string message, real size, real duration, colorA col) returns texttag
 	return CreateTextTag()
-		..setPos(pos.toVec2().withZ(20.))
+		..setPos(pos.withZ(20.))
 		..setText(message, size)
 		..setColor(col)
 		..setVelocity(vel.x, vel.y)
@@ -99,7 +99,7 @@ public function createTTEx(vec3 pos, vec2 vel, string message, real size, real d
 		..setFadepoint(.1)
 		..setPermanent(false)
 /**创建漂浮文字并对指定玩家显示(指定时间)*/
-public function createTTEx(vec3 pos, vec2 vel, string message, real size, real duration, colorA col, player p) returns texttag
-	return createTTEx(pos, vel, message,size,duration,col)
+public function createTTExFade(vec2 pos, vec2 vel, string message, real size, real duration, colorA col, player p) returns texttag
+	return createTTExFade(pos, vel, message,size,duration,col)
 		..setVisibility(localPlayer == p)
 
