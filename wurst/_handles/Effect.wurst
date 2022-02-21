@@ -293,58 +293,58 @@ function testEffect()
 	
 
 
-@deprecated("魔兽1.32函数，暂不可用") 
-public function effect.setColorByPlayer(player whichPlayer)
-	DoNothing()
-	// BlzSetSpecialEffectColorByPlayer(this, whichPlayer)
+// @deprecated("魔兽1.32函数，暂不可用") 
+// public function effect.setColorByPlayer(player whichPlayer)
+// 	DoNothing()
+// 	// BlzSetSpecialEffectColorByPlayer(this, whichPlayer)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.setColor(int r, int g, int b)
-	DoNothing()
-	// BlzSetSpecialEffectColor(this, r, g, b)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.setColor(int r, int g, int b)
+// 	DoNothing()
+// 	// BlzSetSpecialEffectColor(this, r, g, b)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.setAlpha(int alpha)
-	DoNothing()
-	// BlzSetSpecialEffectAlpha(this, alpha)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.setAlpha(int alpha)
+// 	DoNothing()
+// 	// BlzSetSpecialEffectAlpha(this, alpha)
 
-@deprecated("魔兽1.32函数，暂不可用") 
-public function effect.setTime(real time)
-	DoNothing()
-	//BlzSetSpecialEffectTime(this, time)
-///** Plays an animation such as birth/death/stand/etc. defined in constants ANIM_TYPE_BIRTH/ANIM_TYPE_DEATH/ANIM_TYPE_STAND/etc. (full list in common.j). */
+// @deprecated("魔兽1.32函数，暂不可用") 
+// public function effect.setTime(real time)
+// 	DoNothing()
+// 	//BlzSetSpecialEffectTime(this, time)
+// ///** Plays an animation such as birth/death/stand/etc. defined in constants ANIM_TYPE_BIRTH/ANIM_TYPE_DEATH/ANIM_TYPE_STAND/etc. (full list in common.j). */
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.playAnimation(animtype whichAnim)
-	DoNothing()
-	// BlzPlaySpecialEffect(this, whichAnim)
-///** Plays an animation such as birth/death/stand/etc. defined in constants ANIM_TYPE_BIRTH/ANIM_TYPE_DEATH/ANIM_TYPE_STAND/etc. (full list in common.j). */
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.playAnimation(animtype whichAnim)
+// 	DoNothing()
+// 	// BlzPlaySpecialEffect(this, whichAnim)
+// ///** Plays an animation such as birth/death/stand/etc. defined in constants ANIM_TYPE_BIRTH/ANIM_TYPE_DEATH/ANIM_TYPE_STAND/etc. (full list in common.j). */
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.playAnimation(animtype whichAnim, real timeScale)
-	DoNothing()
-	// BlzPlaySpecialEffectWithTimeScale(this, whichAnim, timeScale)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.playAnimation(animtype whichAnim, real timeScale)
+// 	DoNothing()
+// 	// BlzPlaySpecialEffectWithTimeScale(this, whichAnim, timeScale)
 
-///** Returns the name of the animation type. */
+// ///** Returns the name of the animation type. */
 
-// @deprecated("魔兽1.32函数，暂不可用")  public function animtype.getName() returns string
-// 	return "error"
-// 	// return BlzGetAnimName(this)
+// // @deprecated("魔兽1.32函数，暂不可用")  public function animtype.getName() returns string
+// // 	return "error"
+// // 	// return BlzGetAnimName(this)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.addSubAnimation(subanimtype whichSubAnim)
-	DoNothing()
-	// BlzSpecialEffectAddSubAnimation(this, whichSubAnim)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.addSubAnimation(subanimtype whichSubAnim)
+// 	DoNothing()
+// 	// BlzSpecialEffectAddSubAnimation(this, whichSubAnim)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.clearSubAnimations()
-	DoNothing()
-	// BlzSpecialEffectClearSubAnimations(this)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.clearSubAnimations()
+// 	DoNothing()
+// 	// BlzSpecialEffectClearSubAnimations(this)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.removeSubAnimation(subanimtype whichSubAnim)
-	DoNothing()
-	// BlzSpecialEffectRemoveSubAnimation(this, whichSubAnim)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.removeSubAnimation(subanimtype whichSubAnim)
+// 	DoNothing()
+// 	// BlzSpecialEffectRemoveSubAnimation(this, whichSubAnim)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.setColor(color color)
-	DoNothing()
-	//BlzSetSpecialEffectColor(this, color.red, color.green, color.blue)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.setColor(color color)
+// 	DoNothing()
+// 	//BlzSetSpecialEffectColor(this, color.red, color.green, color.blue)
 
-@deprecated("魔兽1.32函数，暂不可用")  public function effect.setColor(colorA color)
-	DoNothing()
-	// BlzSetSpecialEffectColor(this, color.red, color.green, color.blue)
-	// BlzSetSpecialEffectAlpha(this, color.alpha)
+// @deprecated("魔兽1.32函数，暂不可用")  public function effect.setColor(colorA color)
+// 	DoNothing()
+// 	// BlzSetSpecialEffectColor(this, color.red, color.green, color.blue)
+// 	// BlzSetSpecialEffectAlpha(this, color.alpha)
 	
