@@ -8,6 +8,9 @@ import Annotations
 import DZ_Blz
 
 /*
+	1.27：已经针对部分函数删除添加魔改。
+	删除过时函数，大量非函数重载的函数
+
 	可以在控件定义文件 (*.fdf) 中定义自定义控件。
 	这些文件需要在 toc 文件中列出并使用 loadTOCFile() 加载才能使用。
 	toc 文件 *必须 *在末尾总是有一个空行。
@@ -25,8 +28,8 @@ import DZ_Blz
 	所有 frameeventtype 都是同步事件。如果玩家按下按钮，相关事件将为所有玩家触发。
 	然而，控件的状态是不同步的；即您可以在本地更改文本、值、位置、可见性或状态。
 
-	*重要提示：*始终在本地范围之外获取控件Handle
-
+	*重要提示：*始终在同步环境获取控件Handle，
+	1.32注释————————
 	originframetype 注释：
 		ORIGIN_FRAME_GAME_UI 				    --> 主要父控件
 		ORIGIN_FRAME_WORLD_FRAME 			    --> 游戏显示在此控件上
@@ -55,10 +58,20 @@ import DZ_Blz
 public tuple framehandle(int id)
 public tuple frameeventtype(int id)
 public tuple framepointtype(int id)
+public tuple textaligntype(int id)
+
+
 
 public constant GAME_UI  = framehandle(DzGetGameUI())
 // public constant WORLD_UI = BlzGetOriginFrame(ORIGIN_FRAME_WORLD_FRAME, 0)
 
+
+public constant TEXT_JUSTIFY_TOP      = textaligntype(0)
+public constant TEXT_JUSTIFY_MIDDLE   = textaligntype(1)
+public constant TEXT_JUSTIFY_BOTTOM   = textaligntype(2)
+public constant TEXT_JUSTIFY_LEFT     = textaligntype(3)
+public constant TEXT_JUSTIFY_CENTER   = textaligntype(4)
+public constant TEXT_JUSTIFY_RIGHT    = textaligntype(5)
 // frame event type
 /** 鼠标点击 */
 public constant FRAMEEVENT_CONTROL_CLICK          = frameeventtype(1)   // 鼠标点击
@@ -165,18 +178,17 @@ public function getSimpleFrame(string name) returns framehandle
 ID默认填0，同名时优先获取最后被创建的。SimpleFrame为fdf中的Frame类型*/
 public function getSimpleFrame(string name, integer index) returns framehandle
 	return framehandle(DzSimpleFrameFindByName(name, index))
+/**UI——创建SimpleFontString(通过名字查找)*/
+public function getSimpleFontString(string name, integer index) returns framehandle
+	return framehandle(DzSimpleFontStringFindByName(name, index))
+/**UI——创建SimpleTexture(通过名字查找)*/
+public function getSimpleTexture(string name, integer index) returns framehandle
+	return framehandle(DzSimpleTextureFindByName(name, index))
 
-@deprecated("Use getFrame(name) instead.")
-public function getFrameByName(string name) returns framehandle
-	verifyFrameNameLength(name)
-	return getFrame(name)
+public function getTriggerFrame() returns framehandle
+	return framehandle(DzGetTriggerUIEventFrame())
 
-@deprecated("Use getFrame(name, createContext) instead.")
-public function getFrameByName(string name, integer createContext) returns framehandle
-	verifyFrameNameLength(name)
-	return getFrame(name, createContext)
-
-/**获取Frame类型FDF模板的名字(手动填入ID)
+/**获取Frame类型FDF模板的名字(手动填入ID) 
 获取名字为${name}的子FrameID:${Id}
 ID默认填0，同名时优先获取最后被创建的。非Simple类的Frame类型都用此函数来获取子Frame*/
 public function getFrame(string name, integer createContext) returns framehandle
@@ -231,65 +243,20 @@ public function createSimpleFrame(string name, framehandle owner, integer create
 FDF模板名字:${inherits}
 ID索引:${createContext}
 此处name可以自定义，类型和模版填写fdf文件中的内容。通过此函数创建的Frame无法获取到子Frame*/
-public function createFrame(string typeName, string name, framehandle owner, string inherits, integer createContext) returns framehandle
+public function createFrameByTag(string typeName, string name, framehandle owner, string inherits, integer createContext) returns framehandle
 	verifyFrameNameLength(name)
 	return framehandle(DzCreateFrameByTagName(typeName, name, owner.id, inherits, createContext))
-
-@deprecated("Use createFrame(typeName, name, owner, inherits, createContext) instead.")
-public function createFrameByType(string typeName, string name, framehandle owner, string inherits, integer createContext) returns framehandle
-	verifyFrameNameLength(name)
-	return createFrame(typeName, name, owner, inherits, createContext)
-
+/** 新建Frame[ByTag] 父节点为gameui，id为0，名字为ui_name*/
+public function createFrameByTag(string typeName) returns framehandle
+	return createFrameByTag(typeName, "ui_name", GAME_UI, "template", 0)
+/** 新建Frame[ByTag] 父节点，id为0，名字为ui_name*/
+public function createFrameByTag(string typeName, framehandle owner) returns framehandle
+	return createFrameByTag(typeName, "ui_name", owner, "template", 0)
 /** 销毁UI控件 */
 public function framehandle.remove()
 	DzDestroyFrame(this.id)
 
-/**	设置UI控件绝对位置在屏幕中间*/
-public function framehandle.setCenter()
-	DzFrameSetAbsolutePoint(this.id, FRAMEPOINT_CENTER.id, SCREEN_CENTER.x, SCREEN_CENTER.y)
 
-/**	设置UI锚点在屏幕的绝对位置 
-父节点:${point}
-X:x
-Y:y
-*/
-public function framehandle.setAbsPoint(framepointtype point, real x, real y)
-	DzFrameSetAbsolutePoint(this.id, point.id, x, y)
-
-/**	设置UI锚点在屏幕的绝对位置 
-父节点:${point}
-vec2:x,y
-*/
-public function framehandle.setAbsPoint(framepointtype point, vec2 pos)
-	DzFrameSetAbsolutePoint(this.id, point.id, pos.x, pos.y)
-
-/** 设置UI锚点在屏幕的相对位置
-9锚点位置：${Point}
-父控件：${relative}
-跟随父控件9锚点位置：{relativePoint}
-默认偏移：0,0 
-*/
-public function framehandle.setPoint(framepointtype point, framehandle relative, framepointtype relativePoint)
-	DzFrameSetPoint(this.id, point.id, relative.id, relativePoint.id, 0, 0)
-
-/** 设置UI锚点在屏幕的相对位置
-9锚点位置：${Point}
-父控件：${relative}
-跟随父控件9锚点位置：{relativePoint}
-偏移：${vec2(x, y)}
-*/
-public function framehandle.setPoint(framepointtype point, framehandle relative, framepointtype relativePoint, vec2 offset)
-	DzFrameSetPoint(this.id, point.id, relative.id, relativePoint.id, offset.x, offset.y)
-
-/** 设置UI锚点在屏幕的相对位置
-9锚点位置：${Point}
-父控件：${relative}
-跟随父控件9锚点位置：{relativePoint}
-偏移x：${offsetX}
-偏移y：${offsetY}
-*/
-public function framehandle.setPoint(framepointtype point, framehandle relative, framepointtype relativePoint, real offsetX, real offsetY)
-	DzFrameSetPoint(this.id, point.id, relative.id, relativePoint.id, offsetX, offsetY)
 
 /** 清空控件的所有锚点 */
 public function framehandle.clearAllPoints()
@@ -303,9 +270,6 @@ public function framehandle.setAllPoints(framehandle relative)
 public function framehandle.setVisible(bool flag)
 	DzFrameShow(this.id, flag)
 
-@deprecated("Use .setVisible(player p, bool flag) instead.")
-public function framehandle.setVisibleFor(player p, bool flag)
-	this.setVisible(p, flag)
 
 /** 设置UI控件对玩家是否可见 */
 public function framehandle.setVisible(player p, bool flag)
@@ -316,10 +280,6 @@ public function framehandle.setVisible(player p, bool flag)
 public function framehandle.show()
 	this.setVisible(true)
 
-@deprecated("Use .show(player p) instead.")
-public function framehandle.showFor(player p)
-	this.show(p)
-
 /** 设置UI控件对玩家可见 */
 public function framehandle.show(player p)
 	this.setVisible(p, true)
@@ -327,10 +287,6 @@ public function framehandle.show(player p)
 /** 隐藏UI控件 */
 public function framehandle.hide()
 	this.setVisible(false)
-
-@deprecated("Use .hide(player p) instead.")
-public function framehandle.hideFor(player p)
-	this.hide(p)
 
 /** 设置UI控件玩家隐藏 */
 public function framehandle.hide(player p)
@@ -343,10 +299,6 @@ public function framehandle.isVisible() returns bool
 /**返回指定玩家是否可见该控件(原版库被注释)*/
 public function framehandle.isVisible(player p) returns boolean
 	return localPlayer == p or p == null ? this.isVisible() : false
-
-@deprecated("Use .getName() instead.")
-public function framehandle.name() returns string
-	return this.getName()
 
 /** 获取控件的名字 */
 public function framehandle.getName() returns string
@@ -482,13 +434,19 @@ public function framehandle.setAlpha(player p, int alpha)
 */
 public function framehandle.setSpriteAnimate(int animId, bool autoCast)
 	DzFrameSetAnimate(this.id, animId, autoCast)
-
+/** 设置动画进度（autocast为false时可用）
+*/
+public function framehandle.setSpriteAnimateOffset(real offset)
+	DzFrameSetAnimateOffset(this.id, offset)
 /** 设置控件贴图（支持Backdrop、SimpleStatusBar）
 贴图路径:${texFile}
 是否平铺${flag} 
 */
 public function framehandle.setTexture(string texFile, integer flag)
 	DzFrameSetTexture(this.id, texFile, flag)
+
+public function framehandle.setTexture(string texFile)
+	DzFrameSetTexture(this.id, texFile, 0)
 
 /** 指定玩家设置控件贴图（支持Backdrop、SimpleStatusBar） 
 玩家:${p}
@@ -521,10 +479,6 @@ public function framehandle.getValue() returns real
 public function framehandle.setValue(real value)
 	DzFrameSetValue(this.id, value)
 
-@deprecated("Use .setMinMax(minValue, maxValue) instead.")
-public function framehandle.minMax(real minValue, real maxValue)
-	this.setMinMax(minValue,maxValue)
-
 /** 设置控件的最小、最大值（支持Slider、SimpleStatusBar、StatusBar）*/
 public function framehandle.setMinMax(real minValue, real maxValue)
 	DzFrameSetMinMaxValue(this.id, minValue, maxValue)
@@ -541,15 +495,13 @@ public function framehandle.setStepSize(real stepSize)
 // public function framehandle.setHeight(real height)
 // 	BlzFrameSetSize(this, this.getWidth(), height)
 
-/** 设置控件宽高*/
-public function framehandle.setSize(real width, real height)
-	DzFrameSetSize(this.id, width, height)
+
 
 /** 设置控件颜色（支持SimpleStatusBar）*/
 public function framehandle.setVertexColor(integer color)
 	DzFrameSetVertexColor(this.id, color)
 
-/**设置控件层级优先级。
+/**设置控件层级优先级。0为穿透
 (如果多个控件相互覆盖，则具有最高级别的控件将接收鼠标事件，并将在其他控件的上方绘制。
 如果多个控件具有相同的级别，则最后创建的控件将具有优先级)*/
 public function framehandle.setLevel(integer level)
@@ -559,15 +511,12 @@ public function framehandle.setLevel(integer level)
 public function framehandle.getParent() returns framehandle
 	return framehandle(DzFrameGetParent(this.id))
 
+public function framehandle.getMouseFocus() returns framehandle
+	return framehandle(DzGetMouseFocus())
+
 /** 设置控件的父级 */
 public function framehandle.setParent(framehandle parent)
 	DzFrameSetParent(this.id, parent.id)
-
-@deprecated("use getHeight() instead") public function framehandle.height() returns real
-	return this.getHeight()
-
-// @deprecated("use getWidth() instead") public function framehandle.width() returns real
-// 	return this.getWidth()
 
 /** 获取控件的高度(Dz没有设置宽度) */
 public function framehandle.getHeight() returns real
@@ -586,56 +535,32 @@ flag${flag}
 public function framehandle.setFont(string fileName, real height, integer flags)
 	DzFrameSetFont(this.id, fileName, height, flags)
 
+public function framehandle.setFont(string fileName, real height)
+	DzFrameSetFont(this.id, fileName, height, 0)
+
 /** 设置控件文本对齐方式(支持TextFrame、SimpleFontString、SimpleMessageFrame)*/
-public function framehandle.setTextAlignment(int align)
+public function framehandle.setTextAlignment(textaligntype align)
 	// textaligntype vert, textaligntype horz
-	DzFrameSetTextAlignment(this.id, align)
+	/*设置居中
+    0-左上 2-左中 4-左下 
+    16中上 18-居中 20-中下 
+    32-右上 34-右中 36-右下
+	*/
+	DzFrameSetTextAlignment(this.id, align.id)
 
 /** 原生UI控件重置锚点 */
 public function enableUIAutoPosition(bool flag)
 	DzOriginalUIAutoResetPoint(flag)
 
-// /** Hides or shows all origin frames except ORIGIN_FRAME_WORLD_FRAME */
-// public function setOriginFramesVisible(bool flag)
-// 	BlzHideOriginFrames(not flag)
-
-// @deprecated("Use setOriginFramesVisible(bool flag) instead.")
-// public function hideOriginFrames(bool flag)
-// 	setOriginFramesVisible(not flag)
-
 /** 隐藏所有界面UI控件元素(不再在地图初始化时调用则会残留小地图和时钟模型 )*/
 public function hideOriginFrames()
 	DzFrameHideInterface()
-
-// /** Shows all origin frames except ORIGIN_FRAME_WORLD_FRAME */
-// public function showOriginFrames()
-// 	setOriginFramesVisible(true)
 
 /** 加载Toc文件列表(载入自定义fdf列表文件)*/
 public function loadTOCFile(string tocFile)
 	DzLoadToc(tocFile)
 
-let mouseCage = createFrame("FRAME", "SetMousePositionCage", GAME_UI, null, 0)
-	..setSize(0.0001, 0.0001)
 
-/**设置鼠标位置在屏幕的指定vec2点上。使用与framehandles相同的坐标系*/
-public function setMousePos(vec2 pos)
-	mouseCage..clearAllPoints()
-	..setPoint(FRAMEPOINT_BOTTOMLEFT, GAME_UI, FRAMEPOINT_BOTTOMLEFT, pos)
-	..cageMouse(true)
-	..cageMouse(false)
-
-/**设置鼠标位置在控件的中心*/
-public function framehandle.setMousePos()
-	mouseCage..clearAllPoints()
-	..setPoint(FRAMEPOINT_CENTER, this, FRAMEPOINT_CENTER)
-	..cageMouse(true)
-	..cageMouse(false)
-
-/**将鼠标光标放置在屏幕的指定的xy点上。
-使用窗口的坐标系（以像素为单位），其中（0，0）为游戏窗口的左上角，Y轴的正方向为向下*/
-public function setMousePos(integer x, integer y)
-	DzSetMousePos(x, y)
 
 // public function enableCursor()
 // 	BlzEnableCursor(true)

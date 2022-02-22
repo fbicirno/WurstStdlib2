@@ -1,0 +1,53 @@
+package CustomValue
+
+/*
+包名：wurst版——逆天自定义值
+作者：FBI工坊
+QQ：750160517
+*/
+let rootTable=InitHashtable()
+//设置自定义值
+public function T1.setCustomV<T1,T2>(string valName,T2 anyprop)
+    rootTable.saveInt(this castTo int, valName.getHash(), anyprop castTo int)
+public function T1.setCustomV<T1,T2>(int valName,T2 anyprop)
+    rootTable.saveInt(this castTo int, valName, anyprop castTo int)
+
+public function T1.setCustomV<T1,T2>(hashtable table,int valName,T2 anyprop)
+    table.saveInt(this castTo int, valName, anyprop castTo int)
+//获取自定义值
+public function T1.getCustomV<T1,T2>(string valName) returns T2
+    return rootTable.loadInt(this castTo int, valName.getHash()) castTo T2
+public function T1.getCustomV<T1,T2>(int valName) returns T2
+    return rootTable.loadInt(this castTo int, valName) castTo T2
+
+public function T1.getCustomV<T1,T2>(hashtable table,int valName) returns T2
+    return table.loadInt(this castTo int, valName) castTo T2
+//是否拥有自定义值
+public function T1.hasCustomV<T1,T2>(string valName) returns bool
+    return rootTable.hasInt(this castTo int, valName.getHash())
+public function T1.hasCustomV<T1,T2>(int valName) returns bool
+    return rootTable.hasInt(this castTo int, valName)
+
+public function T1.hasCustomV<T1,T2>(hashtable table,int valName) returns bool
+    return table.hasInt(this castTo int, valName)
+//自定义值加法——————————————
+public function T1.addCustomV<T1>(string valName,int anyprop)
+    this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
+public function T1.addCustomVR<T1>(string valName,real anyprop)
+    this.setCustomV(valName,this.getCustomV<thistype,real>(valName)+anyprop)
+
+@test function rootTableTest()
+    let i1=100
+    let i2="今天天气"
+    let i3=createUnit(Player(0), 'hfoo', vec2(0, 0), angle(0))
+    i1.setCustomV("自定义值", "我我我")
+    i2.setCustomV("自定义值2", "下雨")
+    i3.setCustomV("攻击力", 1024)
+    print(i1.getCustomV<int,string>("自定义值"))
+    print(i2.getCustomV<string,string>("自定义值2"))
+    if i3.hasCustomV<unit,int>("攻击力")
+        print(i3.getCustomV<unit,int>("攻击力"))
+        i3.addCustomV("攻击力", 1024)
+        print(i3.getCustomV<unit,int>("攻击力"))
+    else
+        print("没有")

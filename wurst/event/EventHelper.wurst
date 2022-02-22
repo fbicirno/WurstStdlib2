@@ -333,6 +333,9 @@ public class EventData
 
 	static function getTournamentFinishPlayer() returns player
 		return GetTournamentFinishNowPlayer()
+	
+	static function getTriggerUIEventPlayer() returns player
+		return DzGetTriggerUIEventPlayer()
 
 	static function getChangingUnitPreviousOwnerPlayer() returns player
 		return GetChangingUnitPrevOwner()

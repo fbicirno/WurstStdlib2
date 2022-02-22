@@ -237,3 +237,9 @@ public function booleanToIndex(boolean u) returns int
 public function booleanFromIndex(int index) returns boolean
 	return index == 1
 
+public function framehandleToIndex(framehandle object) returns int
+	return object.id
+
+public function framehandleFromIndex(int index) returns framehandle
+	return framehandle(index)
+

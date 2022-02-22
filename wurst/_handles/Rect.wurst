@@ -56,7 +56,7 @@ public function rect.resize(vec2 min, vec2 max)
 /**获取矩形区域的宽度*/
 public function rect.width() returns real
 	return this.getMaxX() - this.getMinX()
-/**后去矩形区域的高度*/
+/**获取矩形区域的高度*/
 public function rect.height() returns real
 	return this.getMaxY() - this.getMinY()
 /**删除矩形区域*/

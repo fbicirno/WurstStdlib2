@@ -1,6 +1,7 @@
 package HashtableEx
 import StringEx
 import HashList
+import Printing
 public function HashList<int>.getRandom() returns int
     if this==null
         print("ERROR  链表随机，分配问题！")
