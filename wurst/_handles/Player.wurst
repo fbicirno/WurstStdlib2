@@ -74,7 +74,7 @@ public function player.getCurrentSupply() returns int
 /**获取玩家的金币值*/
 public function player.getGold() returns int
 	return this.getState(PLAYER_STATE_RESOURCE_GOLD)
-/**获取玩家ID(1-16)*/
+/**获取玩家ID(0-15)*/
 public function player.getId() returns int
 	return GetPlayerId(this)
 /**获取玩家的木材值*/

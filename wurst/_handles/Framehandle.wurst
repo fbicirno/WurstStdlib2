@@ -65,13 +65,17 @@ public tuple textaligntype(int id)
 public constant GAME_UI  = framehandle(DzGetGameUI())
 // public constant WORLD_UI = BlzGetOriginFrame(ORIGIN_FRAME_WORLD_FRAME, 0)
 
-
-public constant TEXT_JUSTIFY_TOP      = textaligntype(0)
-public constant TEXT_JUSTIFY_MIDDLE   = textaligntype(1)
-public constant TEXT_JUSTIFY_BOTTOM   = textaligntype(2)
-public constant TEXT_JUSTIFY_LEFT     = textaligntype(3)
-public constant TEXT_JUSTIFY_CENTER   = textaligntype(4)
-public constant TEXT_JUSTIFY_RIGHT    = textaligntype(5)
+/*设置居中
+    0-左上 2-左中 4-左下 
+    16中上 18-居中 20-中下 
+    32-右上 34-右中 36-右下
+	*/
+public constant TEXT_JUSTIFY_TOP      = textaligntype(16)
+public constant TEXT_JUSTIFY_MIDDLE   = textaligntype(18)
+public constant TEXT_JUSTIFY_BOTTOM   = textaligntype(20)
+public constant TEXT_JUSTIFY_LEFT     = textaligntype(2)
+public constant TEXT_JUSTIFY_CENTER   = textaligntype(18)
+public constant TEXT_JUSTIFY_RIGHT    = textaligntype(34)
 // frame event type
 /** 鼠标点击 */
 public constant FRAMEEVENT_CONTROL_CLICK          = frameeventtype(1)   // 鼠标点击
