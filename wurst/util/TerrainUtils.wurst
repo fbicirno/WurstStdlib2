@@ -53,6 +53,8 @@ public function vec2.isTerrainLand() returns boolean
 
 public function vec2.isTerrainPlatform() returns boolean
 	return not this.isTerrainPathable(PATHING_TYPE_FLOATABILITY) and not this.isTerrainPathable(PATHING_TYPE_WALKABILITY) and not this.isTerrainPathable(PATHING_TYPE_BUILDABILITY)
+public function vec2.isTerrainWalkable() returns boolean
+	return not this.isTerrainPathable(PATHING_TYPE_WALKABILITY)
 
 constant MAX_RANGE_SQ = 10. .squared()
 constant DUMMY_ITEM_ID = 'wolg'
@@ -60,7 +62,8 @@ let dummyItem = createItem(DUMMY_ITEM_ID, ZERO2)..setVisible(false)
 let itemSearchRect = Rect(0., 0., 128., 128.)
 item array hiddenItems
 int hiddenItemsCount = 0
-public function vec2.isTerrainWalkable() returns boolean
+/** 通过物品位置法-判断区域是否可通行*/
+public function vec2.isTerrainWalkableByItem() returns boolean
 	// Hide any items in the area to avoid conflicts with our item
 	itemSearchRect.moveTo(this)
 	EnumItemsInRect(itemSearchRect, null) ->
