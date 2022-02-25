@@ -71,10 +71,10 @@ public function multiboard.maximize()
 public function multiboard.maximize(player p)
 	if localPlayer == p
 		this.maximize()
-/**设置多面板列数*/
+/**设置多面板列数(0-31个)*/
 public function multiboard.setColumnCount(int count)
 	MultiboardSetColumnCount(this, count)
-/**设置多面板行数*/
+/**设置多面板行数(0-31个)*/
 public function multiboard.setRowCount(int count)
 	MultiboardSetRowCount(this, count)
 /**设置多面板所有项目图标*/

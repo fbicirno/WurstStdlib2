@@ -84,7 +84,7 @@ public function player.getLumber() returns int
 public function player.getMaxSupply() returns int
 	return this.getState(PLAYER_STATE_RESOURCE_FOOD_CAP)
 
-@deprecated("重制版战网内容") public function player.getName() returns string
+public function player.getName() returns string
 	return this.getName(false)
 
 /** Reforged names have a number attached after a hash tag, like Bob#1234 */
