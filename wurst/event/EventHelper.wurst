@@ -336,7 +336,8 @@ public class EventData
 	
 	static function getTriggerUIEventPlayer() returns player
 		return DzGetTriggerUIEventPlayer()
-
+	static function getTriggerKeyPlayer() returns player
+		return DzGetTriggerKeyPlayer()
 	static function getChangingUnitPreviousOwnerPlayer() returns player
 		return GetChangingUnitPrevOwner()
 

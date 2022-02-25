@@ -217,7 +217,7 @@ public function player.getCursorFocus() returns unit
 public function player.setMinimapTerrainTex(string texFile)
 	if localPlayer == this
 		DzSetWar3MapMap(texFile)
-/**同步游戏数据*/
+/**同步游戏数据(前缀标签，数值)*/
 public function player.sendSyncData(string prefix, string data)
 	if localPlayer == this
 		DzSyncData(prefix, data)
