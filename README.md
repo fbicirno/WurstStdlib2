@@ -22,6 +22,14 @@ DZAPI编辑器版本:1.29c
 
 # 更新日志
 
+v1.7-2022/2/26
+
+修复framehandle，可用于1.27
+
+优化部分handle脚本的函数
+
+新增部分加强脚本，customvalue增强版。
+
 v1.6—2022/2/9
 
 翻译knockback，删改了std_fix中的config文件
