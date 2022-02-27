@@ -41,6 +41,11 @@ public function T1.addCustomV<T1>(string valName,int anyprop)
     this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
 public function T1.addCustomVR<T1>(string valName,real anyprop)
     this.setCustomV(valName,this.getCustomV<thistype,real>(valName)+anyprop)
+/** 玩家——存自定义值*/
+public function player.addCV(int valName,int anyprop)
+    this.setCV<int>(valName,this.getCV<int>(valName)+anyprop)
+public function player.addCVR(int valName,real anyprop)
+    this.setCV<real>(valName,this.getCV<real>(valName)+anyprop)
 
 @test function rootTableTest()
     let i1=100
