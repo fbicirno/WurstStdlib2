@@ -15,6 +15,8 @@ public function T1.setCustomV<T1,T2>(int valName,T2 anyprop)
 /** 玩家——存自定义值*/
 public function player.setCV<T2>(int valName,T2 anyprop)
     playerTable.saveInt(this.getId(), valName, anyprop castTo int)
+public function player.setCV<T2>(string valName,T2 anyprop)
+    playerTable.saveInt(this.getId(), valName.getHash(), anyprop castTo int)
 public function T1.setCustomV<T1,T2>(hashtable table,int valName,T2 anyprop)
     table.saveInt(this castTo int, valName, anyprop castTo int)
 //获取自定义值
