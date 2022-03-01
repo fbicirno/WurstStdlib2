@@ -6,5 +6,5 @@ import Trigger
 public function trigger.addCondition(code code1)
     this.addCondition(Condition(code1))
 
-public function trigger.registerEnterRegion(region whichRegion,code code1)
+public function trigger.registerEnterRegionEx(region whichRegion,code code1)
     this.registerEnterRegion(whichRegion, Condition(code1))
