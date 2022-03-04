@@ -147,7 +147,12 @@ public function group.remove(vararg group groups) returns int
 public function group.removeGroup(group g) returns int
 	return this.remove(g)
 /**返回单位组中第一个单位(index随便填)*/
+@deprecated("Use .get instead.")
 public function group.get(int index) returns unit
+	return FirstOfGroup(this)
+	//return BlzGroupUnitAt(this, index)
+/**返回单位组中第一个单位(index随便填)*/
+public function group.getFirst() returns unit
 	return FirstOfGroup(this)
 	//return BlzGroupUnitAt(this, index)
 
