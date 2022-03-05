@@ -27,6 +27,8 @@ public function T1.getCustomV<T1,T2>(int valName) returns T2
 /** 玩家——获取自定义值*/
 public function player.getCV<T2>(int valName) returns T2
     return playerTable.loadInt(this.getId(), valName) castTo T2
+public function player.getCV<T2>(string valName) returns T2
+    return playerTable.loadInt(this.getId(), valName.getHash()) castTo T2
 public function T1.getCustomV<T1,T2>(hashtable table,int valName) returns T2
     return table.loadInt(this castTo int, valName) castTo T2
 //是否拥有自定义值

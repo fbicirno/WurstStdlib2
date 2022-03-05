@@ -191,10 +191,10 @@ public function getAbilityActivatedIcon(int abilCode) returns string
 // 	return BlzGetAbilityActivatedPosY(abilCode)
 
 /** 获取-等级-状态-魔法消耗 */
-function getAbilityManaCost(int abilId, int level) returns integer
+public function getAbilityManaCost(int abilId, int level) returns integer
 	return EXGetAbilityDataInteger(createAbility(abilId), level, ABILITY_DATA_COST)
 /** 获取-等级-状态-魔法施放时间间隔 */
-function getAbilityCooldown(int abilId, int level) returns real
+public function getAbilityCooldown(int abilId, int level) returns real
 	return EXGetAbilityDataReal(createAbility(abilId), level, ABILITY_DATA_COOL)
 
 // Ability Field Getters
