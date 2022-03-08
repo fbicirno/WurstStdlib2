@@ -9,6 +9,8 @@ import GameTimer
 import Hashtable
 import ErrorHandling
 import Annotations
+import Player
+import YD_Scripts
 //让基本库的ErrorHandling被重写覆盖
 constant MUTE_ERROR_DURATION = 30
 constant PRIMARY_ERROR_KEY = -1
@@ -48,3 +50,4 @@ init
 		lastError = msg
 		I2S(1 div 0)
 		// print(1/0)
+		
