@@ -270,39 +270,7 @@ public function framehandle.clearAllPoints()
 public function framehandle.setAllPoints(framehandle relative)
 	DzFrameSetAllPoints(this.id, relative.id)
 
-/** 显示/隐藏控件 */
-public function framehandle.setVisible(bool flag)
-	DzFrameShow(this.id, flag)
 
-
-/** 设置UI控件对玩家是否可见 */
-public function framehandle.setVisible(player p, bool flag)
-	if localPlayer == p or p == null
-		this.setVisible(flag)
-
-/** 显示UI控件 */
-public function framehandle.show()
-	this.setVisible(true)
-
-/** 设置UI控件对玩家可见 */
-public function framehandle.show(player p)
-	this.setVisible(p, true)
-
-/** 隐藏UI控件 */
-public function framehandle.hide()
-	this.setVisible(false)
-
-/** 设置UI控件玩家隐藏 */
-public function framehandle.hide(player p)
-	this.setVisible(p, false)
-
-/**返回控件是否可见(原版库被注释)*/
-public function framehandle.isVisible() returns bool
-	return DzFrameGetEnable(this.id)
-
-/**返回指定玩家是否可见该控件(原版库被注释)*/
-public function framehandle.isVisible(player p) returns boolean
-	return localPlayer == p or p == null ? this.isVisible() : false
 
 /** 获取控件的名字 */
 public function framehandle.getName() returns string
@@ -530,26 +498,15 @@ public function framehandle.getHeight() returns real
 // public function framehandle.getWidth() returns real
 // 	return BlzFrameGetWidth(this)
 
-/** 设置控件字体
-(支持EditBox、SimpleFontString、SimpleMessageFrame以及非SimpleFrame类型的例如TEXT，flag作用未知)
-字体:${fileName},
-大小${height},
-flag${flag}
-*/
-public function framehandle.setFont(string fileName, real height, integer flags)
-	DzFrameSetFont(this.id, fileName, height, flags)
 
-public function framehandle.setFont(string fileName, real height)
-	DzFrameSetFont(this.id, fileName, height, 0)
-
-/** 设置控件文本对齐方式(支持TextFrame、SimpleFontString、SimpleMessageFrame)*/
-public function framehandle.setTextAlignment(textaligntype align)
-	// textaligntype vert, textaligntype horz
-	/*设置居中
+/** 设置控件文本对齐方式(支持TextFrame、SimpleFontString、SimpleMessageFrame)
+设置居中
     0-左上 2-左中 4-左下 
     16中上 18-居中 20-中下 
     32-右上 34-右中 36-右下
-	*/
+*/
+public function framehandle.setTextAlignment(textaligntype align)
+	// textaligntype vert, textaligntype horz
 	DzFrameSetTextAlignment(this.id, align.id)
 
 /** 原生UI控件重置锚点 */
