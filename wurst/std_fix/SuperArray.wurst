@@ -1,0 +1,100 @@
+package SuperArray
+/*
+超级数组类，比hashlist快。类实例不能超过8192！！
+*/
+
+//整数可重复数组，可add重复的值
+public class IntArray
+    private int array[8192] _array
+    private int _size=-1
+    private int counter=0
+    construct()
+
+    function add(int elem)
+        _size++
+        _array[_size]=elem
+        if _size>8192
+            Log.error("IntArray：尺寸超过8192")
+    function removeAt(int index)
+        if index>_size
+            Log.error("IntArray：删除超过上限")
+            return
+        _array[index]=0
+        for i=index to _size
+            if i+1<=_size
+                _array[i]=_array[i+1]
+        _size--
+    //遍历删除指定元素(删除一个后停止遍历) 未找到返回false
+    function remove(int elem) returns bool
+        for i=0 to _size
+            if _array[i]==elem
+                removeAt(i)
+                return true
+        return false
+    function set(int index,int elem)
+        _array[index]=elem
+    static function copy(IntArray other) returns IntArray
+        let ia=new IntArray()
+        for i=0 to other.size()
+            ia.add(other.get(i))
+        return ia
+    /**获取数组尺寸，从0开始*/
+    function size() returns int
+        return _size
+    /**获取该下标的值*/
+    function get(int index) returns int
+        return _array[index]
+    /**是否有该值(遍历一次数组)*/
+    function has(int elem) returns bool
+        for i=0 to _size
+            if _array[i]==elem
+                return true
+        return false
+    function isEmpty() returns bool
+        return _size==0
+    //为了wurst——实现for in 
+    function iterator() returns IAIterator
+        return new IAIterator(this)
+    //为了wurst——实现for from
+    function hasNext() returns boolean //(如果还有下一个元素,就返回true)
+        if counter<=_size
+            return true
+        else
+            counter=0 //for from结束，清空计数器。
+            return false
+    function next() returns int //(返回下一个元素)
+        let next=counter
+        counter++
+        return get(next)
+//创建一个提供for in的迭代器
+class IAIterator
+    protected int i = 0
+    protected IntArray ia
+    construct(IntArray ia)
+        this.ia=ia
+    function hasNext() returns boolean
+        return i < ia.size()
+	function remove()
+		ia.removeAt(i)
+		i--
+
+	function next() returns int
+        let elem=ia.get(i)
+        i++
+		return elem
+	function reset()
+		i = 0
+	function close()
+		destroy this
+
+@test function testarr()
+    let list=new IntArray()
+    list..add(1)..add(2)..add(3)..add(4)
+    for each from list
+        print(each)
+    if list.remove(1)
+        print("ok")
+    list.add(100)
+    print("----")
+    for each from list
+        print(each)
