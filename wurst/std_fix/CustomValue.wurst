@@ -45,12 +45,18 @@ public function T1.addCustomV<T1>(string valName,int anyprop)
     this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
 public function T1.addCustomVR<T1>(string valName,real anyprop)
     this.setCustomV(valName,this.getCustomV<thistype,real>(valName)+anyprop)
+public function T1.addCustomV<T1>(int valName,int anyprop)
+    this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
+public function T1.addCustomVR<T1>(int valName,real anyprop)
+    this.setCustomV(valName,this.getCustomV<thistype,real>(valName)+anyprop)
 /** 玩家——存自定义值*/
 public function player.addCV(int valName,int anyprop)
     this.setCV<int>(valName,this.getCV<int>(valName)+anyprop)
 public function player.addCVR(int valName,real anyprop)
     this.setCV<real>(valName,this.getCV<real>(valName)+anyprop)
-
+//清除该泛型绑定的所有自定义值
+public function T1.clearCustomV<T1>()
+    rootTable.flushChild(this castTo int)
 @test function rootTableTest()
     let i1=100
     let i2="今天天气"
