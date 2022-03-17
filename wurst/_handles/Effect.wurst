@@ -243,8 +243,10 @@ public function effect.setOrientation(angle yaw, angle pitch, angle roll)
 这好比改变一个单位面朝方向。 */
 public function effect.setYaw(angle yaw)
 	let key = GetHandleId(this)
-	fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw.degrees())
-	this.updateMat()
+	// fxMatTable.saveReal(key, compiletime(StringHash("rotateZ")), yaw.degrees())
+	// this.updateMat()
+	EXEffectMatReset(this)
+	EXEffectMatRotateZ(this, yaw.radians()/0.01745)
 
 /**
 改变特效绕y轴角度。
