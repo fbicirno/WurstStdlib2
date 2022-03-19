@@ -52,6 +52,8 @@ public class IntArray
         return false
     function isEmpty() returns bool
         return _size==0
+    function isLast(int elem) returns bool
+        return elem==_array[_size]
     //为了wurst——实现for in 
     function iterator() returns IAIterator
         return new IAIterator(this)
