@@ -244,8 +244,8 @@ public function framehandleFromIndex(int index) returns framehandle
 	return framehandle(index)
 
 public function texttagToIndex(texttag object) returns int
-	return object.getHandleId()
+	typecastdata.saveTexttag(-object.getHandleId(), object)
+	return -object.getHandleId()
 
 public function texttagFromIndex(int index) returns texttag
-	typecastdata.saveFogState(0,ConvertFogState(index))
-	return typecastdata.loadTexttag(0)
+	return typecastdata.loadTexttag(index)
