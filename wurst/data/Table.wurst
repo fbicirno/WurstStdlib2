@@ -222,6 +222,11 @@ public class Table
 
 	function saveImage(int parentKey, image value)
 		ht.saveImageHandle(this castTo int, parentKey, value)
+	function loadTexttag(int parentKey) returns texttag
+		return ht.loadTextTagHandle(this castTo int, parentKey)
+
+	function saveTexttag(int parentKey, texttag value)
+		ht.saveTextTagHandle(this castTo int, parentKey, value)
 
 	function loadUbersplat(int parentKey) returns ubersplat
 		return ht.loadUbersplatHandle(this castTo int, parentKey)
