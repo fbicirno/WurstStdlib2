@@ -2,7 +2,7 @@ package MathEx
 import NoWurst
 import Real
 import Integer
-import ObjectIds
+//import ObjectIds
 import Printing
 import Annotations
 import Wurstunit
@@ -26,6 +26,27 @@ public function real.inLimit(real min,real max) returns bool
     return min<this and max>this
 @inline public function getRandomR(real low,real high) returns real
     return GetRandomReal(low, high)
+//百分比的支持——100.00% 转换为实数是1.00
+
+/** 自动除100*/
+public function present.toReal() returns real
+	return this.pre/100
+public function present.toInt() returns int
+	return this.pre.toInt()
+public function present.toString() returns string
+	return this.toInt().toString()+"%"
+public function present.random() returns bool
+	if this.pre>0
+		return GetRandomReal(0, 100)<this.pre
+	else
+		return false
+
+public function real.toPresent() returns present
+	return present(this)
+
+/** 转字符串不显示小数点*/
+public function real.toStringEx() returns string
+	return this.toInt().toString()
 
 
 /*
@@ -33,6 +54,7 @@ public function real.inLimit(real min,real max) returns bool
 */
 public function random(real percent) returns bool
     return GetRandomReal(0, 100)<percent
+/** 百分比经过随机后的结果*/
 public function real.random() returns bool
     return GetRandomReal(0, 100)<this
 public function real.next() returns real
@@ -56,10 +78,10 @@ public function real.clamp(real min,real max) returns real
 /** 计算整数的实数幂**/
 public function int.pow(real i) returns real
     return this.toReal().pow(i)
-/** 转换整数id为字符串id**/
-@deprecated("浪费运算效率，不推荐")
-public function int.toIdString() returns string
-	return toRawCode(this)
+// /** 转换整数id为字符串id**/
+// @deprecated("浪费运算效率，不推荐")
+// public function int.toIdString() returns string
+// 	return toRawCode(this)
     
-@Test function test_idstrplus()
-    print("步兵的id是"+'hfoo'.toIdString())
+// @Test function test_idstrplus()
+//     print("步兵的id是"+'hfoo'.toIdString())

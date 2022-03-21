@@ -4,6 +4,7 @@ import _Handles
 import Table
 import Annotations
 
+
 constant typecastdata = new Table()
 /**为real保留多少个小数*/
 @configurable constant R2I_PRECISION = 1000.
@@ -243,9 +244,15 @@ public function framehandleToIndex(framehandle object) returns int
 public function framehandleFromIndex(int index) returns framehandle
 	return framehandle(index)
 
-public function texttagToIndex(texttag object) returns int
-	typecastdata.saveTexttag(-object.getHandleId(), object)
-	return -object.getHandleId()
+public function presentToIndex(present object) returns int
+	return (object.pre * R2I_PRECISION).toInt()
 
+public function presentFromIndex(int index) returns present
+	return present(index / R2I_PRECISION)
+
+public function texttagToIndex(texttag object) returns int
+	typecastdata.saveTexttag(-object.getHandleId()-100000, object)
+	return -object.getHandleId()-100000
+//texttag会和正常handle重id,但作为值使用是安全的【这个表只会存闪电和文字，保证安全即可】
 public function texttagFromIndex(int index) returns texttag
 	return typecastdata.loadTexttag(index)

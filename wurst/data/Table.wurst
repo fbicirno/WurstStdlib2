@@ -222,6 +222,7 @@ public class Table
 
 	function saveImage(int parentKey, image value)
 		ht.saveImageHandle(this castTo int, parentKey, value)
+		
 	function loadTexttag(int parentKey) returns texttag
 		return ht.loadTextTagHandle(this castTo int, parentKey)
 
