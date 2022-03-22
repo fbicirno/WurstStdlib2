@@ -48,7 +48,6 @@ public function real.toPresent() returns present
 public function real.toStringEx() returns string
 	return this.toInt().toString()
 
-
 /*
 核心——随机函数扩充
 */

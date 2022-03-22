@@ -44,6 +44,8 @@ public class IntArray
     /**获取该下标的值*/
     function get(int index) returns int
         return _array[index]
+    function getRandom() returns int
+        return _array[GetRandomInt(0, _size)]
     /**是否有该值(遍历一次数组)*/
     function has(int elem) returns bool
         for i=0 to _size
