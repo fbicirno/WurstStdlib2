@@ -222,7 +222,7 @@ public function string.format(vararg string replacements) returns string
 		i++
 	return result
 
-/** 字符串迭代器 */
+/** 字符串迭代器，实现了字符串for in功能 */
 public function string.iterator() returns StringIterator
 	return new StringIterator(this, 0, this.length())
 

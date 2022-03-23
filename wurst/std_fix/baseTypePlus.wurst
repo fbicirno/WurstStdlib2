@@ -4,7 +4,7 @@ import StringUseless
 import YD_Scripts
 
 /**获取ID属性【类型，属性名】*/
-public function string.getProp(string utype,string uprop) returns string
+public function string.getLuaProp(string utype,string uprop) returns string
     return EXExecuteScript("(require 'jass.slk')."+utype+"['"+this+"']."+uprop)
 public function int.pow(real i) returns real
     return this.toReal().pow(i)
