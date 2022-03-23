@@ -34,7 +34,7 @@ public function present.toReal() returns real
 public function present.toInt() returns int
 	return this.pre.toInt()
 public function present.toString() returns string
-	return this.toInt().toString()+"%"
+	return this.pre.toString(1)+"%"
 public function present.random() returns bool
 	if this.pre>0
 		return GetRandomReal(0, 100)<this.pre
@@ -43,6 +43,8 @@ public function present.random() returns bool
 
 public function real.toPresent() returns present
 	return present(this)
+public function real.toPreReal() returns real
+	return this/100
 
 /** 转字符串不显示小数点*/
 public function real.toStringEx() returns string
