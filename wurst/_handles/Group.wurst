@@ -30,7 +30,7 @@ public function group.enumUnitsOfType(string unitname, boolexpr filter)
 /**通过单位ID匹配单位*/
 public function group.enumUnitsOfType(int id, boolexpr filter)
 	GroupEnumUnitsOfType(this, UnitId2String(id), filter)
-/**所有满足条件的单位*/
+/**所有满足条件的单位 (匹配单位)*/
 public function group.enumUnitsAll(boolexpr filter)
 	for i = 0 to bj_MAX_PLAYER_SLOTS - 1
 		ENUM_GROUP.enumUnitsOfPlayer(players[i], filter)

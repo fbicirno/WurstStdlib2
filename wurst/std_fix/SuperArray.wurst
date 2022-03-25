@@ -66,6 +66,9 @@ public class IntArray
         else
             counter=0 //for from结束，清空计数器。
             return false
+    /**如果from中断，必须手动清计数器*/
+    function clearCounter() 
+        counter=0
     function next() returns int //(返回下一个元素)
         let next=counter
         counter++

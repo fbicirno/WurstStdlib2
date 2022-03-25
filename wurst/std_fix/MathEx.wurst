@@ -37,7 +37,7 @@ public function present.toString() returns string
 	return this.pre.toString(1)+"%"
 public function present.random() returns bool
 	if this.pre>0
-		return GetRandomReal(0, 100)<this.pre
+		return GetRandomReal(0, 1)<=this.pre
 	else
 		return false
 
@@ -54,12 +54,12 @@ public function real.toStringEx() returns string
 核心——随机函数扩充
 */
 public function random(real percent) returns bool
-    return GetRandomReal(0, 100)<percent
+    return GetRandomReal(0, 100)<=percent
 public function int.random() returns bool
-    return GetRandomInt(0, 100)<this
+    return GetRandomInt(0, 100)<=this
 /** 百分比经过随机后的结果*/
 public function real.random() returns bool
-    return GetRandomReal(0, 100)<this
+    return GetRandomReal(0, 100)<=this
 public function real.next() returns real
     return GetRandomReal(0, this)
 public function real.nextInt() returns int
