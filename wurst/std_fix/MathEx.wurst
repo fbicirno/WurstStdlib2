@@ -55,7 +55,7 @@ public function real.toStringEx() returns string
 */
 public function random(real percent) returns bool
     return GetRandomReal(0, 100)<=percent
-public function int.random() returns bool
+public function int.randomI() returns bool
     return GetRandomInt(0, 100)<=this
 /** 百分比经过随机后的结果*/
 public function real.random() returns bool
