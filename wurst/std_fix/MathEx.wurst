@@ -69,15 +69,15 @@ public function real.float(real percent) returns real
 public function real.floatVal(real val) returns real
     return GetRandomReal(this - val,this + val)
 
-/** 取一个范围内的值*/
-public function real.clamp(real min,real max) returns real
-	if min == max
-		return this
-	else if this<min
-		return min
-	else if this>max
-		return max
-	return this
+// /** 取一个范围内的值*/
+// public function real.clamp(real min,real max) returns real
+// 	if min == max
+// 		return this
+// 	else if this<min
+// 		return min
+// 	else if this>max
+// 		return max
+// 	return this
 /** 计算整数的实数幂**/
 public function int.pow(real i) returns real
     return this.toReal().pow(i)
