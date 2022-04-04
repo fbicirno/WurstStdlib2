@@ -11,15 +11,15 @@ import Wurstunit
 /** 判断整数是否在范围中*/
 public function int.inLimit(int min,int max) returns bool
     return min<this and max>this
-/** 取一个范围内的值*/
-public function int.clamp(int min,int max) returns int
-	if min == max
-		return this
-	else if this<min
-		return min
-	else if this>max
-		return max
-	return this
+// /** 取一个范围内的值*/
+// public function int.clamp(int min,int max) returns int
+// 	if min == max
+// 		return this
+// 	else if this<min
+// 		return min
+// 	else if this>max
+// 		return max
+// 	return this
 
 /** 判断real是否在范围中*/
 public function real.inLimit(real min,real max) returns bool
