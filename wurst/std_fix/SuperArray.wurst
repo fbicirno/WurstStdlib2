@@ -46,6 +46,11 @@ public class IntArray
         return _array[index]
     function getRandom() returns int
         return _array[GetRandomInt(0, _size)]
+    function popRandom() returns int
+        let index=GetRandomInt(0, _size)
+        let val=get(index)
+        removeAt(index)
+        return val
     /**是否有该值(遍历一次数组)*/
     function has(int elem) returns bool
         for i=0 to _size
