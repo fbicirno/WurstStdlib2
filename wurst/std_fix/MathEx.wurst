@@ -6,8 +6,21 @@ import Integer
 import Printing
 import Annotations
 import Wurstunit
+import String
 
-
+/** 转换为字符串位数 比如 2位 1->01 */
+public function int.toChar(int num) returns string
+    var str=this.toString()
+    if str.length()<num
+        var zero=""
+        for i=1 to num-str.length()
+            zero+="0"
+        str=zero+str
+    if str.length()>num
+        str=""
+        for i=1 to num
+            str+="9"
+    return str
 /** 判断整数是否在范围中*/
 public function int.inLimit(int min,int max) returns bool
     return min<this and max>this

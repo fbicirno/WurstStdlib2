@@ -52,6 +52,9 @@ public function string.length() returns int
 public function string.charAt(int index) returns string
 	return SubString(this, index, index + 1)
 
+public function string.charAt(int index,int length) returns string
+	return SubString(this, index, index + length)
+
 /**	将技能字符转换为数字ID */
 public function string.toAbilityId() returns int
 	return AbilityId(this)
