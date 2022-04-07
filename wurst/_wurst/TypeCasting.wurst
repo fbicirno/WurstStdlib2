@@ -21,6 +21,14 @@ public function realToIndex(real r) returns int
 public function realFromIndex(int index) returns real
 	return (index / R2I_PRECISION)
 
+// public function realToIndex(real r) returns int
+// 	let r_str=r.toString()
+// 	return stringToIndex(r_str)
+
+// public function realFromIndex(int index) returns real
+// 	let str_r=stringFromIndex(index).toReal()
+// 	return str_r
+
 public function stringToIndex(string s) returns int
 	var hash = s.getHash()
 	while true

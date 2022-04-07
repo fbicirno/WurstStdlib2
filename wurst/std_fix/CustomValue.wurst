@@ -1,4 +1,5 @@
 package CustomValue
+import StringEx
 
 /*
 包名：wurst版——逆天自定义值
@@ -7,53 +8,75 @@ QQ：750160517
 */
 let rootTable=InitHashtable()
 let playerTable=InitHashtable()
-//设置自定义值
-public function T1.setCustomV<T1,T2>(string valName,T2 anyprop)
-    rootTable.saveInt(this castTo int, valName.getHash(), anyprop castTo int)
-public function T1.setCustomV<T1,T2>(int valName,T2 anyprop)
-    rootTable.saveInt(this castTo int, valName, anyprop castTo int)
-/** 玩家——存自定义值*/
-public function player.setCV<T2>(int valName,T2 anyprop)
-    playerTable.saveInt(this.getId(), valName, anyprop castTo int)
-public function player.setCV<T2>(string valName,T2 anyprop)
-    playerTable.saveInt(this.getId(), valName.getHash(), anyprop castTo int)
+
+//base
 public function T1.setCustomV<T1,T2>(hashtable table,int valName,T2 anyprop)
     table.saveInt(this castTo int, valName, anyprop castTo int)
-//获取自定义值
-public function T1.getCustomV<T1,T2>(string valName) returns T2
-    return rootTable.loadInt(this castTo int, valName.getHash()) castTo T2
-public function T1.getCustomV<T1,T2>(int valName) returns T2
-    return rootTable.loadInt(this castTo int, valName) castTo T2
-/** 玩家——获取自定义值*/
-public function player.getCV<T2>(int valName) returns T2
-    return playerTable.loadInt(this.getId(), valName) castTo T2
-public function player.getCV<T2>(string valName) returns T2
-    return playerTable.loadInt(this.getId(), valName.getHash()) castTo T2
+public function T1.setCustomVR<T1>(hashtable table,int valName,real anyprop)
+    table.saveReal(this castTo int, valName, anyprop)
 public function T1.getCustomV<T1,T2>(hashtable table,int valName) returns T2
     return table.loadInt(this castTo int, valName) castTo T2
-//是否拥有自定义值
-public function T1.hasCustomV<T1,T2>(string valName) returns bool
-    return rootTable.hasInt(this castTo int, valName.getHash())
-public function T1.hasCustomV<T1,T2>(int valName) returns bool
-    return rootTable.hasInt(this castTo int, valName)
-public function player.hasCV<T2>(int valName) returns bool
-    return playerTable.hasInt(this.getId(), valName)
+public function T1.getCustomVR<T1>(hashtable table,int valName) returns real
+    return table.loadReal(this castTo int, valName)
 public function T1.hasCustomV<T1,T2>(hashtable table,int valName) returns bool
     return table.hasInt(this castTo int, valName)
+public function T1.hasCustomVR<T1>(hashtable table,int valName) returns bool
+    return table.hasReal(this castTo int, valName)
+
+//设置自定义值
+@inline public function T1.setCustomV<T1,T2>(string valName,T2 anyprop)
+    this.setCustomV(valName.autoHash(), anyprop)
+public function T1.setCustomV<T1,T2>(int valName,T2 anyprop)
+    this.setCustomV(rootTable,valName, anyprop)
+public function T1.setCustomVR<T1>(int valName,real anyprop)
+    this.setCustomVR(rootTable,valName, anyprop)
+/** 玩家——存自定义值*/
+public function player.setCVR(int valName,real anyprop)
+    this.setCustomVR(playerTable,valName, anyprop)
+public function player.setCV<T2>(int valName,T2 anyprop)
+    this.setCustomV(playerTable,valName, anyprop)
+public function player.setCV<T2>(string valName,T2 anyprop)
+    this.setCV(valName.autoHash(), anyprop)
+//获取自定义值
+public function T1.getCustomV<T1,T2>(string valName) returns T2
+    return this.getCustomV<T1,T2>(valName.autoHash())
+public function T1.getCustomV<T1,T2>(int valName) returns T2
+    return this.getCustomV<T1,T2>(rootTable, valName)
+public function T1.getCustomVR<T1>(int valName) returns real
+    return this.getCustomVR<T1>(rootTable, valName)
+/** 玩家——获取自定义值*/
+public function player.getCV<T2>(int valName) returns T2
+    return this.getCustomV<player,T2>(playerTable, valName)
+public function player.getCV<T2>(string valName) returns T2
+    return this.getCV<T2>(valName.autoHash())
+public function player.getCVR(int valName) returns real
+    return this.getCustomVR<player>(playerTable, valName)
+
+//是否拥有自定义值
+public function T1.hasCustomV<T1,T2>(string valName) returns bool
+    return this.hasCustomV<T1,T2>(valName.autoHash())
+public function T1.hasCustomV<T1,T2>(int valName) returns bool
+    return this.hasCustomV<T1,T2>(rootTable, valName)
+public function T1.hasCustomVR<T1>(int valName) returns bool
+    return this.hasCustomVR<T1>(rootTable, valName)
+public function player.hasCV<T2>(int valName) returns bool
+    return this.hasCustomV<player,T2>(playerTable, valName)
+public function player.hasCVR(int valName) returns bool
+    return this.hasCustomVR<player>(playerTable, valName)
 //自定义值加法——————————————
-public function T1.addCustomV<T1>(string valName,int anyprop)
-    this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
-public function T1.addCustomVR<T1>(string valName,real anyprop)
-    this.setCustomV(valName,this.getCustomV<thistype,real>(valName)+anyprop)
+// public function T1.addCustomV<T1>(string valName,int anyprop)
+//     this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
+// public function T1.addCustomVR<T1>(string valName,real anyprop)
+//     this.setCustomVR(valName,this.getCustomVR<thistype>(valName)+anyprop)
 public function T1.addCustomV<T1>(int valName,int anyprop)
     this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
 public function T1.addCustomVR<T1>(int valName,real anyprop)
-    this.setCustomV(valName,this.getCustomV<thistype,real>(valName)+anyprop)
+    this.setCustomVR(valName,this.getCustomVR<thistype>(valName)+anyprop)
 /** 玩家——存自定义值*/
 public function player.addCV(int valName,int anyprop)
     this.setCV<int>(valName,this.getCV<int>(valName)+anyprop)
 public function player.addCVR(int valName,real anyprop)
-    this.setCV<real>(valName,this.getCV<real>(valName)+anyprop)
+    this.setCVR(valName,this.getCVR(valName)+anyprop)
 //清除该泛型绑定的所有自定义值
 public function T1.clearCustomV<T1>()
     rootTable.flushChild(this castTo int)
@@ -68,7 +91,7 @@ public function T1.clearCustomV<T1>()
     print(i2.getCustomV<string,string>("自定义值2"))
     if i3.hasCustomV<unit,int>("攻击力")
         print(i3.getCustomV<unit,int>("攻击力"))
-        i3.addCustomV("攻击力", 1024)
+        i3.addCustomV("攻击力".autoHash(), 1024)
         print(i3.getCustomV<unit,int>("攻击力"))
     else
         print("没有")

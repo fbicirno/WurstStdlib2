@@ -197,6 +197,8 @@ public constant OSKEY_NONAME                         = oskeytype(0xFC)
 public constant OSKEY_PA1                            = oskeytype(0xFD)
 public constant OSKEY_OEM_CLEAR                      = oskeytype(0xFE)
 
+
+
 // 硬件
 /**获取鼠标在游戏内的坐标X*/
 @ifNotDefined public native DzGetMouseTerrainX () returns real
