@@ -13,9 +13,9 @@ public function texttag.setText(string text)
 /** Creates a text tag with default values matching standard built-in text tags */
 public function standardTextTag() returns texttag
 	return CreateTextTag()
-		..setFadepoint(2.)
-		..setLifespan(3.)
-		..setVelocity(0., .03)
+		..setFadepoint(1.)
+		..setLifespan(1.)
+		..setVelocity(0., .1)
 		..setPermanent(false)
 		..setVisibility(true)
 
@@ -37,7 +37,7 @@ public function createCriticalStrikeTextTag(unit u, int damage) returns texttag
 		..setLifespan(5.)
 
 
-/** Create a texttag that matches the style of the standard warcraft 3 gold
+/** [金币奖励文字]Create a texttag that matches the style of the standard warcraft 3 gold
 	bounty. */
 public function createGoldBountyTextTag(unit u, int bounty, player killer) returns texttag
 	let text = "+" + bounty.toString()
@@ -46,7 +46,7 @@ public function createGoldBountyTextTag(unit u, int bounty, player killer) retur
 		..setColor(255, 220, 0, 255)
 		..setVisibility(localPlayer == killer)
 
-/** Create a texttag that matches the style of the standard warcraft 3 gold
+/** [金币奖励文字]Create a texttag that matches the style of the standard warcraft 3 gold
 	bounty. */
 public function createGoldBountyTextTag(unit u, int bounty) returns texttag
 	let text = "+" + bounty.toString()
@@ -54,7 +54,7 @@ public function createGoldBountyTextTag(unit u, int bounty) returns texttag
 	return standardTextTag(pos, text)..setColor(255, 220, 0, 255)
 
 
-/** Create a texttag that matches the style of the standard warcraft 3 lumber
+/** [木材奖励文字]Create a texttag that matches the style of the standard warcraft 3 lumber
 	bounty. */
 public function createLumberBountyTextTag(unit u, int bounty, player killer) returns texttag
 	let text = "+" + bounty.toString()
@@ -63,7 +63,7 @@ public function createLumberBountyTextTag(unit u, int bounty, player killer) ret
 		..setColor(0, 200, 80, 255)
 		..setVisibility(localPlayer == killer)
 
-/** Create a texttag that matches the style of the standard warcraft 3 lumber
+/** [木材奖励文字]Create a texttag that matches the style of the standard warcraft 3 lumber
 	bounty. */
 public function createLumberBountyTextTag(unit u, int bounty) returns texttag
 	let text = "+" + bounty.toString()
@@ -82,7 +82,7 @@ public function createManaBurnTextTag(unit u, int damage) returns texttag
 		..setLifespan(5.)
 
 
-/** Create a texttag that matches the style of the standard warcraft 3 attack
+/** [丢失文字]Create a texttag that matches the style of the standard warcraft 3 attack
 	miss indication. */
 public function createMissTextTag(unit u) returns texttag
 	return standardTextTag(u.getPos(), "miss")
