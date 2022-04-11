@@ -22,6 +22,10 @@ DZAPI编辑器版本:1.29c
 
 # 更新日志
 
+v1.83-2022/4/11
+
+为了防撞hash，玩家customv系统对idset，setcvr进行了偏移。
+
 v1.82-2022/4/7
 
 增加superarray泛型，发现泛型real只能存214万以下的数字

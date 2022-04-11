@@ -32,7 +32,8 @@ public function T1.setCustomVR<T1>(int valName,real anyprop)
     this.setCustomVR(rootTable,valName, anyprop)
 /** 玩家——存自定义值*/
 public function player.setCVR(int valName,real anyprop)
-    this.setCustomVR(playerTable,valName, anyprop)
+    let pid=this.getId()+100
+    pid.setCustomVR(playerTable,valName, anyprop)
 public function player.setCV<T2>(int valName,T2 anyprop)
     this.setCustomV(playerTable,valName, anyprop)
 public function player.setCV<T2>(string valName,T2 anyprop)
@@ -50,7 +51,8 @@ public function player.getCV<T2>(int valName) returns T2
 public function player.getCV<T2>(string valName) returns T2
     return this.getCV<T2>(valName.autoHash())
 public function player.getCVR(int valName) returns real
-    return this.getCustomVR<player>(playerTable, valName)
+    let pid=this.getId()+100
+    return pid.getCustomVR<player>(playerTable, valName)
 
 //是否拥有自定义值
 public function T1.hasCustomV<T1,T2>(string valName) returns bool
@@ -59,10 +61,12 @@ public function T1.hasCustomV<T1,T2>(int valName) returns bool
     return this.hasCustomV<T1,T2>(rootTable, valName)
 public function T1.hasCustomVR<T1>(int valName) returns bool
     return this.hasCustomVR<T1>(rootTable, valName)
+
 public function player.hasCV<T2>(int valName) returns bool
     return this.hasCustomV<player,T2>(playerTable, valName)
 public function player.hasCVR(int valName) returns bool
-    return this.hasCustomVR<player>(playerTable, valName)
+    let pid=this.getId()+100
+    return pid.hasCustomVR<player>(playerTable, valName)
 //自定义值加法——————————————
 // public function T1.addCustomV<T1>(string valName,int anyprop)
 //     this.setCustomV(valName,this.getCustomV<thistype,int>(valName)+anyprop)
@@ -80,6 +84,15 @@ public function player.addCVR(int valName,real anyprop)
 //清除该泛型绑定的所有自定义值
 public function T1.clearCustomV<T1>()
     rootTable.flushChild(this castTo int)
+
+//为玩家设置该id的值
+public function player.setIdCV<T1>(int id,string tname,T1 val)
+    let pid=this.getId()+300
+    pid.setCustomV(playerTable,id+tname.getHash(), val)
+public function player.getIdCV<T1>(int id,string tname) returns T1
+    let pid=this.getId()+300
+    return pid.getCustomV<int,T1>(playerTable, id+tname.getHash())
+
 @test function rootTableTest()
     let i1=100
     let i2="今天天气"
