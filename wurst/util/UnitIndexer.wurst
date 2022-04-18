@@ -3,6 +3,8 @@ import OnUnitEnterLeave
 
 /*  UnitIndexer
 
+	该系统的目标是为每个单位提供一个数组可索引的唯一ID
+	以及在创建单元时标准化类实例的处理 当单位被创建和摧毁
 	The goal of this system is to give every unit an array-indexable unique ID
 	as well as to standardize handling of class instances when units are created
 	and destroyed.
