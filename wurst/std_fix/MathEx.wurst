@@ -50,7 +50,7 @@ public function present.toString() returns string
 	return this.pre.toString(1)+"%"
 public function present.random() returns bool
 	if this.pre>0
-		return GetRandomReal(0, 1)<=this.pre
+		return GetRandomReal(0, 100)<=this.pre
 	else
 		return false
 
