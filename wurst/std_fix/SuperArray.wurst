@@ -62,8 +62,10 @@ public class IntArray
     function isLast(int elem) returns bool
         return elem==_array[_size]
     //为了wurst——实现for in 
-    function iterator() returns IAIterator
-        return new IAIterator(this)
+    function iterator() returns IntArray
+        return IntArray.copy(this)
+    function close()
+        destroy this
     //为了wurst——实现for from
     function hasNext() returns boolean //(如果还有下一个元素,就返回true)
         if counter<=_size
@@ -147,26 +149,26 @@ public class SuperArray<T>
         let next=counter
         counter++
         return get(next)
-//创建一个提供for in的迭代器
-class IAIterator
-    protected int i = 0
-    protected IntArray ia
-    construct(IntArray ia)
-        this.ia=ia
-    function hasNext() returns boolean
-        return i < ia.size()
-	function remove()
-		ia.removeAt(i)
-		i--
+// //创建一个提供for in的迭代器
+// class IAIterator
+//     protected int i = 0
+//     protected IntArray ia
+//     construct(IntArray ia)
+//         this.ia=ia
+//     function hasNext() returns boolean
+//         return i < ia.size()
+// 	function remove()
+// 		ia.removeAt(i)
+// 		i--
 
-	function next() returns int
-        let elem=ia.get(i)
-        i++
-		return elem
-	function reset()
-		i = 0
-	function close()
-		destroy this
+// 	function next() returns int
+//         let elem=ia.get(i)
+//         i++
+// 		return elem
+// 	function reset()
+// 		i = 0
+// 	function close()
+// 		destroy this
 
 @test function testarr()
     let list=new IntArray()
