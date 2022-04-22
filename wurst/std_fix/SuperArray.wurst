@@ -58,7 +58,7 @@ public class IntArray
                 return true
         return false
     function isEmpty() returns bool
-        return _size==0
+        return _size==-1
     function isLast(int elem) returns bool
         return elem==_array[_size]
     //为了wurst——实现for in 
