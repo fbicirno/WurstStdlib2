@@ -28,7 +28,7 @@ Options:
         Enables function inlining.启用函数内联
 
 -localOptimizations
-        Enables local optimizations (cpu and ram extensive, recommended for release) 本地优化（cpu和ram扩展，建议发布时开启
+        Enables local optimizations (cpu and ram extensive, recommended for release) 局部最优 优化代码运算效率（cpu和ram扩展，建议发布时开启)
 
 -stacktraces
         Generate stacktrace information in the script (useful for debugging).在脚本中生成stacktrace信息（用于调试）
