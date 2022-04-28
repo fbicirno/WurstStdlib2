@@ -6,11 +6,29 @@ import Integer
 import Annotations
 import Wurstunit
 import public StringUseless
+import Real
 //编译函数集
 /** 编译时计算哈希值 **/
 @compiletimenative public function string.autoHash() returns int
     return this.getHash()
-
-
+/** 万亿数字转字符串**/
+public function real.toStringChina() returns string
+    int wan=0
+    int yi=0
+    real shuzi=this
+    var str=""
+    if shuzi>=100000000.
+        yi=(shuzi/100000000.).toInt()
+        shuzi=shuzi-yi*100000000.
+    if shuzi>=10000.
+        wan=(shuzi/10000.).toInt()
+        shuzi=shuzi-wan*10000.
+    if yi>0
+        str+=yi.toString()+"亿"
+    if wan>0
+        str+=wan.toString()+"万"
+    // if wan==0 and yi==0
+    str+=shuzi.toString(0)
+    return str
 @Test function test_hash()
     print("编译时计算的，小明的哈希值是："+"小明".autoHash().toString())
