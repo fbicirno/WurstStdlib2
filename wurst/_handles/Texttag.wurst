@@ -40,6 +40,9 @@ public function texttag.setVelocity(real xvel, real yvel)
 /**设置漂浮文字速率Vec2*/
 public function texttag.setVelocity(vec2 vel)
 	SetTextTagVelocity(this, vel.x, vel.y)
+/**设置漂浮文字速率Vec2*/
+public function texttag.setVelocityBJ(real speed, real angle)
+	SetTextTagVelocityBJ(this, speed, angle)
 /**设置漂浮文字显示/隐藏*/
 public function texttag.setVisibility(boolean flag)
 	SetTextTagVisibility(this, flag)

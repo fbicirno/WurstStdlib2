@@ -1,0 +1,44 @@
+package TextTagEx
+import ClosureTimers
+
+/*
+更多的漂浮文字预设
+*/
+/** 在指定点创建漂浮文字 自动消失 (大小[10]，内容，高度，颜色，时间)*/
+public function vec2.createTextTag(real size,string text,real height,colorA col,real time) returns texttag
+    return CreateTextTag()
+		..setText(text, size)
+		..setPos(this.withZ(height))
+		..setVisibility(true)
+        ..setColor(col)
+        ..setLifespan(time)
+		..setFadepoint(.1)
+		..setPermanent(false)
+/** 在指定单位创建漂浮文字，跟随移动 自动消失 (大小[10]，内容，高度，颜色，时间)*/
+public function unit.createTextTag(real size,string text,real height,colorA col,real time) returns texttag
+    let tag=this.getPos().createTextTag(size, text, height, col, time)
+    doPeriodicallyCounted(0.1, (time/0.1).toInt()) (CallbackCounted cb) ->
+        tag.setPos(this.getX(), this.getY(), height)
+    return tag
+/** 创建一个变大的漂浮文字*/
+public function vec2.createTextTagBigger(string text)
+    let tg=CreateTextTag()
+    ..setText(text, 10)
+    ..setPos(this.withZ(100))
+    ..setVelocityBJ(200, 90)
+    ..setPermanent(false)
+    int i2=0
+    int i1=0
+    let irandom=GetRandomReal(0.4, 0.7)
+    doPeriodically(0.005) (CallbackPeriodic cb) ->
+        i2++
+        tg.setText(text, 10+i1*irandom)
+        if i2<=30
+            i1++
+        else
+            i1--
+        if i2==60
+            tg.setLifespan(0.6)
+            tg.setFadepoint(0.55)
+            destroy cb
+		
