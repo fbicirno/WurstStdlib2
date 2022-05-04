@@ -21,13 +21,14 @@ public function unit.createTextTag(real size,string text,real height,colorA col,
         tag.setPos(this.getX(), this.getY(), height)
     return tag
 /** 创建一个变大的漂浮文字*/
-public function vec2.createTextTagBigger(string text,colorA cr)
+public function vec2.createTextTagBigger(string text,colorA cr,player p)
     let tg=CreateTextTag()
     ..setText(text, 10)
     ..setPos(this.withZ(100))
     ..setVelocityBJ(200, GetRandomReal(45, 135))
     ..setColor(cr)
     ..setPermanent(false)
+    ..setVisibility(localPlayer==p)
     int i2=0
     int i1=0
     let irandom=GetRandomReal(0.4, 0.7)
