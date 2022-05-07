@@ -7,9 +7,9 @@ import Annotations
 import Wurstunit
 import public StringUseless
 import Real
-//编译函数集
+//编译函数集 @compiletimenative 
 /** 编译时计算哈希值 **/
-@compiletimenative public function string.autoHash() returns int
+@compiletime public function string.autoHash() returns int
     return this.getHash()
 /** 万亿数字转字符串**/
 public function real.toStringChina() returns string
