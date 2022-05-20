@@ -7,7 +7,7 @@ import YD_Scripts
 import YD_Item
 /**在Vec2创建物品*/
 public function createItem(int itemId, vec2 pos) returns item
-	return createItem(itemId, pos.toVec3())
+	return CreateItem(itemId, pos.x, pos.y)
 /**在Vec3创建物品*/
 public function createItem(int itemId, vec3 pos) returns item
 	return CreateItem(itemId, pos.x, pos.y)

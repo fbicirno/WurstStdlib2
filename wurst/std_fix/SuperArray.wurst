@@ -31,6 +31,9 @@ public class IntArray
                 removeAt(i)
                 return true
         return false
+    function clear()
+        _size=-1
+        counter=0
     function set(int index,int elem)
         _array[index]=elem
     static function copy(IntArray other) returns IntArray

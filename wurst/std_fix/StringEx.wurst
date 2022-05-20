@@ -27,8 +27,8 @@ public function real.toStringChina() returns string
         str+=yi.toString()+"亿"
     if wan>0
         str+=wan.toString()+"万"
-    // if wan==0 and yi==0
-    str+=shuzi.toString(0)
+    if wan==0 and yi==0
+        str+=shuzi.toInt().toString()
     return str
 @Test function test_hash()
     print("编译时计算的，小明的哈希值是："+"小明".autoHash().toString())
