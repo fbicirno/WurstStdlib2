@@ -1,150 +1,150 @@
-package ClosureFrames
-import NoWurst
-import Trigger
-import HashMap
+// package ClosureFrames
+// import NoWurst
+// import Trigger
+// import HashMap
 
-import Framehandle
-import DZ_Blz
+// import Framehandle
+// import DZ_Blz
 
-/*
-    Example usage:
-        createSimpleFrame("MySimpleButton", GAME_UI, 0)
-        ..onClick(() -> print("The button was clicked."))
-        ..onEnter(() -> print("The mouse is on the button."))
-        ..onLeave(() -> print("The mouse left the button."))
+// /*
+//     Example usage:
+//         createSimpleFrame("MySimpleButton", GAME_UI, 0)
+//         ..onClick(() -> print("The button was clicked."))
+//         ..onEnter(() -> print("The mouse is on the button."))
+//         ..onLeave(() -> print("The mouse left the button."))
 
-    Important:
-        * Most frametypes don't support most events (some might not support any)
-        * Registrating origin frames to event seems to override their default behaviour.
-        For instance using the origin menu button for a onClick() event will make it not prompt the menu.
-*/
+//     Important:
+//         * Most frametypes don't support most events (some might not support any)
+//         * Registrating origin frames to event seems to override their default behaviour.
+//         For instance using the origin menu button for a onClick() event will make it not prompt the menu.
+// */
 
-/* CONSTANTS */
+// /* CONSTANTS */
 
-// constant FRAMEHANDLE_TRIGGER = CreateTrigger()..addAction(function onEvent)
-constant FRAME_MAP = new HashMap<int, FrameHandleListener>
-
-
-/* CLOSURES */
-
-public function framehandle.onCheckboxCheck(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_CHECKBOX_CHECKED)
-
-public function framehandle.onCheckboxUncheck(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_CHECKBOX_UNCHECKED)
-
-public function framehandle.onClick(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_CONTROL_CLICK)
-
-// public function framehandle.onDialogAccept(FrameHandleListener listener) returns FrameHandleListener
-//     return addListenerForFrame(listener, this, FRAMEEVENT_DIALOG_ACCEPT)
-
-// public function framehandle.onDialogCancel(FrameHandleListener listener) returns FrameHandleListener
-//     return addListenerForFrame(listener, this, FRAMEEVENT_DIALOG_CANCEL)
-
-// public function framehandle.onEditboxEnter(FrameHandleListener listener) returns FrameHandleListener
-//     return addListenerForFrame(listener, this, FRAMEEVENT_EDITBOX_ENTER)
-
-public function framehandle.onEditboxChange(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_EDITBOX_TEXT_CHANGED)
-
-public function framehandle.onMouseDoubleClick(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_DOUBLECLICK)
-
-public function framehandle.onMouseDown(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_DOWN)
-
-public function framehandle.onMouseEnter(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_ENTER)
-
-public function framehandle.onMouseLeave(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_LEAVE)
-
-public function framehandle.onMouseUp(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_UP)
-
-public function framehandle.onMouseWheel(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_WHEEL)
-
-public function framehandle.onPopupMenuItemChange(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_POPUPMENU_ITEM_CHANGED)
-
-// public function framehandle.onSliderValueChange(FrameHandleListener listener) returns FrameHandleListener
-//     return addListenerForFrame(listener, this, FRAMEEVENT_SLIDER_VALUE_CHANGED)
-
-public function framehandle.onSpriteAnimUpdate(FrameHandleListener listener) returns FrameHandleListener
-    return addListenerForFrame(listener, this, FRAMEEVENT_SPRITE_ANIM_UPDATE)
-
-function switchCallback(int eventId) returns code
-    switch eventId
-        case 1
-            return ()-> onEvent(1)
-        case 2
-            return ()-> onEvent(2)
-        case 3
-            return ()-> onEvent(3)
-        case 4
-            return ()-> onEvent(4)
-        case 5
-            return ()-> onEvent(5)
-        case 6
-            return ()-> onEvent(6)
-        case 7
-            return ()-> onEvent(7)
-        case 8
-            return ()-> onEvent(8)
-        case 9
-            return ()-> onEvent(9)
-        case 10
-            return ()-> onEvent(10)
-        case 11
-            return ()-> onEvent(11)
-        case 12
-            return ()-> onEvent(12)
-        case 13
-            return ()-> onEvent(13)
-    return null
-
-function addListenerForFrame(FrameHandleListener listener, framehandle frame, frameeventtype eventType) returns FrameHandleListener
-    registerFrameEvent(frame, eventType, switchCallback(eventType.id))
-    listener.frame = frame
-    listener.eventType = eventType
-    let first = FRAME_MAP.get(frame.id)
-    if first != null
-        first.prev = listener
-        listener.next = first
-    FRAME_MAP.put(frame.id, listener)
-    return listener
+// // constant FRAMEHANDLE_TRIGGER = CreateTrigger()..addAction(function onEvent)
+// constant FRAME_MAP = new HashMap<int, FrameHandleListener>
 
 
-/* ON EVENT */
-function onEvent(int eventId)
-    var listener = FRAME_MAP.get(DzGetTriggerUIEventFrame())
-    while listener != null
-        let nextListener = listener.next
-        if listener.eventType.id == eventId
-            listener.onEvent()
-        listener = nextListener
+// /* CLOSURES */
+
+// public function framehandle.onCheckboxCheck(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_CHECKBOX_CHECKED)
+
+// public function framehandle.onCheckboxUncheck(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_CHECKBOX_UNCHECKED)
+
+// public function framehandle.onClick(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_CONTROL_CLICK)
+
+// // public function framehandle.onDialogAccept(FrameHandleListener listener) returns FrameHandleListener
+// //     return addListenerForFrame(listener, this, FRAMEEVENT_DIALOG_ACCEPT)
+
+// // public function framehandle.onDialogCancel(FrameHandleListener listener) returns FrameHandleListener
+// //     return addListenerForFrame(listener, this, FRAMEEVENT_DIALOG_CANCEL)
+
+// // public function framehandle.onEditboxEnter(FrameHandleListener listener) returns FrameHandleListener
+// //     return addListenerForFrame(listener, this, FRAMEEVENT_EDITBOX_ENTER)
+
+// public function framehandle.onEditboxChange(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_EDITBOX_TEXT_CHANGED)
+
+// public function framehandle.onMouseDoubleClick(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_DOUBLECLICK)
+
+// public function framehandle.onMouseDown(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_DOWN)
+
+// public function framehandle.onMouseEnter(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_ENTER)
+
+// public function framehandle.onMouseLeave(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_LEAVE)
+
+// public function framehandle.onMouseUp(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_UP)
+
+// public function framehandle.onMouseWheel(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_MOUSE_WHEEL)
+
+// public function framehandle.onPopupMenuItemChange(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_POPUPMENU_ITEM_CHANGED)
+
+// // public function framehandle.onSliderValueChange(FrameHandleListener listener) returns FrameHandleListener
+// //     return addListenerForFrame(listener, this, FRAMEEVENT_SLIDER_VALUE_CHANGED)
+
+// public function framehandle.onSpriteAnimUpdate(FrameHandleListener listener) returns FrameHandleListener
+//     return addListenerForFrame(listener, this, FRAMEEVENT_SPRITE_ANIM_UPDATE)
+
+// function switchCallback(int eventId) returns code
+//     switch eventId
+//         case 1
+//             return ()-> onEvent(1)
+//         case 2
+//             return ()-> onEvent(2)
+//         case 3
+//             return ()-> onEvent(3)
+//         case 4
+//             return ()-> onEvent(4)
+//         case 5
+//             return ()-> onEvent(5)
+//         case 6
+//             return ()-> onEvent(6)
+//         case 7
+//             return ()-> onEvent(7)
+//         case 8
+//             return ()-> onEvent(8)
+//         case 9
+//             return ()-> onEvent(9)
+//         case 10
+//             return ()-> onEvent(10)
+//         case 11
+//             return ()-> onEvent(11)
+//         case 12
+//             return ()-> onEvent(12)
+//         case 13
+//             return ()-> onEvent(13)
+//     return null
+
+// function addListenerForFrame(FrameHandleListener listener, framehandle frame, frameeventtype eventType) returns FrameHandleListener
+//     registerFrameEvent(frame, eventType, switchCallback(eventType.id))
+//     listener.frame = frame
+//     listener.eventType = eventType
+//     let first = FRAME_MAP.get(frame.id)
+//     if first != null
+//         first.prev = listener
+//         listener.next = first
+//     FRAME_MAP.put(frame.id, listener)
+//     return listener
 
 
-/* FRAME HANDLE LISTENER */
+// /* ON EVENT */
+// function onEvent(int eventId)
+//     var listener = FRAME_MAP.get(DzGetTriggerUIEventFrame())
+//     while listener != null
+//         let nextListener = listener.next
+//         if listener.eventType.id == eventId
+//             listener.onEvent()
+//         listener = nextListener
 
-public abstract class FrameHandleListener
-    framehandle frame
-    frameeventtype eventType
-    thistype next = null
-    thistype prev = null
 
-    abstract function onEvent()
+// /* FRAME HANDLE LISTENER */
 
-    ondestroy
-        let id = frame.id
-        let first = FRAME_MAP.get(id)
-        if first == this
-            if next == null
-                FRAME_MAP.remove(id)
-            else
-                FRAME_MAP.put(id, next)
-        else if prev != null
-            prev.next = next
-        next.prev = prev
+// public abstract class FrameHandleListener
+//     framehandle frame
+//     frameeventtype eventType
+//     thistype next = null
+//     thistype prev = null
+
+//     abstract function onEvent()
+
+//     ondestroy
+//         let id = frame.id
+//         let first = FRAME_MAP.get(id)
+//         if first == this
+//             if next == null
+//                 FRAME_MAP.remove(id)
+//             else
+//                 FRAME_MAP.put(id, next)
+//         else if prev != null
+//             prev.next = next
+//         next.prev = prev

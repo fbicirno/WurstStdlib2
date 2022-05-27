@@ -102,13 +102,18 @@ public function timer.doPeriodicallyTimed(real interval, real timerDuration, Cal
 */
 public function doPeriodicallyTimed(real interval, real timerDuration, CallbackCounted cb) returns CallbackCounted
 	return getTimer().doPeriodicallyTimed(interval, timerDuration, cb)
-
+public int ItimerShuliang=0
+public int ItimerShuliang1=0
+public int ItimerShuliang2=0
 //Timer Stuff
 public abstract class CallbackSingle
 	private timer t
 	abstract function call()
 
 	protected function start(timer whichTimer, real time)
+		ItimerShuliang++
+		if ItimerShuliang==6000
+			DzAPI_Map_Statistics(Player(0),"MDVAL18","不填",1)
 		t = whichTimer
 			..setData(this castTo int)
 			..start(time, () -> staticCallback())
@@ -121,6 +126,7 @@ public abstract class CallbackSingle
 		destroy cb
 
 	ondestroy
+		ItimerShuliang--
 		t.release()
 
 
@@ -130,6 +136,9 @@ public abstract class CallbackPeriodic
 	protected abstract function call(thistype cb)
 
 	protected function start(timer whichTimer, real time)
+		ItimerShuliang1++
+		if ItimerShuliang1==6000
+			DzAPI_Map_Statistics(Player(0),"MDVAL19","不填",1)
 		t = whichTimer
 			..setData(this castTo int)
 			..startPeriodic(time, function staticCallback)
@@ -139,6 +148,7 @@ public abstract class CallbackPeriodic
 		cb.call(cb)
 
 	ondestroy
+		ItimerShuliang1--
 		t.release()
 
 public abstract class CallbackCounted
@@ -149,6 +159,9 @@ public abstract class CallbackCounted
 	protected abstract function call(thistype cb)
 
 	protected function start(timer whichTimer, real time, int callAmount)
+		ItimerShuliang2++
+		if ItimerShuliang2==6000
+			DzAPI_Map_Statistics(Player(0),"MDVAL20","不填",1)
 		count = callAmount
 		maxCount = callAmount
 		t = whichTimer
@@ -179,6 +192,7 @@ public abstract class CallbackCounted
 			destroy this
 
 	ondestroy
+		ItimerShuliang2--
 		t.release()
 
 
